@@ -11,7 +11,7 @@ function App() {
     <div className="app">
       <header className="app__header">
         <h1>Contactos</h1>
-        <p>Lista, agrega y elimina contactos.</p>
+        <p>Lista, agrega y elimina contactos con calma y claridad.</p>
       </header>
 
       <main className="app__main">

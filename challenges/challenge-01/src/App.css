@@ -1,36 +1,39 @@
 .app {
   max-width: 720px;
   margin: 0 auto;
-  padding: 2.5rem 1.5rem 3.5rem;
+  padding: 3.5rem 1.5rem 4rem;
+  text-align: center;
 }
 
 .app__header {
-  text-align: left;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .app__header h1 {
-  font-size: 2.5rem;
-  margin: 0 0 0.4rem;
+  font-size: 2.6rem;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.02em;
+  color: #2b2521;
 }
 
 .app__header p {
   margin: 0;
-  color: #35504d;
+  color: #6a5e57;
+  font-size: 1.05rem;
 }
 
 .app__main {
   display: grid;
-  gap: 1.5rem;
+  gap: 1.75rem;
 }
 
 .form {
   display: grid;
-  gap: 1rem;
-  background: #ffffff;
-  padding: 1.25rem;
-  border-radius: 16px;
-  box-shadow: 0 12px 30px rgba(28, 41, 39, 0.08);
+  gap: 1.1rem;
+  background: #fffaf4;
+  padding: 1.6rem;
+  border-radius: 22px;
+  box-shadow: 0 16px 30px rgba(46, 39, 34, 0.08);
 }
 
 .form__field {
@@ -41,24 +44,25 @@
 
 .form__field label {
   font-size: 0.95rem;
-  color: #2b3a39;
+  color: #5b514b;
 }
 
 .form__field input {
-  padding: 0.7rem 0.9rem;
-  border-radius: 10px;
-  border: 1px solid #d6e1df;
+  padding: 0.75rem 0.95rem;
+  border-radius: 14px;
+  border: 1px solid #e5d8cc;
   font-size: 1rem;
-  background: #f8fbfa;
+  background: #fffdf9;
 }
 
 .form__button {
-  justify-self: start;
-  background: #1f6b63;
-  color: #ffffff;
+  justify-self: center;
+  background: #3c2f2a;
+  color: #f7f0ea;
   border: none;
-  border-radius: 10px;
-  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  padding: 0.7rem 1.8rem;
+  box-shadow: 0 10px 20px rgba(60, 47, 42, 0.2);
 }
 
 .contacts {
@@ -66,33 +70,33 @@
   padding: 0;
   margin: 0;
   display: grid;
-  gap: 0.75rem;
+  gap: 0.9rem;
 }
 
 .contacts__item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.9rem 1rem;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(28, 41, 39, 0.06);
+  padding: 1rem 1.2rem;
+  background: #fffdf9;
+  border-radius: 18px;
+  box-shadow: 0 12px 24px rgba(46, 39, 34, 0.08);
 }
 
 .contacts__name {
   margin: 0;
   font-weight: 600;
-  color: #1c2927;
+  color: #2e2722;
 }
 
 .contacts__phone {
   margin: 0.2rem 0 0;
-  color: #506563;
+  color: #6a5e57;
 }
 
 .contacts__delete {
-  background: #f2e7e1;
-  color: #9a3b2e;
+  background: #efe4da;
+  color: #6b4b3b;
   border: none;
   border-radius: 999px;
   padding: 0.4rem 0.9rem;
@@ -100,25 +104,25 @@
 
 .contacts__empty {
   margin: 0;
-  color: #556463;
+  color: #6a5e57;
 }
 
 .loader {
   display: grid;
   place-items: center;
   gap: 0.75rem;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 16px;
-  box-shadow: 0 10px 24px rgba(28, 41, 39, 0.08);
+  padding: 2.2rem;
+  background: #fffaf4;
+  border-radius: 20px;
+  box-shadow: 0 16px 26px rgba(46, 39, 34, 0.08);
 }
 
 .loader__spinner {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  border: 4px solid #cfe0dd;
-  border-top-color: #1f6b63;
+  border: 4px solid #eadfd5;
+  border-top-color: #3c2f2a;
   animation: spin 0.9s linear infinite;
 }
 

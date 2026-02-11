@@ -1,9 +1,9 @@
 :root {
-  font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+  font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #1c2927;
-  background-color: #f5f1e8;
+  color: #2e2722;
+  background-color: #f4eee7;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -18,7 +18,9 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f6f2ea 0%, #e9f3f1 100%);
+  background: radial-gradient(circle at top, #f7f1eb 0%, #efe7de 55%, #ebe1d6 100%);
+  display: flex;
+  justify-content: center;
 }
 
 button {
