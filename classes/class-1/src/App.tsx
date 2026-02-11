@@ -8,15 +8,15 @@ import EjemploDependencia from "./hooks/EjemploDependencia";
 import EjemploMontaje from "./hooks/EjemploMontaje";
 import EjemploCleanUp from "./hooks/EjemploCleanUp";
 
-const texto = "hi";
+const texto = "hello world";
 
 const App = () => {
   return (
     <>
       <HelloWorld />
       <h3>Este es mi {texto}</h3>
-      <PrintMessage message="Este es un mensaje desde el componente PrintMessage" />
-      <PrintMessage message="Este es otro mensaje desde el componente PrintMessage" />
+      <PrintMessage message="mensaje desde el componente PrintMessage" />
+      <PrintMessage message="mensaje desde el componente PrintMessage" />
       <Contador />
       <Arrays />
       <Arreglos />
