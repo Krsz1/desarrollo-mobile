@@ -126,6 +126,15 @@
   animation: spin 0.9s linear infinite;
 }
 
+.app__signature {
+  position: fixed;
+  right: 18px;
+  bottom: 16px;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: rgba(78, 67, 60, 0.7);
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

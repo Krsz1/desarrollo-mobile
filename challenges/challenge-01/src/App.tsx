@@ -24,6 +24,8 @@ function App() {
           </>
         )}
       </main>
+
+      <footer className="app__signature">Krsna Gutiérrez</footer>
     </div>
   )
 }
