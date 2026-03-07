@@ -1,3 +1,4 @@
+
 :root {
   --bg-primary: #000000;
   --bg-secondary: #0a0a0a;
@@ -241,9 +242,6 @@ label {
   font-weight: 600;
 }
 
-/* ============================================
-   PERFIL USUARIO
-   ============================================ */
 .perfil {
   display: flex;
   align-items: center;
@@ -364,9 +362,6 @@ label {
   display: none;
 }
 
-/* ============================================
-   FORMULARIO PACIENTE
-   ============================================ */
 .paciente-form {
   background: var(--bg-secondary);
   border: 1px solid var(--border);
@@ -406,9 +401,6 @@ label {
   flex: 1;
 }
 
-/* ============================================
-   TABLA PACIENTES
-   ============================================ */
 .tabla-pacientes {
   background: var(--bg-secondary);
   border: 1px solid var(--border);
@@ -459,9 +451,6 @@ label {
   margin-right: 0.5rem;
 }
 
-/* ============================================
-   MODAL
-   ============================================ */
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -509,9 +498,6 @@ label {
   width: 100%;
 }
 
-/* ============================================
-   ESTADISTICAS / STATS
-   ============================================ */
 .estadisticas {
   background: var(--bg-secondary);
   border: 1px solid var(--border);
@@ -536,9 +522,6 @@ label {
   font-size: 0.95rem;
 }
 
-/* ============================================
-   PACIENTES AREA
-   ============================================ */
 .pacientes-area {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -562,9 +545,6 @@ label {
   width: 100%;
 }
 
-/* ============================================
-   UTILITY CLASSES
-   ============================================ */
 .muted {
   color: var(--text-muted);
   font-size: 0.9rem;
@@ -579,9 +559,6 @@ label {
   background: #ff3333;
 }
 
-/* ============================================
-   RESPONSIVE DESIGN
-   ============================================ */
 @media (max-width: 1024px) {
   .pacientes-area {
     grid-template-columns: 1fr;
@@ -650,4 +627,4 @@ label {
   .pacientes-area {
     gap: 1.5rem;
   }
-
+}
