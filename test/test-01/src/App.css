@@ -1,80 +1,416 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* ========================================
+   Global Styles
+   ======================================== */
+* {
+  box-sizing: border-box;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button {
+  cursor: pointer;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  background: #0c2340;
+  color: white;
+  font-size: 1rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+button:hover {
+  background: #0a1a30;
 }
 
-.card {
-  padding: 2em;
+input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
 }
 
-.read-the-docs {
-  color: #888;
+input:focus {
+  outline: none;
+  border-color: #0c2340;
 }
 
-/* App specific styles */
+/* ========================================
+   App Layout
+   ======================================== */
 .app-root {
-  max-width: 900px;
-  margin: 1.5rem auto;
-  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #f9f9f9;
 }
+
 .app-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0;
+  padding: 1rem 2rem;
+  background: white;
+  border-bottom: 2px solid #0c2340;
+  gap: 2rem;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #0c2340;
+  margin: 0;
+}
+
+.dashboard {
+  padding: 2rem;
+}
+
+.dashboard h2 {
+  color: #0c2340;
+  margin-top: 0;
+}
+
+/* ========================================
+   Login Styles
+   ======================================== */
+.login-container {
+  max-width: 400px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2 {
+  color: #0c2340;
+  margin: 0 0 1.5rem 0;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-form div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.login-form label {
+  font-weight: 500;
+  color: #333;
+}
+
+.login-form input {
+  width: 100%;
+}
+
+.login-form button {
+  margin-top: 0.5rem;
+}
+
+.login-form p {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 1rem 0 0 0;
+  text-align: center;
+}
+
+.inline-error {
+  color: #d32f2f;
+  font-size: 0.9rem;
+  margin: 0.5rem 0 0 0;
+}
+
+/* ========================================
+   Perfil Usuario
+   ======================================== */
+.perfil {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+.perfil-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #0c2340;
+}
+
+.avatar-placeholder {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #0c2340;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  border: 2px solid #0c2340;
+}
+
+.perfil-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.perfil-info > div:first-child {
+  font-weight: 600;
+  color: #333;
+}
+
+.perfil-info > div:last-child {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.perfil-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.perfil-actions button {
+  width: 100%;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+}
+
+.file-label {
+  display: block;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #0c2340;
+  text-decoration: underline;
+  margin-bottom: 0.5rem;
+}
+
+.file-label input[type='file'] {
+  display: none;
+}
+
+.danger {
+  background: #d32f2f;
+}
+
+.danger:hover {
+  background: #b71c1c;
+}
+
+.muted {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* ========================================
+   Formulario Paciente
+   ======================================== */
+.paciente-form {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.paciente-form h3 {
+  color: #0c2340;
+  margin: 0 0 1rem 0;
+}
+
+.paciente-form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.paciente-form label {
+  font-weight: 500;
+  color: #333;
+}
+
+.paciente-form input {
+  width: 100%;
+}
+
+.paciente-form > div:last-child {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0;
+}
+
+.paciente-form button {
+  flex: 1;
+}
+
+/* ========================================
+   Tabla Pacientes
+   ======================================== */
+.tabla-pacientes {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.tabla-pacientes table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-pacientes th {
+  background: #f5f5f5;
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 2px solid #eee;
+}
+
+.tabla-pacientes td {
+  padding: 0.75rem;
   border-bottom: 1px solid #eee;
 }
-.brand { font-weight: 700; color: #0c2340; }
-.login-container { max-width: 380px; margin: 3rem auto; text-align: left; }
-.login-form div { margin-bottom: 0.75rem; }
-.login-form input { width: 100%; padding: 0.5rem; }
-.inline-error { color: #c00; }
-.muted { color: #666; font-size: 0.9rem }
-.perfil { display:flex; gap:1rem; align-items:center }
-.perfil-header { display:flex; gap:0.75rem; align-items:center }
-.avatar { width:48px; height:48px; border-radius:50%; object-fit:cover }
-.avatar-placeholder { width:48px; height:48px; border-radius:50%; background:#0c2340; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700 }
-.perfil-actions { display:flex; gap:0.5rem; align-items:center }
-.file-label input[type=file] { display:none }
-.danger { background:#c00; color:white; border:none; padding:0.4rem 0.6rem }
 
-.pacientes-area { display:flex; gap:1rem; margin-top:1rem }
-.pacientes-left { width:320px }
-.pacientes-right { flex:1 }
-.paciente-form input { width:100%; padding:0.4rem; margin-top:0.25rem }
-.tabla-pacientes table { width:100%; border-collapse:collapse; margin-top:0.5rem }
-.tabla-pacientes th, .tabla-pacientes td { border:1px solid #eee; padding:0.5rem; text-align:left }
-.modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center }
-.modal { background:white; padding:1rem; border-radius:6px; width:320px }
+.tabla-pacientes tr:hover {
+  background: #fafafa;
+}
+
+.tabla-pacientes button {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  margin: 0 0.5rem 0 0;
+}
+
+/* ========================================
+   Modal
+   ======================================== */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  max-width: 400px;
+  width: 90%;
+}
+
+.modal h3 {
+  color: #0c2340;
+  margin: 0 0 1rem 0;
+}
+
+.modal p {
+  color: #333;
+  line-height: 1.5;
+  margin: 0 0 1.5rem 0;
+}
+
+.modal-contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ========================================
+   Dashboard Sections
+   ======================================== */
+.estadisticas {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.estadisticas h3 {
+  color: #0c2340;
+  margin: 0 0 1rem 0;
+}
+
+.pacientes-area {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+}
+
+.pacientes-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pacientes-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pacientes-right > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.pacientes-right input {
+  width: 100%;
+  max-width: 300px;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+@media (max-width: 768px) {
+  .pacientes-area {
+    grid-template-columns: 1fr;
+  }
+
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .dashboard {
+    padding: 1rem;
+  }
+}
+
 
 

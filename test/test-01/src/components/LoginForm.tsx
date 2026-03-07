@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import type { User } from '../services/auth'
-import { login } from '../services/auth'
+import type { User } from "../services/auth";
+import { login } from "../services/auth";
 
 type Props = {
   onLogin: (user: User) => void
