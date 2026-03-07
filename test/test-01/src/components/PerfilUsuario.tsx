@@ -43,53 +43,39 @@ export default function PerfilUsuario({ user, onUpdate, onLogout }: Props) {
   }
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-      
-      {/* Avatar */}
-      {avatar ? (
-        <img
-          src={avatar}
-          alt="avatar"
-          style={{
-            width: 50,
-            height: 50,
-            borderRadius: "50%",
-          }}
-        />
-      ) : (
-        <div
-          style={{
-            width: 50,
-            height: 50,
-            borderRadius: "50%",
-            background: "#0C2340",
-            color: "white",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontWeight: "bold",
-          }}
-        >
-          {obtenerIniciales()}
+    <div className="perfil">
+      <div className="perfil-header">
+        {/* Avatar */}
+        {avatar ? (
+          <img src={avatar} alt="avatar" className="avatar" />
+        ) : (
+          <div className="avatar-placeholder">{obtenerIniciales()}</div>
+        )}
+
+        {/* Info usuario */}
+        <div className="perfil-info">
+          <div>
+            {user.nombre} {user.apellido}
+          </div>
+          <div>{user.role}</div>
+        </div>
+      </div>
+
+      {/* Actions */}
+      <div className="perfil-actions">
+        <label className="file-label">
+          Cambiar avatar
+          <input type="file" accept="image/*" onChange={handleFile} />
+        </label>
+        <button onClick={guardarAvatar}>Guardar avatar</button>
+        <button onClick={cerrarSesion}>Cerrar sesión</button>
+      </div>
+
+      {saved && (
+        <div style={{ fontSize: "0.8rem", color: "#4ade80", marginLeft: "1rem" }}>
+          ✓ Avatar guardado
         </div>
       )}
-
-      {/* Info usuario */}
-      <div>
-        <div>
-          {user.nombre} {user.apellido}
-        </div>
-        <div style={{ fontSize: 12, color: "#666" }}>{user.role}</div>
-
-        <input type="file" accept="image/*" onChange={handleFile} />
-
-        <div style={{ display: "flex", gap: 10, marginTop: 5 }}>
-          <button onClick={guardarAvatar}>Guardar</button>
-          <button onClick={cerrarSesion}>Cerrar sesión</button>
-        </div>
-        
-        {saved && <div style={{ marginTop: 5, fontSize: 12, color: "#155724", borderTop: "1px solid #eee", paddingTop: 5 }}>Avatar guardado</div>}
-      </div>
     </div>
   );
 }

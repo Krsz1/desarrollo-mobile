@@ -21,15 +21,18 @@ const App = () => {
 
   if (!usuario) {
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "100vh",
-        }}
-      >
-        <LoginForm onLogin={handleLogin} />
+      <div className="app-root">
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "100vh",
+            width: "100%",
+          }}
+        >
+          <LoginForm onLogin={handleLogin} />
+        </div>
       </div>
     );
   }

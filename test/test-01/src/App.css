@@ -1,18 +1,18 @@
-/* ========================================
-   Color Palette
-   ======================================== */
-/* Primary: Dark Gray */
-/* #2c3e50 - Dark gray (primary) */
-/* #34495e - Lighter dark gray */
-/* #1a1a1a - Very dark gray */
-/* #f5f5f5 - Light gray background */
-/* #444 - Medium gray text */
+:root {
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-tertiary: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #999999;
+  --text-muted: #666666;
+  --accent: #ffffff;
+  --border: #222222;
+}
 
-/* ========================================
-   Global Styles
-   ======================================== */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html, body, #root {
@@ -26,273 +26,369 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #f5f5f5;
-  color: #2c3e50;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+p {
+  margin: 0;
+  line-height: 1.6;
 }
 
 button {
   cursor: pointer;
   border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 6px;
-  background: #2c3e50;
-  color: white;
+  padding: 0.85rem 1.8rem;
+  border-radius: 50px;
+  background: var(--accent);
+  color: var(--bg-primary);
   font-size: 0.95rem;
-  font-weight: 500;
-  transition: background 0.2s ease;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
 }
 
 button:hover {
-  background: #1a252f;
+  background: #f0f0f0;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
 }
 
 button:active {
-  transform: scale(0.98);
+  transform: translateY(0);
+}
+
+button.danger {
+  background: #ff5555;
+  color: white;
+}
+
+button.danger:hover {
+  background: #ff3333;
 }
 
 input, textarea, select {
-  padding: 0.6rem 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  padding: 0.85rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   font-size: 0.95rem;
   font-family: inherit;
-  background: white;
-  transition: border-color 0.2s ease;
+  transition: all 0.3s ease;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-muted);
 }
 
 input:focus, textarea:focus, select:focus {
   outline: none;
-  border-color: #2c3e50;
-  box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.1);
+  border-color: var(--text-primary);
+  background: var(--bg-tertiary);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
 }
 
 label {
   display: block;
-  font-weight: 500;
-  color: #2c3e50;
-  margin-bottom: 0.4rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.6rem;
   font-size: 0.9rem;
+  letter-spacing: 0.5px;
 }
 
-/* ========================================
-   App Layout
-   ======================================== */
 .app-root {
-  max-width: 1400px;
-  margin: 0 auto;
   min-height: 100vh;
-  background: #f5f5f5;
+  background: var(--bg-primary);
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .app-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 2rem;
-  background: white;
-  border-bottom: 1px solid #ddd;
+  padding: 2rem 3rem;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
   gap: 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .brand {
-  font-weight: 700;
   font-size: 1.4rem;
-  color: #2c3e50;
-  margin: 0;
+  font-weight: 700;
+  color: var(--text-primary);
   letter-spacing: -0.5px;
 }
 
 .dashboard {
   flex: 1;
-  padding: 2rem;
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .dashboard h2 {
-  color: #2c3e50;
-  margin: 0 0 1.5rem 0;
-  font-size: 1.8rem;
-  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 3rem;
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+  text-align: center;
+  width: 100%;
 }
 
-/* ========================================
-   Login Styles
-   ======================================== */
 .login-container {
   max-width: 420px;
-  margin: 4rem auto;
-  padding: 2.5rem;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  padding: 2rem;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .login-container h2 {
-  color: #2c3e50;
-  margin: 0 0 2rem 0;
-  font-size: 1.6rem;
+  color: var(--text-primary);
+  margin-bottom: 3rem;
+  font-size: 2.4rem;
   text-align: center;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
 .login-form {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1.5rem;
 }
 
 .login-form div {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.8rem;
+}
+
+.login-form label {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  letter-spacing: 0.2px;
 }
 
 .login-form input {
   width: 100%;
+  padding: 1rem 1.3rem;
+  font-size: 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.login-form input::placeholder {
+  color: var(--text-muted);
+}
+
+.login-form input:focus {
+  background: var(--bg-tertiary);
+  border-color: var(--text-primary);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+  outline: none;
 }
 
 .login-form button {
   width: 100%;
-  margin-top: 0.5rem;
-  font-weight: 600;
+  padding: 1.1rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
 }
 
 .login-form p {
-  font-size: 0.85rem;
-  color: #7f8c8d;
-  margin: 1.5rem 0 0 0;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
   text-align: center;
-  line-height: 1.5;
+  margin-top: 2.5rem;
+  line-height: 1.7;
 }
 
 .inline-error {
-  color: #e74c3c;
+  color: #ff5555;
   font-size: 0.85rem;
-  margin-top: 0.3rem;
+  margin-top: -0.5rem;
+  font-weight: 600;
 }
 
-/* ========================================
-   Perfil Usuario
-   ======================================== */
+/* ============================================
+   PERFIL USUARIO
+   ============================================ */
 .perfil {
   display: flex;
   align-items: center;
-  gap: 1.2rem;
-  padding: 0.5rem;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  width: auto;
 }
 
 .perfil-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 .avatar {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #2c3e50;
+  border: 2px solid var(--text-primary);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
 }
 
 .avatar-placeholder {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  background: #2c3e50;
-  color: white;
+  background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  border: 2px solid var(--text-primary);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
 }
 
 .perfil-info {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.4rem;
 }
 
 .perfil-info > div:first-child {
-  font-weight: 600;
-  color: #2c3e50;
-  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 1rem;
 }
 
 .perfil-info > div:last-child {
   font-size: 0.8rem;
-  color: #7f8c8d;
+  color: var(--text-secondary);
+  letter-spacing: 0.2px;
+  text-transform: capitalize;
 }
 
 .perfil-actions {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  flex-direction: row;
+  gap: 0.8rem;
+  margin-left: auto;
+  align-items: center;
 }
 
 .perfil-actions button {
-  padding: 0.5rem 0.8rem;
+  padding: 0.6rem 1.4rem;
   font-size: 0.85rem;
-  width: 100%;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  border-radius: 50px;
+  background: var(--accent);
+  color: var(--bg-primary);
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+.perfil-actions button:hover {
+  background: #f0f0f0;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
 }
 
 .file-label {
-  display: block;
+  display: inline-flex;
+  align-items: center;
   cursor: pointer;
   font-size: 0.85rem;
-  color: #2c3e50;
+  color: var(--text-primary);
   text-decoration: underline;
-  margin-bottom: 0.5rem;
   font-weight: 500;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, opacity 0.2s ease;
+  opacity: 0.8;
+  padding: 0.6rem 1.4rem;
+  border-radius: 50px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  white-space: nowrap;
 }
 
 .file-label:hover {
-  color: #34495e;
+  opacity: 1;
+  background: var(--bg-tertiary);
+}
+
+.file-label input {
+  display: none;
 }
 
 .file-label input[type='file'] {
   display: none;
 }
 
-.danger {
-  background: #e74c3c;
-}
-
-.danger:hover {
-  background: #c0392b;
-}
-
-.muted {
-  color: #7f8c8d;
-  font-size: 0.9rem;
-}
-
-/* ========================================
-   Formulario Paciente
-   ======================================== */
+/* ============================================
+   FORMULARIO PACIENTE
+   ============================================ */
 .paciente-form {
-  background: white;
-  padding: 2rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  padding: 2.5rem;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border: 1px solid #eee;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .paciente-form h3 {
-  color: #2c3e50;
-  margin: 0 0 1.5rem 0;
-  font-size: 1.3rem;
-  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  font-size: 1.4rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1.5rem;
+  font-weight: 700;
 }
 
 .paciente-form > div {
+  margin-bottom: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1.2rem;
+  gap: 0.7rem;
 }
 
 .paciente-form input {
@@ -301,94 +397,106 @@ label {
 
 .paciente-form > div:last-child {
   display: flex;
-  gap: 0.8rem;
+  gap: 1rem;
+  margin-top: 2.5rem;
   margin-bottom: 0;
-  margin-top: 1.5rem;
 }
 
 .paciente-form button {
   flex: 1;
 }
 
-/* ========================================
-   Tabla Pacientes
-   ======================================== */
+/* ============================================
+   TABLA PACIENTES
+   ============================================ */
 .tabla-pacientes {
-  background: white;
-  padding: 1.5rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border: 1px solid #eee;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   overflow-x: auto;
 }
 
 .tabla-pacientes table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.tabla-pacientes thead {
+  background: transparent;
 }
 
 .tabla-pacientes th {
-  background: #f9f9f9;
-  padding: 1rem;
+  padding: 1.2rem;
   text-align: left;
-  font-weight: 600;
-  color: #2c3e50;
-  border-bottom: 2px solid #ddd;
+  color: var(--text-primary);
+  font-weight: 700;
+  text-transform: capitalize;
   font-size: 0.9rem;
+  letter-spacing: 0.3px;
+  border-bottom: 1px solid var(--border);
+}
+
+.tabla-pacientes tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.2s ease;
+}
+
+.tabla-pacientes tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 .tabla-pacientes td {
-  padding: 1rem;
-  border-bottom: 1px solid #eee;
-  color: #444;
-}
-
-.tabla-pacientes tr:hover {
-  background: #f9f9f9;
+  padding: 1.2rem;
+  color: var(--text-primary);
 }
 
 .tabla-pacientes button {
-  padding: 0.5rem 0.8rem;
+  padding: 0.5rem 1rem;
   font-size: 0.85rem;
   margin-right: 0.5rem;
 }
 
-/* ========================================
-   Modal
-   ======================================== */
+/* ============================================
+   MODAL
+   ============================================ */
 .modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  backdrop-filter: blur(4px);
 }
 
 .modal {
-  background: white;
-  padding: 2rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  padding: 2.5rem;
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  max-width: 420px;
+  max-width: 480px;
   width: 90%;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
 }
 
 .modal h3 {
-  color: #2c3e50;
-  margin: 0 0 1rem 0;
-  font-size: 1.2rem;
-  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
 .modal p {
-  color: #444;
-  line-height: 1.6;
-  margin: 0 0 1.5rem 0;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 2rem;
 }
 
 .modal-contenido {
@@ -397,407 +505,149 @@ label {
   gap: 1rem;
 }
 
-/* ========================================
-   Dashboard Sections
-   ======================================== */
+.modal button {
+  width: 100%;
+}
+
+/* ============================================
+   ESTADISTICAS / STATS
+   ============================================ */
 .estadisticas {
-  background: white;
-  padding: 2rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  padding: 2.5rem;
   border-radius: 12px;
   margin-bottom: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border: 1px solid #eee;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .estadisticas h3 {
-  color: #2c3e50;
-  margin: 0 0 1rem 0;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
   font-size: 1.1rem;
-  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
 }
 
 .estadisticas p {
-  color: #7f8c8d;
-  margin: 0;
+  color: var(--text-secondary);
+  margin: 0.8rem 0;
+  font-size: 0.95rem;
 }
 
+/* ============================================
+   PACIENTES AREA
+   ============================================ */
 .pacientes-area {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: 2rem;
+  gap: 3rem;
+  margin-top: 3rem;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .pacientes-left {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
+  width: 100%;
 }
 
 .pacientes-right {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-}
-
-.pacientes-right > div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.pacientes-right h3 {
-  margin: 0;
-  color: #2c3e50;
-  font-size: 1.1rem;
-}
-
-.pacientes-right input {
-  flex: 0 1 300px;
-}
-
-/* ========================================
-   Responsive Design
-   ======================================== */
-@media (max-width: 768px) {
-  .pacientes-area {
-    grid-template-columns: 1fr;
-  }
-
-  .app-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .dashboard {
-    padding: 1rem;
-  }
-
-  .login-container {
-    margin: 2rem 1rem;
-    padding: 1.5rem;
-  }
-
-  .modal {
-    margin: 1rem;
-  }
-}
-
-
-.login-form div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.login-form label {
-  font-weight: 500;
-  color: #333;
-}
-
-.login-form input {
+  gap: 2rem;
   width: 100%;
 }
 
-.login-form button {
-  margin-top: 0.5rem;
-}
-
-.login-form p {
-  font-size: 0.85rem;
-  color: #666;
-  margin: 1rem 0 0 0;
-  text-align: center;
-}
-
-.inline-error {
-  color: #d32f2f;
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+.muted {
+  color: var(--text-muted);
   font-size: 0.9rem;
-  margin: 0.5rem 0 0 0;
-}
-
-/* ========================================
-   Perfil Usuario
-   ======================================== */
-.perfil {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.5rem;
-}
-
-.perfil-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #0c2340;
-}
-
-.avatar-placeholder {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: #0c2340;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  border: 2px solid #0c2340;
-}
-
-.perfil-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.perfil-info > div:first-child {
-  font-weight: 600;
-  color: #333;
-}
-
-.perfil-info > div:last-child {
-  font-size: 0.85rem;
-  color: #666;
-}
-
-.perfil-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  width: 100%;
-}
-
-.perfil-actions button {
-  width: 100%;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.9rem;
-}
-
-.file-label {
-  display: block;
-  cursor: pointer;
-  font-size: 0.9rem;
-  color: #0c2340;
-  text-decoration: underline;
-  margin-bottom: 0.5rem;
-}
-
-.file-label input[type='file'] {
-  display: none;
 }
 
 .danger {
-  background: #d32f2f;
+  background: #ff5555;
+  color: white;
 }
 
 .danger:hover {
-  background: #b71c1c;
+  background: #ff3333;
 }
 
-.muted {
-  color: #666;
-  font-size: 0.9rem;
-}
-
-/* ========================================
-   Formulario Paciente
-   ======================================== */
-.paciente-form {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.paciente-form h3 {
-  color: #0c2340;
-  margin: 0 0 1rem 0;
-}
-
-.paciente-form > div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.paciente-form label {
-  font-weight: 500;
-  color: #333;
-}
-
-.paciente-form input {
-  width: 100%;
-}
-
-.paciente-form > div:last-child {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 0;
-}
-
-.paciente-form button {
-  flex: 1;
-}
-
-/* ========================================
-   Tabla Pacientes
-   ======================================== */
-.tabla-pacientes {
-  background: white;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  overflow-x: auto;
-}
-
-.tabla-pacientes table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.tabla-pacientes th {
-  background: #f5f5f5;
-  padding: 0.75rem;
-  text-align: left;
-  font-weight: 600;
-  color: #333;
-  border-bottom: 2px solid #eee;
-}
-
-.tabla-pacientes td {
-  padding: 0.75rem;
-  border-bottom: 1px solid #eee;
-}
-
-.tabla-pacientes tr:hover {
-  background: #fafafa;
-}
-
-.tabla-pacientes button {
-  padding: 0.4rem 0.8rem;
-  font-size: 0.9rem;
-  margin: 0 0.5rem 0 0;
-}
-
-/* ========================================
-   Modal
-   ======================================== */
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modal {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-  max-width: 400px;
-  width: 90%;
-}
-
-.modal h3 {
-  color: #0c2340;
-  margin: 0 0 1rem 0;
-}
-
-.modal p {
-  color: #333;
-  line-height: 1.5;
-  margin: 0 0 1.5rem 0;
-}
-
-.modal-contenido {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-/* ========================================
-   Dashboard Sections
-   ======================================== */
-.estadisticas {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  margin-bottom: 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.estadisticas h3 {
-  color: #0c2340;
-  margin: 0 0 1rem 0;
-}
-
-.pacientes-area {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 2rem;
-}
-
-.pacientes-left {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.pacientes-right {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.pacientes-right > div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.pacientes-right input {
-  width: 100%;
-  max-width: 300px;
-}
-
-/* ========================================
-   Responsive Design
-   ======================================== */
-@media (max-width: 768px) {
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 1024px) {
   .pacientes-area {
     grid-template-columns: 1fr;
   }
-
+  
   .app-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+    padding: 1.5rem 2rem;
   }
-
+  
   .dashboard {
-    padding: 1rem;
+    padding: 2rem 2rem;
   }
 }
 
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+  }
 
+  .brand {
+    font-size: 1.2rem;
+  }
+
+  .dashboard {
+    padding: 1.5rem;
+  }
+
+  .dashboard h2 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .login-container {
+    padding: 1.5rem;
+  }
+
+  .login-container h2 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .paciente-form {
+    padding: 1.5rem;
+  }
+
+  .tabla-pacientes {
+    padding: 1rem;
+  }
+
+  .tabla-pacientes th,
+  .tabla-pacientes td {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .modal {
+    padding: 1.5rem;
+  }
+
+  .estadisticas {
+    padding: 1.5rem;
+  }
+
+  .pacientes-area {
+    gap: 1.5rem;
+  }
 

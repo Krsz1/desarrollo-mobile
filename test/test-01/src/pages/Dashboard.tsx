@@ -55,7 +55,9 @@ const Dashboard = ({ user, onLogout }: Props) => {
     <div className="app-root">
 
       <header className="app-header">
-        <div className="brand">MediCare+</div>
+        <div className="brand">
+          MediCare+ {user.role === "medico" ? "Médico" : "Admin"}
+        </div>
 
         <PerfilUsuario
           user={user}
