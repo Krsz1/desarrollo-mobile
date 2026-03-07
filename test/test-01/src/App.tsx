@@ -3,7 +3,7 @@ import type { User } from "./services/auth";
 import { getCurrentUser, logout } from "./services/auth";
 
 import LoginForm from "./components/LoginForm";
-import Dashboard from "./pages/dashboard";
+import Dashboard from "./pages/Dashboard";
 
 import "./App.css";
 

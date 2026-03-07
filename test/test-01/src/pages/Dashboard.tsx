@@ -25,7 +25,6 @@ const Dashboard = ({ user, onLogout }: Props) => {
   }
 
   function handleGuardar(p: Paciente) {
-    // Si es edición (pacienteAEditar != null), actualizar; si no, agregar
     if (pacienteAEditar) {
       storageService.actualizarPaciente(p);
     } else {
