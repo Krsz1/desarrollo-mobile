@@ -5,8 +5,8 @@ const USER_KEY = "medicare_user"
 const USERS: Usuario[] = [
   {
     id: 1,
-    nombre: "Dr Juan",
-    email: "doctor@medicare.com",
+    nombre: "Dr Jhonatan",
+    email: "doc@medicare.com",
     password: "123456"
   }
 ]
