@@ -40,3 +40,41 @@
 .read-the-docs {
   color: #888;
 }
+
+/* App specific styles */
+.app-root {
+  max-width: 900px;
+  margin: 1.5rem auto;
+  padding: 1rem;
+}
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+.brand { font-weight: 700; color: #0c2340; }
+.login-container { max-width: 380px; margin: 3rem auto; text-align: left; }
+.login-form div { margin-bottom: 0.75rem; }
+.login-form input { width: 100%; padding: 0.5rem; }
+.inline-error { color: #c00; }
+.muted { color: #666; font-size: 0.9rem }
+.perfil { display:flex; gap:1rem; align-items:center }
+.perfil-header { display:flex; gap:0.75rem; align-items:center }
+.avatar { width:48px; height:48px; border-radius:50%; object-fit:cover }
+.avatar-placeholder { width:48px; height:48px; border-radius:50%; background:#0c2340; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700 }
+.perfil-actions { display:flex; gap:0.5rem; align-items:center }
+.file-label input[type=file] { display:none }
+.danger { background:#c00; color:white; border:none; padding:0.4rem 0.6rem }
+
+.pacientes-area { display:flex; gap:1rem; margin-top:1rem }
+.pacientes-left { width:320px }
+.pacientes-right { flex:1 }
+.paciente-form input { width:100%; padding:0.4rem; margin-top:0.25rem }
+.tabla-pacientes table { width:100%; border-collapse:collapse; margin-top:0.5rem }
+.tabla-pacientes th, .tabla-pacientes td { border:1px solid #eee; padding:0.5rem; text-align:left }
+.modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center }
+.modal { background:white; padding:1rem; border-radius:6px; width:320px }
+
+
