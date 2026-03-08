@@ -1,0 +1,15 @@
+.task-manager {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+.task-manager > * {
+  flex-shrink: 0;
+}
+
+.task-manager > div:last-child {
+  flex: 1;
+  overflow-y: auto;
+}

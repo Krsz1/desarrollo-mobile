@@ -1,0 +1,40 @@
+.task-item {
+  --padding-start: 8px;
+  --padding-end: 8px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  --background: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.task-item.completed {
+  opacity: 0.7;
+}
+
+.task-item.completed .task-title {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.task-title {
+  margin: 0;
+  font-weight: 600;
+  color: #333;
+  font-size: 16px;
+}
+
+.task-description {
+  margin: 4px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.task-date {
+  margin: 4px 0 0 0;
+  color: #999;
+  font-size: 12px;
+}
+
+.task-item:hover {
+  --background: #f0f0f0;
+}

@@ -1,0 +1,48 @@
+.task-form-card {
+  margin: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  margin: 0 0 16px 0;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.task-input {
+  --padding-bottom: 12px;
+  --padding-top: 12px;
+  border-bottom: 2px solid #e0e0e0;
+  margin-bottom: 16px;
+}
+
+.task-input:focus {
+  --highlight-color: #007bff;
+}
+
+.task-textarea {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 16px;
+  font-family: inherit;
+}
+
+.task-textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+.submit-button {
+  --background: #007bff;
+  --background-hover: #0056b3;
+  --border-radius: 4px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.submit-button:disabled {
+  opacity: 0.5;
+}
