@@ -15,16 +15,6 @@ Una **aplicación web progresiva (PWA)** para gestionar tus contactos de forma r
 
 ---
 
-## ✨ Características
-
-- ✅ **Funciona sin internet** - Accede tus contactos offline
-- 📱 **Instálable** - Como una app nativa en Android, iOS y escritorio
-- ⚡ **Ultra rápida** - Carga instantánea con caché inteligente
-- 🎨 **Bonita** - Interfaz moderna y fácil de usar
-- 🔒 **Segura** - Tus datos se guardan solo en tu dispositivo
-
----
-
 ## 📲 Cómo instalar en tu teléfono
 
 ### **📱 En Android (Chrome, Edge, Brave)**
@@ -138,25 +128,5 @@ El service worker implementa 3 estrategias según el tipo de contenido:
 | **JS/CSS** | Cache First | Rápido desde caché, actualizar ocasionalmente |
 | **Imágenes** | Stale While Revalidate | Mostrar caché, actualizar en background |
 | **APIs** | Network First | Siempre datos en tiempo real |
-
----
-
-## 🌍 Desplegar en Netlify
-
-Ver el archivo [DEPLOY_NETLIFY.md](./DEPLOY_NETLIFY.md) para instrucciones detalladas.
-
-**Resumen rápido:**
-1. Crea un repositorio en GitHub
-2. Sube tu código
-3. Conecta Netlify con GitHub
-4. ¡Netlify despliega automáticamente!
-
----
-
-## 📖 Más información
-
-- [Documentación de PWA](https://web.dev/progressive-web-apps/)
-- [Service Workers](https://developer.mozilla.org/es/docs/Web/API/Service_Worker_API)
-- [Vite Docs](https://vite.dev/)
 
 
