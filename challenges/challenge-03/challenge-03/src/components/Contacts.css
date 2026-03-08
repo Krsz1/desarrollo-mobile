@@ -1,0 +1,11 @@
+/* Contacts styles */
+.contact-item {
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-end: 0;
+}
+
+.empty-message {
+  color: var(--ion-color-medium);
+  font-size: 18px;
+}
