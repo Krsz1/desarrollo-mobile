@@ -11,9 +11,7 @@ Una **aplicación web progresiva (PWA)** para gestionar tus contactos de forma r
 
 ## 🌐 Acceso en Línea
 
-### **[➡️ Abre Contactos App aquí](https://tu-app-aqui.netlify.app)**
-
-*Enlace se actualizará después del despliegue en Netlify*
+### **[➡️ Abre Contactos App aquí](https://sweet-rolypoly-59587b.netlify.app)**
 
 ---
 
@@ -161,13 +159,4 @@ Ver el archivo [DEPLOY_NETLIFY.md](./DEPLOY_NETLIFY.md) para instrucciones detal
 - [Service Workers](https://developer.mozilla.org/es/docs/Web/API/Service_Worker_API)
 - [Vite Docs](https://vite.dev/)
 
----
 
-## 👩‍💼 Autor
-
-Desarrollado por **Tina**
-
----
-
-**¡Disfruta tu app PWA! 🎉**
-```
