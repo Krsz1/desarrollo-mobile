@@ -1,36 +1,33 @@
-import "./App.css";
-import Loader from "./components/Loader";
-import Contacts from "./components/Contacts";
-import useContacts from "./hooks/useContacts";
+import './App.css'
+import ContactForm from './components/ContactForm'
+import Contacts from './components/Contacts'
+import Loader from './components/Loader'
+import useContacts from './hooks/useContacts'
 
-import contactsImage from "./assets/contacts.png";
-
-const App = () => {
-  const { contacts, loading, addContact, deleteContact } = useContacts();
-
-  if (loading) {
-    return <Loader />;
-  }
+function App() {
+  const { loading, contacts, addContact, deleteContact } = useContacts()
 
   return (
-    <>
-      <header style={{ textAlign: "center", marginBottom: "20px" }}>
-        <h1>Contacts App</h1>
-
-        {/* Imagen agregada */}
-        <img
-          src={contactsImage}
-          alt="Contacts illustration"
-          style={{ width: "120px" }}
-        />
+    <div className="app">
+      <header className="app__header">
+        <h1>Contactos</h1>
+        <p>Lista, agrega y elimina tus contactos.</p>
       </header>
 
-      <Contacts
-        contacts={contacts}
-        onDelete={deleteContact}
-      />
-    </>
-  );
-};
+      <main className="app__main">
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <ContactForm onAdd={addContact} />
+            <Contacts contacts={contacts} onDelete={deleteContact} />
+          </>
+        )}
+      </main>
 
-export default App;
+      <footer className="app__signature">Krsna Gutiérrez</footer>
+    </div>
+  )
+}
+
+export default App
