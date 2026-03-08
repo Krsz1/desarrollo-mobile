@@ -11,7 +11,7 @@ Una **aplicación web progresiva (PWA)** para gestionar tus contactos de forma r
 
 ## 🌐 Acceso en Línea
 
-### **[➡️ Abre Contactos App aquí](https://sweet-rolypoly-59587b.netlify.app)**
+### **[➡️ Abre Contactos App aquí](https://desploychallenge02.netlify.app/)**
 
 ---
 
