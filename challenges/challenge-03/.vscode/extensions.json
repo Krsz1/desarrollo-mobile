@@ -1,0 +1,9 @@
+{
+  "nodeId": "extensions",
+  "recommendations": [
+    "ms-vscode.vscode-typescript-tslint-plugin",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "Ionic.ionic"
+  ]
+}

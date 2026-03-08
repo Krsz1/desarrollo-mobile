@@ -1,0 +1,12 @@
+{
+  "name": "Challenge 03 - Task Manager",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react",
+  "build": {
+    "minifyJs": true,
+    "minifyCss": true,
+    "optimizeJs": true
+  }
+}
