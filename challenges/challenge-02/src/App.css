@@ -22,6 +22,15 @@
   font-size: 1.05rem;
 }
 
+.app__header-icon {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 1rem;
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 12px 24px rgba(46, 39, 34, 0.12);
+}
+
 .app__main {
   display: grid;
   gap: 1.75rem;

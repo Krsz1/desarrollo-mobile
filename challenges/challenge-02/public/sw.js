@@ -1,71 +1,85 @@
-// Service Worker para Contacts App PWA
-const CACHE_NAME = 'contacts-app-v1'
-const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-]
+/* Simple Service Worker
+     - Caché estático minimal para que la PWA funcione offline
+     - Estrategias por tipo de recurso:
+         HTML -> Network First (mantener contenido actualizado)
+         JS/CSS -> Cache First (rápido, raramente cambia en runtime)
+         Images -> Stale-While-Revalidate (mostrar caché, refrescar en segundo plano)
+         APIs -> Network First (datos en tiempo real)
+*/
 
-// Install event - cache resources
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(urlsToCache)
-    })
-  )
-})
+const CACHE_NAME = "pwa-cache-v1";
+// Archivos mínimos que queremos disponibles offline.
+const STATIC_ASSETS = [
+    "/",
+    "/index.html",
+    "/manifest.json",
+    "/basura.png",
+    "/interfaz.png",
+];
 
-// Activate event - clean up old caches
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName)
-          }
-        })
-      )
-    })
-  )
-})
+// Instalación: precache de los assets estáticos.
+self.addEventListener("install", (event) => {
+    event.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS))
+    );
+});
 
-// Fetch event - hybrid strategy (cache first for assets, network first for API)
-self.addEventListener('fetch', (event) => {
-  const { request } = event
+// Intercepta peticiones y aplica una estrategia según el tipo de recurso.
+self.addEventListener("fetch", (event) => {
+    const request = event.request;
 
-  // Network first for API calls
-  if (request.url.includes('/api/') || request.method !== 'GET') {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          const cache = caches.open(CACHE_NAME)
-          cache.then((c) => c.put(request, response.clone()))
-          return response
-        })
-        .catch(() => {
-          return caches.match(request)
-        })
-    )
-    return
-  }
+    // HTML → Network First
+    if (request.headers.get("accept")?.includes("text/html")) {
+        event.respondWith(networkFirst(request));
+        return;
+    }
 
-  // Cache first for static assets
-  event.respondWith(
-    caches.match(request).then((response) => {
-      if (response) {
-        return response
-      }
+    // JS / CSS → Cache First
+    if (request.destination === "script" || request.destination === "style") {
+        event.respondWith(cacheFirst(request));
+        return;
+    }
 
-      return fetch(request).then((response) => {
-        if (!response || response.status !== 200 || response.type === 'error') {
-          return response
-        }
+    // Images → Stale While Revalidate
+    if (request.destination === "image") {
+        event.respondWith(staleWhileRevalidate(request));
+        return;
+    }
 
-        const cache = caches.open(CACHE_NAME)
-        cache.then((c) => c.put(request, response.clone()))
-        return response
-      })
-    })
-  )
-})
+    // API → Network First
+    if (request.url.includes("/api/")) {
+        event.respondWith(networkFirst(request));
+        return;
+    }
+});
+
+// Cache First: intenta la caché primero, si no hay, va a la red.
+const cacheFirst = async (request) => {
+    const cached = await caches.match(request);
+    return cached || fetch(request);
+};
+
+// Network First: intenta la red y actualiza caché; si falla, devuelve caché.
+const networkFirst = async (request) => {
+    try {
+        const response = await fetch(request);
+        const cache = await caches.open(CACHE_NAME);
+        cache.put(request, response.clone());
+        return response;
+    } catch (err) {
+        return caches.match(request);
+    }
+};
+
+// Stale While Revalidate: devuelve caché si existe y actualiza en background.
+const staleWhileRevalidate = async (request) => {
+    const cache = await caches.open(CACHE_NAME);
+    const cached = await cache.match(request);
+
+    const networkFetch = fetch(request).then((response) => {
+        cache.put(request, response.clone());
+        return response;
+    });
+
+    return cached || networkFetch;
+};

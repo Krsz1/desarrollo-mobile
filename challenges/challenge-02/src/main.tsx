@@ -12,8 +12,8 @@ createRoot(document.getElementById("root")!).render(
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register("/service-worker.js")
-      .then(() => console.log("Service Worker registrado"))
-      .catch((err) => console.log("Error registrando Service Worker:", err));
+      .register("/sw.js")
+      .then(() => console.log("✅ Service Worker registrado - PWA activa"))
+      .catch((err) => console.log("❌ Error registrando Service Worker:", err));
   });
 }

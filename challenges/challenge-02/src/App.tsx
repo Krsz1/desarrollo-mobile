@@ -10,6 +10,7 @@ function App() {
   return (
     <div className="app">
       <header className="app__header">
+        <img src="/contacts.png" alt="Contactos" className="app__header-icon" />
         <h1>Contactos</h1>
         <p>Lista, agrega y elimina tus contactos.</p>
       </header>
