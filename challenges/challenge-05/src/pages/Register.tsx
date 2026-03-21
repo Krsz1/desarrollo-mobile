@@ -34,6 +34,11 @@ const Register = () => {
       />
 
       <button onClick={handleRegister}>Register</button>
+
+      <p style={{ textAlign: "center", marginTop: "12px", fontSize: "14px" }}>
+        ¿Ya tienes cuenta?{" "}
+        <a href="/" style={{ color: "#6366f1" }}>Inicia sesión</a>
+      </p>
     </div>
   );
 };

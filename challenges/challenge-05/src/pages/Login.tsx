@@ -42,6 +42,11 @@ const Login = () => {
       />
 
       <button onClick={handleLogin}>Login</button>
+
+      <p style={{ textAlign: "center", marginTop: "12px", fontSize: "14px" }}>
+        ¿No tienes cuenta?{" "}
+        <a href="/register" style={{ color: "#6366f1" }}>Regístrate</a>
+      </p>
     </div>
   );
 };
