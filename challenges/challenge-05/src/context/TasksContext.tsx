@@ -1,6 +1,7 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
 import type { ReactNode } from "react";
 import type { Task, TasksContextType } from "../types/task";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export const TasksContext = createContext<TasksContextType | undefined>(undefined);
 
@@ -9,20 +10,20 @@ interface Props {
 }
 
 export const TasksProvider = ({ children }: Props) => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useLocalStorage<Task[]>("tasks", []);
 
   const addTask = (task: Task) => {
-    setTasks([...tasks, task]);
+    setTasks(prev => [...prev, task]);
   };
 
   const deleteTask = (id: string) => {
-    setTasks(tasks.filter(task => task.id !== id));
+    setTasks(prev => prev.filter(t => t.id !== id));
   };
 
   const toggleTask = (id: string) => {
-    setTasks(
-      tasks.map(task =>
-        task.id === id ? { ...task, completed: !task.completed } : task
+    setTasks(prev =>
+      prev.map(t =>
+        t.id === id ? { ...t, completed: !t.completed } : t
       )
     );
   };

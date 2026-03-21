@@ -1,21 +1,15 @@
-import { useState } from "react";
-import { auth } from "../firebase/config";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "../hooks/useForm";
+import { useFirebaseAuth } from "../hooks/useFirebaseAuth";
 
 const Register = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-
+  const { values, handleChange } = useForm({ email: "", password: "" });
+  const { signUp, loading, error } = useFirebaseAuth();
   const navigate = useNavigate();
 
   const handleRegister = async () => {
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      navigate("/");
-    } catch (error) {
-      console.error(error);
-    }
+    const res = await signUp(values.email, values.password);
+    if (res) navigate("/");
   };
 
   return (
@@ -23,17 +17,23 @@ const Register = () => {
       <h2>Register</h2>
 
       <input
+        name="email"
         placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={handleChange}
       />
 
       <input
+        name="password"
         type="password"
         placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={handleChange}
       />
 
-      <button onClick={handleRegister}>Register</button>
+      {error && <p style={{ color: "#ef4444", marginBottom: "10px" }}>{error}</p>}
+
+      <button onClick={handleRegister} disabled={loading}>
+        {loading ? "Cargando..." : "Register"}
+      </button>
 
       <p style={{ textAlign: "center", marginTop: "12px", fontSize: "14px" }}>
         ¿Ya tienes cuenta?{" "}

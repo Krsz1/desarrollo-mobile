@@ -1,29 +1,26 @@
-import { useState } from "react";
 import { useTasks } from "../hooks/useTasks";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "../hooks/useForm";
 import { v4 as uuid } from "uuid";
 
 const Tasks = () => {
   const { tasks, addTask, deleteTask, toggleTask } = useTasks();
   const { logout } = useAuth();
   const navigate = useNavigate();
-
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
+  const { values, handleChange, reset } = useForm({ title: "", description: "" });
 
   const handleAdd = () => {
-    if (!title) return;
+    if (!values.title) return;
 
     addTask({
       id: uuid(),
-      title,
-      description,
+      title: values.title,
+      description: values.description,
       completed: false
     });
 
-    setTitle("");
-    setDescription("");
+    reset();
   };
 
   return (
@@ -39,15 +36,17 @@ const Tasks = () => {
       </div>
 
       <input
+        name="title"
         placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={values.title}
+        onChange={handleChange}
       />
 
       <input
+        name="description"
         placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        value={values.description}
+        onChange={handleChange}
       />
 
       <button onClick={handleAdd}>Add Task</button>

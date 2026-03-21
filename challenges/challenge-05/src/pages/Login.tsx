@@ -1,28 +1,19 @@
-import { useState } from "react";
-import { auth } from "../firebase/config";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "../hooks/useForm";
+import { useFirebaseAuth } from "../hooks/useFirebaseAuth";
 
 const Login = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-
+  const { values, handleChange } = useForm({ email: "", password: "" });
+  const { signIn, loading, error } = useFirebaseAuth();
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    try {
-      const res = await signInWithEmailAndPassword(auth, email, password);
-
-      login({
-        email: res.user.email,
-        uid: res.user.uid
-      });
-
+    const res = await signIn(values.email, values.password);
+    if (res) {
+      login({ email: res.user.email, uid: res.user.uid });
       navigate("/tasks");
-    } catch (error) {
-      console.error(error);
     }
   };
 
@@ -31,17 +22,23 @@ const Login = () => {
       <h2>Login</h2>
 
       <input
+        name="email"
         placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={handleChange}
       />
 
       <input
+        name="password"
         type="password"
         placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={handleChange}
       />
 
-      <button onClick={handleLogin}>Login</button>
+      {error && <p style={{ color: "#ef4444", marginBottom: "10px" }}>{error}</p>}
+
+      <button onClick={handleLogin} disabled={loading}>
+        {loading ? "Cargando..." : "Login"}
+      </button>
 
       <p style={{ textAlign: "center", marginTop: "12px", fontSize: "14px" }}>
         ¿No tienes cuenta?{" "}
