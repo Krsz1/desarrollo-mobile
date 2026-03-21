@@ -2,12 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "TU_API_KEY",
-  authDomain: "TU_DOMINIO",
-  projectId: "TU_ID",
-  storageBucket: "TU_BUCKET",
-  messagingSenderId: "TU_ID",
-  appId: "TU_APP_ID"
+  apiKey: "AIzaSyCBNPk3HWoRFO69s5hddx3lslqV8mQdi1U",
+  authDomain: "challenge-05-33992.firebaseapp.com",
+  projectId: "challenge-05-33992",
+  storageBucket: "challenge-05-33992.firebasestorage.app",
+  messagingSenderId: "526275905114",
+  appId: "1:526275905114:web:8a464ec213a8ebcd4fba63",
+  measurementId: "G-33N3R0MNY1"
 };
 
 const app = initializeApp(firebaseConfig);
