@@ -1,4 +1,5 @@
-import Dexie, { Table } from "dexie";
+import Dexie from "dexie";
+import type { Table } from "dexie";
 
 export interface Fruit {
   id?: number;

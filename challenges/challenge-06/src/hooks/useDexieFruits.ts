@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fruitsDb, newFunction, Fruit, FruitPayload } from "../config/fruitsDb";
+import { fruitsDb, newFunction, type Fruit, type FruitPayload } from "../config/fruitsDb";
 
 export const useDexieFruits = () => {
   const [fruits, setFruits] = useState<Fruit[]>([]);

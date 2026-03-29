@@ -3,15 +3,18 @@ import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "../hooks/useForm";
 import { v4 as uuid } from "uuid";
+import { useNetworkStatus } from "../hooks/useNetworkStatus"; // 
 
 const Tasks = () => {
   const { tasks, addTask, deleteTask, toggleTask } = useTasks();
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const { isOnline } = useNetworkStatus(); 
+
   const { values, handleChange, reset } = useForm({ title: "", description: "" });
 
   const handleAdd = () => {
-    if (!values.title) return;
+    if (!values.title || !isOnline) return; // valida internet
 
     addTask({
       id: uuid(),
@@ -35,11 +38,15 @@ const Tasks = () => {
         </button>
       </div>
 
+      {/* NO WIFI */}
+      {!isOnline && <p style={{ color: "red" }}>Sin conexión a internet</p>}
+
       <input
         name="title"
         placeholder="Title"
         value={values.title}
         onChange={handleChange}
+        disabled={!isOnline} 
       />
 
       <input
@@ -47,9 +54,13 @@ const Tasks = () => {
         placeholder="Description"
         value={values.description}
         onChange={handleChange}
+        disabled={!isOnline}
       />
 
-      <button onClick={handleAdd}>Add Task</button>
+      {/* BOTÓN DESHABILITADO */}
+      <button onClick={handleAdd} disabled={!isOnline}>
+        Add Task
+      </button>
 
       {tasks.map(task => (
         <div key={task.id} className="task">
@@ -60,11 +71,12 @@ const Tasks = () => {
           <p>{task.description}</p>
 
           <div className="task-buttons">
-            <button onClick={() => toggleTask(task.id)}>
+            {/* TAMBIÉN DESHABILITAR ESTOS */}
+            <button onClick={() => toggleTask(task.id)} disabled={!isOnline}>
               {task.completed ? "Undo" : "Done"}
             </button>
 
-            <button onClick={() => deleteTask(task.id)}>
+            <button onClick={() => deleteTask(task.id)} disabled={!isOnline}>
               Delete
             </button>
           </div>
