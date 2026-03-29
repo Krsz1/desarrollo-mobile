@@ -21,7 +21,15 @@ export const useDexieFruits = () => {
   };
 
   useEffect(() => {
-    loadFruits();
+    let mounted = true;
+    (async () => {
+      const data = await fruitsDb.fruits.toArray();
+      if (mounted) setFruits(data);
+    })();
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return {
