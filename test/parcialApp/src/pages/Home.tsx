@@ -23,6 +23,7 @@ import { useGeolocation } from "../hooks/useGeolocation";
 import { useHaptics } from "../hooks/useHaptics";
 import { useNotifications } from "../hooks/useNotifications";
 import { useMotion } from "../hooks/useMotion";
+import { useAuth } from "../hooks/useAuth";
 import { useHistory } from "react-router-dom";
 
 const MISIONES_INICIAL: Mission[] = [
@@ -37,6 +38,7 @@ const Home: React.FC = () => {
   const { vibrate }     = useHaptics();
   const { notify }      = useNotifications();
   const { waitStill }   = useMotion();
+  const { user }        = useAuth();
 
   const history = useHistory();
 
@@ -58,15 +60,14 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify({ missions, points }));
-    const usuario = auth.currentUser;
-    if (usuario) {
+    if (user) {
       setDoc(
-        doc(db, "users", usuario.uid),
-        { name: usuario.email, email: usuario.email, missions, points },
+        doc(db, "users", user.uid),
+        { missions, points },
         { merge: true }
       ).catch(() => {});
     }
-  }, [missions, points]);
+  }, [missions, points, user]);
 
   const completarMision = (id: number) => {
     setMissions((prev) =>

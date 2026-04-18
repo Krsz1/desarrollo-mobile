@@ -15,7 +15,8 @@ import {
 } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { collection, getDocs, orderBy, query, limit } from "firebase/firestore";
-import { auth, db } from "../firebase/config";
+import { db } from "../firebase/config";
+import { useAuth } from "../hooks/useAuth";
 
 interface RankingEntry {
   uid: string;
@@ -23,13 +24,12 @@ interface RankingEntry {
   points: number;
 }
 
-const PUESTOS = ["1", "2", "3"];
-
 const Ranking: React.FC = () => {
   const [ranking, setRanking] = useState<RankingEntry[]>([]);
   const [cargando, setCargando] = useState(true);
 
-  const miUid = auth.currentUser?.uid;
+  const { user } = useAuth();
+  const miUid = user?.uid;
 
   useEffect(() => {
     const cargarRanking = async () => {
@@ -95,7 +95,7 @@ const Ranking: React.FC = () => {
                   slot="start"
                   style={{ fontSize: 18, width: 32, textAlign: "center" }}
                 >
-                  {PUESTOS[index] ?? `#${index + 1}`}
+                  #{index + 1}
                 </div>
 
                 <IonLabel>
