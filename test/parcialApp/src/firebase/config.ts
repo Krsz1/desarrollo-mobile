@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
@@ -8,9 +9,9 @@ const firebaseConfig = {
   storageBucket: "challenge-05-33992.firebasestorage.app",
   messagingSenderId: "526275905114",
   appId: "1:526275905114:web:8a464ec213a8ebcd4fba63",
-  measurementId: "G-33N3R0MNY1"
+  measurementId: "G-33N3R0MNY1",
 };
 
 const app = initializeApp(firebaseConfig);
-
+export const db = getFirestore(app);
 export const auth = getAuth(app);
