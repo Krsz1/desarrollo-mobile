@@ -49,6 +49,8 @@ const Home: React.FC = () => {
   const posicionInicial = useRef<{ latitude: number; longitude: number } | null>(null);
   const [posGuardada, setPosGuardada] = useState(false);
 
+  const dataLoaded = useRef(false);
+
   useEffect(() => {
     const guardado = localStorage.getItem("data");
     if (guardado) {
@@ -56,9 +58,11 @@ const Home: React.FC = () => {
       setMissions(datos.missions);
       setPoints(datos.points);
     }
+    dataLoaded.current = true;
   }, []);
 
   useEffect(() => {
+    if (!dataLoaded.current) return;
     localStorage.setItem("data", JSON.stringify({ missions, points }));
     if (user) {
       setDoc(

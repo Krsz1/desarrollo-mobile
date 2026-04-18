@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+﻿import { useState } from "react";
 import {
   IonPage,
   IonContent,
@@ -10,35 +10,43 @@ import {
   IonCardContent,
   IonSpinner,
 } from "@ionic/react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
+import { auth } from "../firebase/config";
 import { useHistory } from "react-router-dom";
-import { useFirebaseAuth } from "../hooks/useFirebaseAuth";
-import { useAuth } from "../hooks/useAuth";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [localError, setLocalError] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const { signIn, loading, error } = useFirebaseAuth();
-  const { user } = useAuth();
   const history = useHistory();
 
-  useEffect(() => {
-    if (user) {
-      history.replace("/home");
-    }
-  }, [user, history]);
-
   const handleLogin = async () => {
-    setLocalError("");
-    if (!email || !password) {
-      setLocalError("Completa email y contrasena.");
+    setError("");
+    if (!email.trim() || !password) {
+      setError("Completa email y contrasena.");
       return;
     }
 
-    const res = await signIn(email, password);
-    if (res) {
+    setLoading(true);
+    try {
+      await signInWithEmailAndPassword(auth, email.trim(), password);
       history.push("/home");
+    } catch (e) {
+      const code = (e instanceof FirebaseError) ? e.code : "";
+      if (code === "auth/invalid-credential" || code === "auth/wrong-password" || code === "auth/user-not-found") {
+        setError("Email o contrasena incorrectos.");
+      } else if (code === "auth/too-many-requests") {
+        setError("Demasiados intentos. Espera unos minutos.");
+      } else if (code === "auth/invalid-email") {
+        setError("El formato del email no es valido.");
+      } else {
+        setError("Error al iniciar sesion. Intenta de nuevo.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,9 +80,9 @@ const Login: React.FC = () => {
               />
             </IonItem>
 
-            {(localError || error) && (
+            {error && (
               <IonText color="danger">
-                <p style={{ padding: "8px 16px", fontSize: 14 }}>{localError || error}</p>
+                <p style={{ padding: "8px 16px", fontSize: 14 }}>{error}</p>
               </IonText>
             )}
 

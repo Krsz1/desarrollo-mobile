@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   IonPage,
   IonContent,
@@ -10,41 +10,35 @@ import {
   IonCardContent,
   IonSpinner,
 } from "@ionic/react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "../firebase/config";
+import { FirebaseError } from "firebase/app";
+import { auth, db } from "../firebase/config";
 import { useHistory } from "react-router-dom";
-import { useFirebaseAuth } from "../hooks/useFirebaseAuth";
-import { useAuth } from "../hooks/useAuth";
 
 const Register: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [localError, setLocalError] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const { signUp, loading, error } = useFirebaseAuth();
-  const { user } = useAuth();
   const history = useHistory();
 
-  useEffect(() => {
-    if (user) {
-      history.replace("/home");
-    }
-  }, [user, history]);
-
   const handleRegister = async () => {
-    setLocalError("");
-    if (!name || !email || !password) {
-      setLocalError("Completa todos los campos.");
+    setError("");
+    if (!name.trim() || !email.trim() || !password) {
+      setError("Completa todos los campos.");
       return;
     }
     if (password.length < 6) {
-      setLocalError("La contrasena debe tener al menos 6 caracteres.");
+      setError("La contrasena debe tener al menos 6 caracteres.");
       return;
     }
 
-    const res = await signUp(email, password);
-    if (res) {
+    setLoading(true);
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email.trim(), password);
       await setDoc(doc(db, "users", res.user.uid), {
         name: name.trim(),
         email: email.trim(),
@@ -56,6 +50,19 @@ const Register: React.FC = () => {
         ],
       });
       history.push("/home");
+    } catch (e) {
+      const code = (e instanceof FirebaseError) ? e.code : "";
+      if (code === "auth/email-already-in-use") {
+        setError("Ese email ya tiene una cuenta. Inicia sesion.");
+      } else if (code === "auth/invalid-email") {
+        setError("El formato del email no es valido.");
+      } else if (code === "auth/weak-password") {
+        setError("La contrasena debe tener al menos 6 caracteres.");
+      } else {
+        setError("Error al registrarse. Intenta de nuevo.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -98,9 +105,9 @@ const Register: React.FC = () => {
               />
             </IonItem>
 
-            {(localError || error) && (
+            {error && (
               <IonText color="danger">
-                <p style={{ padding: "8px 16px", fontSize: 14 }}>{localError || error}</p>
+                <p style={{ padding: "8px 16px", fontSize: 14 }}>{error}</p>
               </IonText>
             )}
 
