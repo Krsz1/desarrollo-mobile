@@ -116,11 +116,6 @@ const Home: React.FC = () => {
   };
 
   const handleQuieto = () => {
-    const mision2Ok = missions.find((m) => m.id === 2)?.completed;
-    if (!mision2Ok) {
-      alert("Primero debes completar la Mision 2 (moverse 30m).");
-      return;
-    }
     setMidiendo(true);
     alert("Quedate completamente quieto durante 10 segundos.");
     waitStill(10, () => {
@@ -194,7 +189,7 @@ const Home: React.FC = () => {
                   <IonButton
                     size="small"
                     onClick={handleQuieto}
-                    disabled={midiendo || !missions.find((m) => m.id === 2)?.completed}
+                    disabled={midiendo}
                   >
                     {midiendo ? "Midiendo..." : "Empezar"}
                   </IonButton>
