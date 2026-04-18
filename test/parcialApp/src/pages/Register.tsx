@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   IonPage,
   IonContent,
@@ -8,36 +8,46 @@ import {
   IonItem,
   IonCard,
   IonCardContent,
+  IonSpinner,
 } from "@ionic/react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { auth, db } from "../firebase/config";
+import { db } from "../firebase/config";
 import { useHistory } from "react-router-dom";
+import { useFirebaseAuth } from "../hooks/useFirebaseAuth";
+import { useAuth } from "../hooks/useAuth";
 
 const Register: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [localError, setLocalError] = useState("");
 
+  const { signUp, loading, error } = useFirebaseAuth();
+  const { user } = useAuth();
   const history = useHistory();
 
+  useEffect(() => {
+    if (user) {
+      history.replace("/home");
+    }
+  }, [user, history]);
+
   const handleRegister = async () => {
+    setLocalError("");
     if (!name || !email || !password) {
-      setError("Por favor completa todos los campos");
+      setLocalError("Completa todos los campos.");
       return;
     }
     if (password.length < 6) {
-      setError("La contraseña debe tener al menos 6 caracteres");
+      setLocalError("La contrasena debe tener al menos 6 caracteres.");
       return;
     }
 
-    try {
-
-      const resultado = await createUserWithEmailAndPassword(auth, email, password);
-      await setDoc(doc(db, "users", resultado.user.uid), {
-        name: name,
-        email: email,
+    const res = await signUp(email, password);
+    if (res) {
+      await setDoc(doc(db, "users", res.user.uid), {
+        name: name.trim(),
+        email: email.trim(),
         points: 0,
         missions: [
           { id: 1, completed: false },
@@ -45,28 +55,20 @@ const Register: React.FC = () => {
           { id: 3, completed: false },
         ],
       });
-
       history.push("/home");
-    } catch {
-      setError("Error al registrarse. El email puede estar en uso.");
     }
   };
 
   return (
     <IonPage>
       <IonContent className="ion-padding">
-
-        {/* título */}
         <div style={{ textAlign: "center", marginTop: 80, marginBottom: 32 }}>
-          <div style={{ fontSize: 56 }}>📝</div>
           <h2 style={{ margin: "8px 0 4px" }}>Crear Cuenta</h2>
-          <p style={{ color: "#aaa", margin: 0 }}>Únete y compite con otros jugadores</p>
+          <p style={{ color: "#aaa", margin: 0 }}>Unete y compite con otros jugadores</p>
         </div>
 
-        {/* Form */}
         <IonCard>
           <IonCardContent>
-
             <IonItem lines="full">
               <IonInput
                 label="Nombre"
@@ -88,7 +90,7 @@ const Register: React.FC = () => {
 
             <IonItem lines="none">
               <IonInput
-                label="Contraseña (mín. 6 caracteres)"
+                label="Contrasena (min. 6 caracteres)"
                 labelPlacement="floating"
                 type="password"
                 value={password}
@@ -96,24 +98,21 @@ const Register: React.FC = () => {
               />
             </IonItem>
 
-            {/* Error */}
-            {error && (
+            {(localError || error) && (
               <IonText color="danger">
-                <p style={{ paddingLeft: 16, fontSize: 14 }}>{error}</p>
+                <p style={{ padding: "8px 16px", fontSize: 14 }}>{localError || error}</p>
               </IonText>
             )}
 
-            <IonButton expand="block" onClick={handleRegister} style={{ marginTop: 16 }}>
-              Registrarme
+            <IonButton expand="block" onClick={handleRegister} disabled={loading} style={{ marginTop: 16 }}>
+              {loading ? <IonSpinner name="crescent" /> : "Registrarme"}
             </IonButton>
 
-            <IonButton expand="block" fill="outline" routerLink="/login">
+            <IonButton expand="block" fill="outline" routerLink="/login" disabled={loading}>
               Ya tengo cuenta
             </IonButton>
-
           </IonCardContent>
         </IonCard>
-
       </IonContent>
     </IonPage>
   );

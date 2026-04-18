@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useEffect, useState } from "react";
 import {
   IonPage,
   IonContent,
@@ -8,48 +8,50 @@ import {
   IonItem,
   IonCard,
   IonCardContent,
+  IonSpinner,
 } from "@ionic/react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/config";
 import { useHistory } from "react-router-dom";
+import { useFirebaseAuth } from "../hooks/useFirebaseAuth";
+import { useAuth } from "../hooks/useAuth";
 
 const Login: React.FC = () => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [localError, setLocalError] = useState("");
 
-  const history = useHistory(); 
+  const { signIn, loading, error } = useFirebaseAuth();
+  const { user } = useAuth();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (user) {
+      history.replace("/home");
+    }
+  }, [user, history]);
 
   const handleLogin = async () => {
+    setLocalError("");
     if (!email || !password) {
-      setError("Por favor completa todos los campos");
+      setLocalError("Completa email y contrasena.");
       return;
     }
 
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
+    const res = await signIn(email, password);
+    if (res) {
       history.push("/home");
-    } catch {
-      setError("Email o contraseña incorrectos");
     }
   };
 
   return (
     <IonPage>
       <IonContent className="ion-padding">
-
-        {/* título */}
         <div style={{ textAlign: "center", marginTop: 80, marginBottom: 32 }}>
-          <div style={{ fontSize: 56 }}></div>
           <h2 style={{ margin: "8px 0 4px" }}>MisionApp</h2>
           <p style={{ color: "#aaa", margin: 0 }}>Completa misiones y gana puntos</p>
         </div>
 
-        {/* Form */}
         <IonCard>
           <IonCardContent>
-
             <IonItem lines="full">
               <IonInput
                 label="Email"
@@ -62,7 +64,7 @@ const Login: React.FC = () => {
 
             <IonItem lines="none">
               <IonInput
-                label="Contraseña"
+                label="Contrasena"
                 labelPlacement="floating"
                 type="password"
                 value={password}
@@ -70,24 +72,21 @@ const Login: React.FC = () => {
               />
             </IonItem>
 
-            {/* Mensaje de error*/}
-            {error && (
+            {(localError || error) && (
               <IonText color="danger">
-                <p style={{ paddingLeft: 16, fontSize: 14 }}>{error}</p>
+                <p style={{ padding: "8px 16px", fontSize: 14 }}>{localError || error}</p>
               </IonText>
             )}
 
-            <IonButton expand="block" onClick={handleLogin} style={{ marginTop: 16 }}>
-              Iniciar sesión
+            <IonButton expand="block" onClick={handleLogin} disabled={loading} style={{ marginTop: 16 }}>
+              {loading ? <IonSpinner name="crescent" /> : "Iniciar sesion"}
             </IonButton>
 
-            <IonButton expand="block" fill="outline" routerLink="/register">
+            <IonButton expand="block" fill="outline" routerLink="/register" disabled={loading}>
               Crear cuenta nueva
             </IonButton>
-
           </IonCardContent>
         </IonCard>
-
       </IonContent>
     </IonPage>
   );

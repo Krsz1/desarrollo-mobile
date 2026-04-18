@@ -24,7 +24,6 @@ interface DatosGuardados {
 }
 
 const Results: React.FC = () => {
-  // misiones y puntos del almacenamiento
   const [missions, setMissions] = useState<Mission[]>([]);
   const [points, setPoints]     = useState<number>(0);
 
@@ -44,19 +43,16 @@ const Results: React.FC = () => {
 
   return (
     <IonPage>
-
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
             <IonBackButton defaultHref="/home" />
           </IonButtons>
-          <IonTitle>📊 Resultados</IonTitle>
+          <IonTitle>Resultados</IonTitle>
         </IonToolbar>
       </IonHeader>
 
       <IonContent className="ion-padding">
-
-        {/*resumm*/}
         <IonCard
           style={{
             borderLeft: todasCompletas ? "4px solid #00c896" : "4px solid #f4a261",
@@ -64,14 +60,13 @@ const Results: React.FC = () => {
         >
           <IonCardContent>
             <IonText>
-              <h2>{todasCompletas ? "🏆 ¡Todo completado!" : "⏳ En progreso..."}</h2>
+              <h2>{todasCompletas ? "Todo completado" : "En progreso..."}</h2>
               <h3>
-                ⭐ Puntos totales:{" "}
+                Puntos totales:{" "}
                 <strong style={{ color: "#00c896" }}>{points}</strong>
               </h3>
               <p>Misiones completadas: {completadas} / {total}</p>
             </IonText>
-            {/* progreso */}
             <IonProgressBar
               value={progreso}
               color="success"
@@ -83,7 +78,6 @@ const Results: React.FC = () => {
           </IonCardContent>
         </IonCard>
 
-        {/* detalles*/}
         {missions.map((mision) => (
           <IonCard key={mision.id}>
             <IonCardHeader>
@@ -92,7 +86,7 @@ const Results: React.FC = () => {
             <IonCardContent>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <IonBadge color={mision.completed ? "success" : "medium"}>
-                  {mision.completed ? "✅ Completada" : "⏳ Pendiente"}
+                  {mision.completed ? "Completada" : "Pendiente"}
                 </IonBadge>
                 <IonBadge color={mision.completed ? "success" : "medium"}>
                   {mision.completed ? `+${mision.points} pts` : "0 pts"}
@@ -102,16 +96,14 @@ const Results: React.FC = () => {
           </IonCard>
         ))}
 
-        {/* navegación */}
         <IonButton
           expand="block"
           fill="outline"
           routerLink="/ranking"
           style={{ marginTop: 16 }}
         >
-          🏆 Ver Ranking
+          Ver Ranking
         </IonButton>
-
       </IonContent>
     </IonPage>
   );
