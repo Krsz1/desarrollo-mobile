@@ -37,19 +37,10 @@ const Register: React.FC = () => {
     }
 
     setLoading(true);
+    let uid = "";
     try {
       const res = await createUserWithEmailAndPassword(auth, email.trim(), password);
-      await setDoc(doc(db, "users", res.user.uid), {
-        name: name.trim(),
-        email: email.trim(),
-        points: 0,
-        missions: [
-          { id: 1, completed: false },
-          { id: 2, completed: false },
-          { id: 3, completed: false },
-        ],
-      });
-      history.push("/home");
+      uid = res.user.uid;
     } catch (e) {
       const code = (e instanceof FirebaseError) ? e.code : "";
       if (code === "auth/email-already-in-use") {
@@ -61,9 +52,23 @@ const Register: React.FC = () => {
       } else {
         setError("Error al registrarse. Intenta de nuevo.");
       }
-    } finally {
       setLoading(false);
+      return;
     }
+
+    setDoc(doc(db, "users", uid), {
+      name: name.trim(),
+      email: email.trim(),
+      points: 0,
+      missions: [
+        { id: 1, completed: false },
+        { id: 2, completed: false },
+        { id: 3, completed: false },
+      ],
+    }).catch(() => {});
+
+    setLoading(false);
+    history.push("/home");
   };
 
   return (

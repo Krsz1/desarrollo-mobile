@@ -49,8 +49,6 @@ const Home: React.FC = () => {
   const posicionInicial = useRef<{ latitude: number; longitude: number } | null>(null);
   const [posGuardada, setPosGuardada] = useState(false);
 
-  const dataLoaded = useRef(false);
-
   useEffect(() => {
     const guardado = localStorage.getItem("data");
     if (guardado) {
@@ -58,34 +56,33 @@ const Home: React.FC = () => {
       setMissions(datos.missions);
       setPoints(datos.points);
     }
-    dataLoaded.current = true;
   }, []);
 
-  useEffect(() => {
-    if (!dataLoaded.current) return;
-    localStorage.setItem("data", JSON.stringify({ missions, points }));
+  const guardar = (newMissions: Mission[], newPoints: number) => {
+    localStorage.setItem("data", JSON.stringify({ missions: newMissions, points: newPoints }));
     if (user) {
       setDoc(
         doc(db, "users", user.uid),
-        { missions, points },
+        { missions: newMissions, points: newPoints },
         { merge: true }
       ).catch(() => {});
     }
-  }, [missions, points, user]);
+  };
 
   const completarMision = (id: number) => {
-    setMissions((prev) =>
-      prev.map((m) => (m.id === id ? { ...m, completed: true } : m))
-    );
-    setPoints((prev) => prev + 50);
+    const newMissions = missions.map((m) => (m.id === id ? { ...m, completed: true } : m));
+    const newPoints = points + 50;
+    setMissions(newMissions);
+    setPoints(newPoints);
+    guardar(newMissions, newPoints);
 
-    const pendientes = missions.filter((m) => !m.completed && m.id !== id).length;
+    const pendientes = newMissions.filter((m) => !m.completed).length;
     if (pendientes === 0) {
-      notify("Felicitaciones", "Completaste todas las misiones!");
+      notify("Has completado una mision", "Completaste todas las misiones!");
     } else if (pendientes === 1) {
-      notify("Mision completada", "Te falta 1 mision para completar");
+      notify("Has completado una mision", "Te falta 1 mision para completar");
     } else {
-      notify("Mision completada", `Has ganado puntos. Te quedan ${pendientes} misiones.`);
+      notify("Has completado una mision", `Te quedan ${pendientes} misiones.`);
     }
   };
 

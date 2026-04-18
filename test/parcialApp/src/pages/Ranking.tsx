@@ -47,16 +47,7 @@ const Ranking: React.FC = () => {
         }));
         setRanking(lista);
       } catch {
-        const guardado = localStorage.getItem("data");
-        const misPoints = guardado ? JSON.parse(guardado).points : 0;
-        const fallback: RankingEntry[] = [
-          { uid: "u1",  name: "Ana",    points: 200 },
-          { uid: "u2",  name: "Luis",   points: 150 },
-          { uid: "u3",  name: "Carlos", points: 120 },
-          { uid: "u4",  name: "Maria",  points: 80  },
-          { uid: miUid || "yo", name: "Tu", points: misPoints },
-        ].sort((a, b) => b.points - a.points);
-        setRanking(fallback);
+        setRanking([]);
       } finally {
         setCargando(false);
       }
