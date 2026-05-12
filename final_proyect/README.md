@@ -760,7 +760,7 @@ Website URL: https://visual-diary-xxxx.netlify.app
 
 **Tu Nombre Aquí**
 
-- 🐙 GitHub: [@tu-usuario](https://github.com/tu-usuario)
+- 🐙 GitHub: [@Krsz1]([https://github.com/Krsz1])
 - 🎓 Proyecto académico — Desarrollo de Software para Plataformas Móviles
 
 ---
