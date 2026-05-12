@@ -758,8 +758,6 @@ Website URL: https://visual-diary-xxxx.netlify.app
 
 ## 👨‍💻 Autor
 
-**Tu Nombre Aquí**
-
 - 🐙 GitHub: [@Krsz1]([https://github.com/Krsz1])
 - 🎓 Proyecto académico — Desarrollo de Software para Plataformas Móviles
 
