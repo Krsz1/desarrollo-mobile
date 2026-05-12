@@ -1,16 +1,9 @@
 import React from 'react';
 import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonButton,
-  IonImg,
-  IonBackButton,
-  IonButtons,
-  IonText,
+  IonPage, IonHeader, IonToolbar, IonTitle, IonContent,
+  IonButton, IonImg, IonBackButton, IonButtons, IonText, IonIcon,
 } from '@ionic/react';
+import { cameraOutline } from 'ionicons/icons';
 import useCamera from '../hooks/useCamera';
 import { APP_ROUTES } from '../constants/routes';
 
@@ -28,6 +21,11 @@ const CameraPage: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
+
+        <div className="page-icon-header" style={{ '--accent': '#ce93d8' } as React.CSSProperties}>
+          <IonIcon icon={cameraOutline} />
+        </div>
+
         <IonButton expand="block" onClick={takePhoto}>
           Tomar foto
         </IonButton>
@@ -35,17 +33,12 @@ const CameraPage: React.FC = () => {
           Abrir galería
         </IonButton>
 
-        {error && (
-          <IonText color="danger">
-            <p>{error}</p>
-          </IonText>
-        )}
+        {error && <IonText color="danger"><p className="error-msg">{error}</p></IonText>}
 
         {photo?.webPath && (
-          <IonImg
-            src={photo.webPath}
-            style={{ marginTop: '16px', borderRadius: '8px' }}
-          />
+          <div className="photo-preview">
+            <IonImg src={photo.webPath} />
+          </div>
         )}
       </IonContent>
     </IonPage>

@@ -1,21 +1,10 @@
 import React from 'react';
 import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonButton,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
-  IonItem,
-  IonLabel,
-  IonBackButton,
-  IonButtons,
-  IonText,
+  IonPage, IonHeader, IonToolbar, IonTitle, IonContent,
+  IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent,
+  IonItem, IonLabel, IonBackButton, IonButtons, IonText, IonIcon,
 } from '@ionic/react';
+import { phonePortraitOutline } from 'ionicons/icons';
 import useDevice from '../hooks/useDevice';
 import { APP_ROUTES } from '../constants/routes';
 
@@ -33,71 +22,49 @@ const DevicePage: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
+
+        <div className="page-icon-header" style={{ '--accent': '#66bb6a' } as React.CSSProperties}>
+          <IonIcon icon={phonePortraitOutline} />
+        </div>
+
         <IonButton expand="block" onClick={getDeviceInfo}>
           Obtener info del dispositivo
         </IonButton>
 
-        {error && (
-          <IonText color="danger">
-            <p>{error}</p>
-          </IonText>
-        )}
+        {error && <IonText color="danger"><p className="error-msg">{error}</p></IonText>}
 
         {info && (
           <IonCard>
-            <IonCardHeader>
-              <IonCardTitle>Información del dispositivo</IonCardTitle>
-            </IonCardHeader>
+            <IonCardHeader><IonCardTitle>Dispositivo</IonCardTitle></IonCardHeader>
             <IonCardContent>
-              <IonItem>
-                <IonLabel>Modelo: {info.model}</IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Sistema operativo: {info.operatingSystem}</IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Versión SO: {info.osVersion}</IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Plataforma: {info.platform}</IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Fabricante: {info.manufacturer}</IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Dispositivo virtual: {info.isVirtual ? 'Sí' : 'No'}</IonLabel>
-              </IonItem>
+              <IonItem><IonLabel><span className="stat-key">Modelo</span><span className="stat-val">{info.model}</span></IonLabel></IonItem>
+              <IonItem><IonLabel><span className="stat-key">Sistema operativo</span><span className="stat-val">{info.operatingSystem}</span></IonLabel></IonItem>
+              <IonItem><IonLabel><span className="stat-key">Versión SO</span><span className="stat-val">{info.osVersion}</span></IonLabel></IonItem>
+              <IonItem><IonLabel><span className="stat-key">Plataforma</span><span className="stat-val">{info.platform}</span></IonLabel></IonItem>
+              <IonItem><IonLabel><span className="stat-key">Fabricante</span><span className="stat-val">{info.manufacturer}</span></IonLabel></IonItem>
+              <IonItem><IonLabel><span className="stat-key">Virtual</span><span className="stat-val">{info.isVirtual ? 'Sí' : 'No'}</span></IonLabel></IonItem>
             </IonCardContent>
           </IonCard>
         )}
 
         {battery && (
           <IonCard>
-            <IonCardHeader>
-              <IonCardTitle>Batería</IonCardTitle>
-            </IonCardHeader>
+            <IonCardHeader><IonCardTitle>Batería</IonCardTitle></IonCardHeader>
             <IonCardContent>
-              <IonItem>
-                <IonLabel>
-                  Nivel: {((battery.batteryLevel ?? 0) * 100).toFixed(0)}%
-                </IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Cargando: {battery.isCharging ? 'Sí' : 'No'}</IonLabel>
-              </IonItem>
+              <IonItem><IonLabel><span className="stat-key">Nivel</span><span className="stat-val">{((battery.batteryLevel ?? 0) * 100).toFixed(0)}%</span></IonLabel></IonItem>
+              <IonItem><IonLabel><span className="stat-key">Cargando</span><span className="stat-val">{battery.isCharging ? 'Sí' : 'No'}</span></IonLabel></IonItem>
             </IonCardContent>
           </IonCard>
         )}
 
         {deviceId && (
           <IonCard>
-            <IonCardHeader>
-              <IonCardTitle>ID del dispositivo</IonCardTitle>
-            </IonCardHeader>
+            <IonCardHeader><IonCardTitle>Identificador</IonCardTitle></IonCardHeader>
             <IonCardContent>
               <IonItem>
                 <IonLabel style={{ wordBreak: 'break-all', whiteSpace: 'normal' }}>
-                  UUID: {deviceId.identifier}
+                  <span className="stat-key">UUID</span>
+                  <span className="stat-val small">{deviceId.identifier}</span>
                 </IonLabel>
               </IonItem>
             </IonCardContent>

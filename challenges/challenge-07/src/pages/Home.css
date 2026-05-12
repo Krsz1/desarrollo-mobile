@@ -1,0 +1,75 @@
+/* ─── Home header ─── */
+.home-header {
+  padding: 20px 20px 4px;
+}
+
+.home-subtitle {
+  color: #666;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* ─── Sensor grid ─── */
+.sensor-grid {
+  padding: 8px 12px 24px;
+}
+
+.sensor-card {
+  position: relative;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 18px;
+  padding: 24px 12px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+  margin: 6px 0;
+}
+
+.sensor-card:active {
+  transform: scale(0.96);
+}
+
+.sensor-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 18px 18px 0 0;
+}
+
+/* ─── Icon circle ─── */
+.sensor-icon-wrap {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sensor-icon {
+  font-size: 26px;
+  color: var(--accent);
+}
+
+/* ─── Label ─── */
+.sensor-label {
+  color: #e0e0e0;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  white-space: pre-line;
+}

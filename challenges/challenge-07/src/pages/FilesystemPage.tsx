@@ -1,22 +1,10 @@
 import React, { useState } from 'react';
 import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonButton,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
-  IonBackButton,
-  IonButtons,
-  IonTextarea,
-  IonText,
-  IonItem,
-  IonLabel,
+  IonPage, IonHeader, IonToolbar, IonTitle, IonContent,
+  IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent,
+  IonBackButton, IonButtons, IonTextarea, IonText, IonItem, IonLabel, IonIcon,
 } from '@ionic/react';
+import { folderOutline } from 'ionicons/icons';
 import useFilesystem from '../hooks/useFilesystem';
 import { APP_ROUTES } from '../constants/routes';
 
@@ -35,36 +23,34 @@ const FilesystemPage: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <IonItem>
-          <IonLabel position="floating">Texto a guardar</IonLabel>
-          <IonTextarea
-            value={text}
-            onIonInput={e => setText(e.detail.value ?? '')}
-            rows={4}
-          />
-        </IonItem>
 
-        <IonButton
-          expand="block"
-          onClick={() => writeFile(text)}
-          className="ion-margin-top"
-        >
+        <div className="page-icon-header" style={{ '--accent': '#80cbc4' } as React.CSSProperties}>
+          <IonIcon icon={folderOutline} />
+        </div>
+
+        <IonCard>
+          <IonCardContent>
+            <IonItem style={{ '--background': 'transparent', '--border-color': 'transparent' }}>
+              <IonLabel position="floating">Texto a guardar</IonLabel>
+              <IonTextarea
+                value={text}
+                onIonInput={e => setText(e.detail.value ?? '')}
+                rows={4}
+                style={{ '--color': '#e0e0e0' }}
+              />
+            </IonItem>
+          </IonCardContent>
+        </IonCard>
+
+        <IonButton expand="block" onClick={() => writeFile(text)}>
           Guardar archivo
         </IonButton>
         <IonButton expand="block" onClick={readFile} color="secondary">
           Leer archivo
         </IonButton>
 
-        {saved && (
-          <IonText color="success">
-            <p>Archivo guardado correctamente</p>
-          </IonText>
-        )}
-        {error && (
-          <IonText color="danger">
-            <p>{error}</p>
-          </IonText>
-        )}
+        {saved && <IonText color="success"><p className="feedback-msg">✓ Archivo guardado correctamente</p></IonText>}
+        {error && <IonText color="danger"><p className="error-msg">{error}</p></IonText>}
 
         {content && (
           <IonCard>
@@ -72,7 +58,7 @@ const FilesystemPage: React.FC = () => {
               <IonCardTitle>Contenido guardado</IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
-              <p style={{ whiteSpace: 'pre-wrap' }}>{content}</p>
+              <p style={{ whiteSpace: 'pre-wrap', color: '#c0c0c0', fontSize: '14px', lineHeight: 1.6 }}>{content}</p>
             </IonCardContent>
           </IonCard>
         )}
