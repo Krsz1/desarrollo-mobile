@@ -15,7 +15,7 @@ const useLocalNotifications = () => {
       await LocalNotifications.schedule({
         notifications: [
           {
-            id: Date.now(),
+            id: Math.floor(Math.random() * 100000),
             title,
             body,
             schedule: { at: new Date(Date.now() + delaySeconds * 1000) },
