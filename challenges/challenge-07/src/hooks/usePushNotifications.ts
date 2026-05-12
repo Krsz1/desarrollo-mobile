@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { PushNotifications, PushNotificationSchema } from '@capacitor/push-notifications';
+import '../firebase/config'; // inicializa Firebase antes de usar push notifications
 
 const usePushNotifications = () => {
   const [token, setToken] = useState<string | null>(null);
