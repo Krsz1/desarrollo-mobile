@@ -1,21 +1,18 @@
 {
-  "short_name": "Ionic App",
-  "name": "My Ionic App",
+  "name": "VisualDiary",
+  "short_name": "VisualDiary",
+  "description": "Bitácora visual con fotografía, texto y ubicación GPS",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3880ff",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "assets/icon/favicon.png",
+      "src": "/favicon.png",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "assets/icon/icon.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "maskable"
+      "type": "image/png"
     }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff"
+  ]
+}
 }

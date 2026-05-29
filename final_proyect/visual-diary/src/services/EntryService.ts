@@ -17,6 +17,7 @@ import { Entry, NewEntryData } from "../types/Entry";
 const COLLECTION = "entries";
 
 // ─── addEntry ────────────────────────────────────────────────────────────────
+// createdAt is always set server-side; callers never pass it
 export const addEntry = async (data: NewEntryData): Promise<string> => {
   const docRef = await addDoc(collection(db, COLLECTION), {
     ...data,

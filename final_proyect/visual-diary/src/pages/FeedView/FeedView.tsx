@@ -6,16 +6,16 @@ import {
   IonTitle,
   IonToolbar,
   IonList,
-  IonItem,
-  IonLabel,
-  IonThumbnail,
-  IonImg,
-  IonNote,
 } from "@ionic/react";
+import { useHistory } from "react-router-dom";
+import { useEntries } from "../../context/EntriesContext";
+import EntryCard from "../../components/EntryCard/EntryCard";
 import styles from "./FeedView.module.scss";
 
-// Placeholder — EntriesContext (feedEntries) will be wired in a later phase
 const FeedView: React.FC = () => {
+  const { feedEntries } = useEntries();
+  const history = useHistory();
+
   return (
     <IonPage>
       <IonHeader>
@@ -29,7 +29,13 @@ const FeedView: React.FC = () => {
           En vivo
         </div>
         <IonList>
-          {/* feedEntries from EntriesContext will be mapped here */}
+          {feedEntries.map((entry) => (
+            <EntryCard
+              key={entry.id}
+              entry={entry}
+              onClick={() => history.push(`/entry/${entry.id}`)}
+            />
+          ))}
         </IonList>
       </IonContent>
     </IonPage>

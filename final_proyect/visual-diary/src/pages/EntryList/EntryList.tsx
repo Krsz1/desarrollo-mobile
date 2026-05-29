@@ -9,21 +9,20 @@ import {
   IonFabButton,
   IonIcon,
   IonList,
-  IonItem,
-  IonLabel,
-  IonThumbnail,
-  IonImg,
+  IonSpinner,
   IonButton,
   IonButtons,
 } from "@ionic/react";
 import { add, logOut } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useEntries } from "../../context/EntriesContext";
+import EntryCard from "../../components/EntryCard/EntryCard";
 import styles from "./EntryList.module.scss";
 
-// Placeholder — EntriesContext will be wired in a later phase
 const EntryList: React.FC = () => {
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
+  const { entries, loading } = useEntries();
   const history = useHistory();
 
   const handleLogout = async () => {
@@ -38,20 +37,32 @@ const EntryList: React.FC = () => {
           <IonTitle>Mi Diario</IonTitle>
           <IonButtons slot="end">
             <IonButton onClick={handleLogout}>
-              <IonIcon icon={logOut} />
+              <IonIcon slot="icon-only" icon={logOut} />
             </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent className={styles.entryListPage}>
-        {/* Entries list will render here once EntriesContext is wired */}
-        <IonList>
-          {/* Placeholder empty state */}
-        </IonList>
-        <div className={styles.emptyState}>
-          <IonIcon icon={add} />
-          <p>No hay entradas aún. ¡Crea la primera!</p>
-        </div>
+        {loading ? (
+          <div style={{ display: "flex", justifyContent: "center", padding: "2rem" }}>
+            <IonSpinner name="crescent" />
+          </div>
+        ) : entries.length === 0 ? (
+          <div className={styles.emptyState}>
+            <IonIcon icon={add} />
+            <p>No hay entradas aún. ¡Crea la primera!</p>
+          </div>
+        ) : (
+          <IonList>
+            {entries.map((entry) => (
+              <EntryCard
+                key={entry.id}
+                entry={entry}
+                onClick={() => history.push(`/entry/${entry.id}`)}
+              />
+            ))}
+          </IonList>
+        )}
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton routerLink="/new">
             <IonIcon icon={add} />

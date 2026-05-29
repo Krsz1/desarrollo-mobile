@@ -1,0 +1,19 @@
+.card {
+  --padding-start: 12px;
+
+  ion-thumbnail {
+    --size: 56px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  h2 {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+}
+
+.date {
+  font-size: 0.7rem;
+  white-space: nowrap;
+}

@@ -1,0 +1,35 @@
+.detailPage {
+  .heroImage {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+  }
+
+  .body {
+    padding: 1rem;
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+    }
+  }
+
+  .address {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .date {
+    font-size: 0.8rem;
+    color: var(--ion-color-medium);
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    font-size: 1rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+  }
+}

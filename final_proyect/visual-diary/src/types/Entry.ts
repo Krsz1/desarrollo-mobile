@@ -12,4 +12,4 @@ export interface Entry {
   userId: string;
 }
 
-export type NewEntryData = Omit<Entry, "id">;
+export type NewEntryData = Omit<Entry, "id" | "createdAt">;
