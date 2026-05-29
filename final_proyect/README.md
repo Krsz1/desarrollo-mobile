@@ -4,128 +4,156 @@
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Capacitor](https://img.shields.io/badge/Capacitor-119EFF?style=for-the-badge&logo=capacitor&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
 ![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
 
-Este proyecto implementa una **bitácora personal móvil** donde el usuario puede registrar entradas con foto, texto y ubicación GPS automática. Las entradas se visualizan en lista y en un mapa interactivo. Funciona completamente **offline como PWA**, sin necesidad de backend propio.
+Aplicación móvil híbrida tipo **bitácora personal** donde el usuario puede registrar entradas con foto, texto y ubicación GPS automática. Incluye **autenticación real con Firebase Auth**, **almacenamiento en Firestore**, **feed compartido en tiempo real** y **mapa interactivo**. Desarrollada en Ionic React + TypeScript como proyecto final del curso de Desarrollo de Software para Plataformas Móviles — UAO.
 
 ---
 
 ## 📋 Tabla de Contenidos
 
 - [Descripción](#-descripción)
+- [Prototipo](#-prototipo)
+- [Integrantes](#-integrantes)
 - [Características Principales](#-características-principales)
 - [Arquitectura del Sistema](#️-arquitectura-del-sistema)
 - [Requisitos Previos](#-requisitos-previos)
 - [Instalación y Configuración](#-instalación-y-configuración)
 - [Estructura del Proyecto](#-estructura-del-proyecto)
-- [Tipo de Dato Central](#️-tipo-de-dato-central)
-- [Servicio de Datos](#-servicio-de-datos)
-- [Estado Global — Context API](#-estado-global--context-api)
-- [Custom Hooks](#-custom-hooks)
-- [Reverse Geocoding](#️-reverse-geocoding)
-- [Pantalla Principal — NewEntry](#-pantalla-principal--newentry)
-- [Routing](#-routing)
+- [Módulos Principales](#-módulos-principales)
+- [Routing y Rutas Protegidas](#-routing-y-rutas-protegidas)
 - [PWA — Service Worker](#-pwa--service-worker)
 - [Deploy en Netlify](#-deploy-en-netlify)
-- [Checklist de la Materia](#-checklist-de-la-materia)
+- [APIs Consumidas](#-apis-consumidas)
+- [Checklist de la Rúbrica](#-checklist-de-la-rúbrica)
+- [Referencias](#-referencias)
 
 ---
 
 ## 📖 Descripción
 
-VisualDiary es una aplicación móvil híbrida construida con **Ionic React + TypeScript** que permite al usuario llevar un diario personal con entradas enriquecidas: cada entrada combina texto, una fotografía tomada desde el dispositivo y la ubicación geográfica detectada automáticamente por GPS. Las entradas se visualizan en lista y también en un mapa interactivo de Leaflet, donde cada punto del mapa representa una entrada guardada.
+VisualDiary es una aplicación móvil híbrida construida con **Ionic React + TypeScript** que permite al usuario llevar un diario personal enriquecido. Cada entrada combina texto, una fotografía tomada desde el dispositivo y la ubicación GPS detectada automáticamente. Las entradas se almacenan en **Firebase Firestore** y se visualizan en lista y en un **mapa interactivo de Leaflet**. La app incluye un **feed en tiempo real** donde todos los usuarios registrados pueden ver las entradas más recientes de la comunidad actualizándose en vivo.
 
 ### 🎯 Objetivos del Proyecto
 
-- ✅ Implementar una PWA instalable que funcione offline
+- ✅ Implementar autenticación real con Firebase Auth (login y registro)
+- ✅ Almacenar datos en Firestore con listeners en tiempo real
 - ✅ Integrar sensores del dispositivo (GPS, cámara) con Capacitor
-- ✅ Manejar estado global sin backend usando Context API + localStorage
+- ✅ Construir un feed compartido en tiempo real con `onSnapshot`
 - ✅ Consumir una API REST externa para reverse geocoding
 - ✅ Publicar la aplicación en producción con Netlify
 
 ### 🎓 Temas de la Materia Cubiertos
 
-Este proyecto cubre los siguientes temas del curso:
-
-- **React** — Componentes, estado, props, ciclo de vida
-- **Context API** — Estado global sin prop drilling
-- **Routing dinámico** — Navegación con parámetros (`/entry/:id`)
-- **Ionic** — Componentes UI móviles y navegación nativa
-- **Capacitor** — Acceso a GPS, cámara y red nativa del dispositivo
-- **Storage** — Persistencia local con `localStorage`
-- **Mapas** — Integración de Leaflet + react-leaflet
-- **API REST** — Consumo de OpenCage Geocoding API con `fetch`
+- **React** — Componentes funcionales, estado, props, ciclo de vida
+- **Sensores** — GPS (`@capacitor/geolocation`) y Cámara (`@capacitor/camera`)
+- **Memoria** — `localStorage` para caché offline + Firestore como fuente principal
+- **Bases de datos** — Firebase Firestore (NoSQL en la nube)
+- **Firebase** — Auth + Firestore + Realtime listeners
+- **Comunicación en tiempo real** — `onSnapshot` de Firestore para feed en vivo
+- **Context API** — Estado global de autenticación y entradas
+- **Routing dinámico** — Rutas protegidas por sesión (`UserRoutes`, `AdminRoutes`)
+- **Ionic** — Componentes UI móviles, tabs, modals
+- **Mapas** — Leaflet + react-leaflet con marcadores por entrada
 - **PWA** — Manifest + Service Worker para uso offline
-- **Deploy** — Publicación en producción con Netlify
+- **Deploy** — Netlify con redirecciones para SPA
+
+---
+
+## 🎨 Prototipo
+
+> Prototipo diseñado con **Lovable** (herramienta de IA generativa)
+
+- 🔗 **Enlace al prototipo:** [Ver en Lovable](https://lovable.dev/projects/TU-PROYECTO-AQUI)
+
+---
+
+## 👥 Integrantes
+
+| Nombre | GitHub | Rama de trabajo |
+|--------|--------|-----------------|
+| Tu Nombre | [@tu-usuario](https://github.com/tu-usuario) | `feature/auth` |
+| Integrante 2 | [@usuario2](https://github.com/usuario2) | `feature/map-feed` |
+| Integrante 3 | [@usuario3](https://github.com/usuario3) | `feature/entries` |
 
 ---
 
 ## ✨ Características Principales
 
-- 📷 **Foto por entrada** — toma foto con la cámara o elige de la galería
-- 📍 **Ubicación automática** — guarda coordenadas GPS y convierte a dirección legible
-- 🗺️ **Vista en mapa** — todas las entradas marcadas en un mapa interactivo con Leaflet
-- 💾 **100% offline** — persiste en `localStorage`, sin backend requerido
-- 📲 **PWA instalable** — funciona como app nativa en Android e iOS desde el navegador
-- 🔌 **Detección de red** — si no hay conexión, guarda las coordenadas crudas
-- 🌐 **Reverse geocoding** — convierte coordenadas GPS a dirección legible (OpenCage API)
-- 🚀 **Deploy en Netlify** — un solo comando para publicar en producción
+- 🔐 **Login y registro real** — Firebase Authentication con email y contraseña
+- 📷 **Foto por entrada** — cámara del dispositivo o galería, almacenada en base64
+- 📍 **Ubicación automática** — GPS con reverse geocoding a dirección legible
+- 🗺️ **Vista en mapa** — todas las entradas del usuario marcadas en Leaflet
+- 🔴 **Feed en tiempo real** — entradas de todos los usuarios actualizadas en vivo
+- 🔥 **Firestore** — almacenamiento real en la nube con reglas de seguridad
+- 📲 **PWA instalable** — funciona como app nativa desde el navegador
+- 🔌 **Detección de red** — comportamiento adaptado según conectividad
+- 🚀 **Deploy en Netlify** — producción con un solo comando
 
 ---
 
 ## 🏗️ Arquitectura del Sistema
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                   PANTALLAS  (Ionic React Router)           │
-│                                                             │
-│   /home          /new          /entry/:id        /map       │
-│  EntryList     NewEntry       EntryDetail      MapView      │
-└──────────────────────┬──────────────────────────────────────┘
-                       │  useEntries()
-                       ▼
-┌─────────────────────────────────────────────────────────────┐
-│              CONTEXTO GLOBAL  (Context API)                 │
-│                                                             │
-│  EntriesProvider                                            │
-│  ┌──────────────────────┐   ┌────────────────────────────┐  │
-│  │ useState             │   │ Acciones                   │  │
-│  │ entries: Entry[]     │──▶│ addEntry · deleteEntry     │  │
-│  │ (init localStorage)  │   │ updateEntry                │  │
-│  └──────────────────────┘   └────────────────────────────┘  │
-└──────────────────────┬──────────────────────────────────────┘
-                       │
-        ┌──────────────┼──────────────┬──────────────┐
-        ▼              ▼              ▼              ▼
-┌──────────────┐ ┌──────────┐ ┌──────────┐ ┌──────────────┐
-│useGeolocation│ │useCamera │ │useStorage│ │  useNetwork  │
-│@cap/geoloc   │ │@cap/cam  │ │localStorage│ │  @cap/net   │
-└──────┬───────┘ └────┬─────┘ └────┬─────┘ └──────┬───────┘
-       └──────────────┴─────────────┴───────────────┘
+┌────────────────────────────────────────────────────────────────┐
+│                    PANTALLAS  (Ionic React Router)             │
+│                                                                │
+│  /login  /register  /home  /new  /entry/:id  /map  /feed      │
+│  Login   Register  EntryList NewEntry Detail MapView FeedView  │
+└─────────────────────────┬──────────────────────────────────────┘
+                          │  useEntries() · useAuth()
+                          ▼
+┌────────────────────────────────────────────────────────────────┐
+│                   CONTEXTOS GLOBALES  (Context API)            │
+│                                                                │
+│  ┌─────────────────────────┐   ┌──────────────────────────┐   │
+│  │ AuthContext             │   │ EntriesContext           │   │
+│  │ user · login · logout   │   │ entries · add · delete   │   │
+│  │ register · loading      │   │ update · realtime feed   │   │
+│  └─────────────────────────┘   └──────────────────────────┘   │
+└─────────────────────────┬──────────────────────────────────────┘
+                          │
+       ┌──────────────────┼──────────────────┬──────────────────┐
+       ▼                  ▼                  ▼                  ▼
+┌────────────┐ ┌──────────────┐ ┌──────────────┐ ┌────────────────┐
+│useGeoloc.  │ │  useCamera   │ │  useNetwork  │ │   useAuth      │
+│@cap/geoloc │ │  @cap/cam    │ │  @cap/net    │ │ Firebase Auth  │
+└─────┬──────┘ └──────┬───────┘ └──────┬───────┘ └───────┬────────┘
+      └───────────────┴────────────────┴─────────────────┘
                                 │
-          ┌─────────────────────┼──────────────────────┐
-          ▼                     ▼                      ▼
-  ┌───────────────┐   ┌──────────────────┐   ┌─────────────────┐
-  │EntryService.ts│   │ types/Entry.ts   │   │ OpenCage API    │
-  │ CRUD en       │   │ Interfaz         │   │ Reverse         │
-  │ localStorage  │   │ de datos         │   │ Geocoding       │
-  └───────────────┘   └──────────────────┘   └─────────────────┘
-          │
-          ▼
-  ┌───────────────┐
-  │   Netlify     │
-  │   (Deploy)    │
-  └───────────────┘
+        ┌───────────────────────┼──────────────────────┐
+        ▼                       ▼                      ▼
+┌──────────────┐    ┌───────────────────┐    ┌──────────────────┐
+│EntryService  │    │  FirebaseService  │    │  GeoService      │
+│CRUD Firestore│    │  config · auth    │    │  OpenCage API    │
+│+ onSnapshot  │    │  db · init        │    │  Reverse Geocode │
+└──────────────┘    └───────────────────┘    └──────────────────┘
+        │
+        ▼
+┌─────────────────┐    ┌──────────────────┐
+│    Helpers      │    │     types/       │
+│  formatDate     │    │   Entry.ts       │
+│  formatAddress  │    │   User.ts        │
+└─────────────────┘    └──────────────────┘
+        │
+        ▼
+┌──────────────────────────┐
+│   Netlify  (Deploy)      │
+└──────────────────────────┘
 ```
 
 ### 📱 Pantallas de la App
 
-| Ruta | Componente | Función |
-|------|-----------|---------|
-| `/home` | `EntryList` | Lista todas las entradas guardadas |
-| `/new` | `NewEntry` | Crea una entrada con foto + GPS + texto |
-| `/entry/:id` | `EntryDetail` | Ver, editar o borrar una entrada |
-| `/map` | `MapView` | Mapa interactivo con todos los marcadores |
+| Ruta | Componente | Acceso | Función |
+|------|-----------|--------|---------|
+| `/login` | `Login` | Público | Iniciar sesión con email y contraseña |
+| `/register` | `Register` | Público | Crear cuenta nueva |
+| `/home` | `EntryList` | Usuario | Lista de entradas propias |
+| `/new` | `NewEntry` | Usuario | Crear entrada con foto + GPS + texto |
+| `/entry/:id` | `EntryDetail` | Usuario | Ver, editar o borrar una entrada |
+| `/map` | `MapView` | Usuario | Mapa con todas las entradas propias |
+| `/feed` | `FeedView` | Usuario | Feed en tiempo real de la comunidad |
 
 ---
 
@@ -133,96 +161,74 @@ Este proyecto cubre los siguientes temas del curso:
 
 ### Software Necesario
 
-Antes de comenzar, asegúrate de tener instalado:
-
-1. **Node.js** >= 18.x
-   - [Descargar Node.js](https://nodejs.org/)
-
+1. **Node.js** >= 18.x — [Descargar](https://nodejs.org/)
 2. **npm** >= 9.x (incluido con Node.js)
+3. **Git** — [Descargar](https://git-scm.com/)
+4. **Cuenta de Firebase** (gratuita) — [console.firebase.google.com](https://console.firebase.google.com/)
+5. **API Key de OpenCage** (gratuita, 2500 req/día) — [opencagedata.com](https://opencagedata.com/)
 
-3. **Git**
-   - [Descargar Git](https://git-scm.com/)
+### Configuración de Firebase
 
-4. **API Key de OpenCage** (gratuita)
-   - Regístrate en [opencagedata.com](https://opencagedata.com/)
-   - Incluye 2,500 peticiones/día en el plan gratuito
+En la consola de Firebase se debe:
+1. Crear un proyecto nuevo
+2. Habilitar **Authentication** con el método Email/Password
+3. Crear una base de datos **Firestore** en modo producción
+4. Copiar las credenciales del proyecto en el archivo `.env`
 
-### Verificar Instalación
+### Variables de Entorno
 
-```bash
-# Verificar Node.js
-node --version
-# Salida esperada: v18.x.x o superior
+El proyecto requiere un archivo `.env` en la raíz con las siguientes variables:
 
-# Verificar npm
-npm --version
-# Salida esperada: 9.x.x o superior
-```
+| Variable | Descripción |
+|----------|-------------|
+| `VITE_FIREBASE_API_KEY` | API Key del proyecto Firebase |
+| `VITE_FIREBASE_AUTH_DOMAIN` | Dominio de autenticación |
+| `VITE_FIREBASE_PROJECT_ID` | ID del proyecto Firebase |
+| `VITE_FIREBASE_STORAGE_BUCKET` | Bucket de almacenamiento |
+| `VITE_FIREBASE_MESSAGING_SENDER_ID` | ID del sender de mensajes |
+| `VITE_FIREBASE_APP_ID` | ID de la app en Firebase |
+| `VITE_OPENCAGE_API_KEY` | API Key de OpenCage Geocoding |
+
+> ⚠️ El archivo `.env` nunca debe subirse al repositorio. Está incluido en `.gitignore`.
 
 ---
 
 ## 🚀 Instalación y Configuración
 
-### Paso 1: Clonar el Repositorio
+### Paso 1 — Clonar el Repositorio
 
 ```bash
 git clone https://github.com/tu-usuario/visual-diary.git
 cd visual-diary
 ```
 
-### Paso 2: Instalar Dependencias
+### Paso 2 — Instalar Dependencias
 
 ```bash
-# Ionic + iconos
-npm install @ionic/react @ionic/react-router ionicons
-
-# Capacitor core
-npm install @capacitor/core @capacitor/cli
-
-# Plugins de sensores
-npm install @capacitor/geolocation @capacitor/camera @capacitor/network
-
-# Mapa interactivo
-npm install leaflet react-leaflet
-npm install -D @types/leaflet
-
-# Inicializar Capacitor
+npm install
 npx cap init
 ```
 
-### Paso 3: Variables de Entorno
+Las dependencias principales incluyen: `@ionic/react`, `@ionic/react-router`, `@capacitor/geolocation`, `@capacitor/camera`, `@capacitor/network`, `firebase`, `leaflet` y `react-leaflet`.
 
-Crea un archivo `.env` en la raíz del proyecto:
+### Paso 3 — Configurar variables de entorno
 
-```env
-VITE_OPENCAGE_API_KEY=tu_api_key_aqui
-```
+Crear el archivo `.env` en la raíz con las variables listadas en la sección anterior.
 
-### Paso 4: Ejecutar en Desarrollo
+### Paso 4 — Ejecutar en desarrollo
 
 ```bash
 npm run dev
+# Abrir http://localhost:5173
 ```
-
-Abre [http://localhost:5173](http://localhost:5173) en tu navegador.
 
 ⏱️ **Tiempo estimado de setup:** 3-5 minutos
 
-### Paso 5: Verificar el Build
+### Paso 5 — Verificar build de producción
 
 ```bash
-# Crear build de producción
 npm run build
-
-# Previsualizar build localmente
 npm run preview
-```
-
-**Salida esperada de `vagrant status`:**
-```
-✓ built in 3.45s
-dist/index.html                 1.23 kB
-dist/assets/index-abc123.js   312.45 kB
 ```
 
 ---
@@ -232,521 +238,206 @@ dist/assets/index-abc123.js   312.45 kB
 ```
 src/
 │
-├── 📂 types/
-│   └── Entry.ts               ← Interfaz principal de datos
+├── 📂 helpers/                    ← Funciones generales reutilizables
+│   ├── formatDate.ts              ← Formateo de fechas (Timestamp → string legible)
+│   └── formatAddress.ts           ← Recorta direcciones largas para tarjetas
 │
-├── 📂 services/
-│   ├── EntryService.ts        ← CRUD en localStorage
-│   └── GeoService.ts          ← Reverse geocoding con OpenCage
+├── 📂 context/                    ← Contextos globales (Context API)
+│   ├── AuthContext.tsx            ← Sesión, login, logout, registro
+│   └── EntriesContext.tsx         ← CRUD de entradas + listener tiempo real
 │
-├── 📂 context/
-│   └── EntriesContext.tsx     ← Estado global (Context API)
+├── 📂 pages/                      ← Pantallas de la app
+│   ├── 📂 Login/
+│   │   ├── Login.tsx
+│   │   └── Login.module.scss
+│   ├── 📂 Register/
+│   │   ├── Register.tsx
+│   │   └── Register.module.scss
+│   ├── 📂 EntryList/
+│   │   ├── EntryList.tsx
+│   │   └── EntryList.module.scss
+│   ├── 📂 NewEntry/
+│   │   ├── NewEntry.tsx
+│   │   └── NewEntry.module.scss
+│   ├── 📂 EntryDetail/
+│   │   ├── EntryDetail.tsx
+│   │   └── EntryDetail.module.scss
+│   ├── 📂 MapView/
+│   │   ├── MapView.tsx
+│   │   └── MapView.module.scss
+│   └── 📂 FeedView/
+│       ├── FeedView.tsx           ← Feed en tiempo real
+│       └── FeedView.module.scss
 │
-├── 📂 hooks/
-│   ├── useGeolocation.ts      ← @capacitor/geolocation
-│   ├── useCamera.ts           ← @capacitor/camera
-│   ├── useStorage.ts          ← localStorage helpers
-│   └── useNetwork.ts          ← @capacitor/network
+├── 📂 components/                 ← Componentes reutilizables
+│   ├── 📂 EntryCard/
+│   │   ├── EntryCard.tsx
+│   │   └── EntryCard.module.scss
+│   ├── 📂 MapMarker/
+│   │   ├── MapMarker.tsx
+│   │   └── MapMarker.module.scss
+│   └── 📂 Shared/
+│       ├── Menu.tsx               ← Menú lateral compartido
+│       └── Menu.module.scss
 │
-├── 📂 pages/
-│   ├── EntryList.tsx          ← /home — lista de entradas
-│   ├── NewEntry.tsx           ← /new — crear entrada
-│   ├── EntryDetail.tsx        ← /entry/:id — ver / editar / borrar
-│   └── MapView.tsx            ← /map — mapa con marcadores
+├── 📂 hooks/                      ← Custom Hooks
+│   ├── useGeolocation.ts          ← Obtiene coordenadas GPS del dispositivo
+│   ├── useCamera.ts               ← Accede a cámara o galería del dispositivo
+│   ├── useNetwork.ts              ← Detecta estado de conexión a internet
+│   └── useAuth.ts                 ← Re-exporta helpers de Firebase Auth
 │
-├── 📂 components/
-│   ├── EntryCard.tsx          ← Tarjeta de entrada en la lista
-│   └── MapMarker.tsx          ← Marcador personalizado en el mapa
+├── 📂 routes/                     ← Configuración de rutas
+│   ├── AppRoutes.tsx              ← Router raíz: decide rutas públicas vs protegidas
+│   ├── UserRoutes.tsx             ← Rutas protegidas para usuarios autenticados
+│   └── AdminRoutes.tsx            ← Rutas de administración (extensible)
 │
-└── 📄 App.tsx                 ← Routing raíz + tab bar
+├── 📂 services/                   ← Capa de acceso a datos
+│   ├── FirebaseService.ts         ← Inicialización de Firebase (auth + db)
+│   ├── EntryService.ts            ← CRUD en Firestore + listeners onSnapshot
+│   └── GeoService.ts              ← Llamada a OpenCage para reverse geocoding
+│
+├── 📂 types/                      ← Interfaces TypeScript
+│   ├── Entry.ts                   ← Tipo de dato de una entrada del diario
+│   └── User.ts                    ← Tipo de dato del usuario autenticado
+│
+└── 📄 App.tsx                     ← Raíz de la aplicación
 │
 public/
-├── 📄 manifest.json           ← Configuración de la PWA
-├── 📄 service-worker.js       ← Cache offline
-└── 📄 _redirects              ← Redirecciones para Netlify SPA
+├── 📄 manifest.json               ← Configuración de la PWA
+├── 📄 service-worker.js           ← Cache offline (Network First)
+└── 📄 _redirects                  ← Redirecciones Netlify para SPA
 ```
 
 ---
 
-## 🗂️ Tipo de Dato Central
+## 🧩 Módulos Principales
 
-```typescript
-// src/types/Entry.ts
-export interface Entry {
-  id: string;
-  title: string;
-  body: string;
-  photoBase64: string | null;   // foto almacenada como base64
-  location: {
-    lat: number;
-    lng: number;
-    address: string;            // resultado del reverse geocoding
-  } | null;
-  createdAt: string;            // ISO 8601
-}
-```
+### 🔥 Firebase — Auth y Firestore
 
----
+**`FirebaseService.ts`** inicializa la app de Firebase usando las variables de entorno y exporta las instancias de `auth` y `db` que usan todos los demás módulos.
 
-## 💾 Servicio de Datos
+**`EntryService.ts`** es la única capa que toca Firestore directamente. Expone métodos para agregar, borrar y actualizar entradas, y dos listeners en tiempo real usando `onSnapshot`: uno para las entradas propias del usuario y otro para el feed global de todos los usuarios.
 
-Único punto de contacto con `localStorage`. No sabe nada de React: solo lee y escribe JSON puro.
+### 🔐 Autenticación — AuthContext
 
-```typescript
-// src/services/EntryService.ts
-import { Entry } from '../types/Entry';
+`AuthContext` envuelve toda la app y expone el estado de sesión (`user`, `loading`) junto con las funciones `login`, `register` y `logout`. Usa `onAuthStateChanged` de Firebase para detectar cambios de sesión automáticamente, incluso si el usuario recarga la página.
 
-const KEY = 'visual_diary_entries';
+Las pantallas de **Login** y **Register** consumen este contexto. Si el usuario ya tiene sesión activa, `AppRoutes` lo redirige directamente a `/home` sin pasar por las pantallas públicas.
 
-export const EntryService = {
-  getAll(): Entry[] {
-    const raw = localStorage.getItem(KEY);
-    return raw ? JSON.parse(raw) : [];
-  },
+### 🌐 Estado Global — EntriesContext
 
-  save(entries: Entry[]): void {
-    localStorage.setItem(KEY, JSON.stringify(entries));
-  },
+Envuelve la parte autenticada de la app. Activa dos listeners de Firestore al montar:
 
-  add(entry: Entry): Entry[] {
-    const entries = [...this.getAll(), entry];
-    this.save(entries);
-    return entries;
-  },
+- **Entradas propias** — filtradas por `userId` del usuario logueado, ordenadas por fecha descendente.
+- **Feed global** — todas las entradas de todos los usuarios, también en tiempo real.
 
-  delete(id: string): Entry[] {
-    const entries = this.getAll().filter(e => e.id !== id);
-    this.save(entries);
-    return entries;
-  },
+Cada vez que Firestore detecta un cambio en la colección (nueva entrada, edición, borrado), los listeners disparan automáticamente el re-render de todos los componentes suscritos, sin necesidad de recargar.
 
-  update(updated: Entry): Entry[] {
-    const entries = this.getAll().map(e => e.id === updated.id ? updated : e);
-    this.save(entries);
-    return entries;
-  },
-};
-```
+### 🪝 Custom Hooks
+
+| Hook | Responsabilidad |
+|------|----------------|
+| `useGeolocation` | Solicita la posición GPS actual con alta precisión. Expone un estado `loading` para mostrar indicadores mientras obtiene las coordenadas. |
+| `useCamera` | Abre el selector nativo (cámara o galería) y devuelve la imagen como `base64`. Usa `CameraResultType.Base64` de Capacitor. |
+| `useNetwork` | Escucha cambios de conectividad en tiempo real. Si el dispositivo pierde conexión, la app guarda coordenadas crudas en lugar de intentar el geocoding. |
+| `useAuth` | Re-exporta `useAuth` desde `AuthContext` para que se pueda importar desde la carpeta `hooks/` siguiendo la convención del proyecto. |
+
+### 🛠️ Helpers
+
+| Helper | Función |
+|--------|---------|
+| `formatDate` | Convierte un `Timestamp` de Firestore o un string ISO a una fecha legible en español (ej. `"15 de mayo de 2026, 10:32"`). |
+| `formatAddress` | Recorta una dirección larga a un número máximo de caracteres y agrega `…` si es necesario, para que quepa en las tarjetas de entrada. |
+
+### 🔴 Feed en Tiempo Real — FeedView
+
+`FeedView` muestra las entradas de **todos los usuarios** actualizadas en vivo. No requiere ninguna lógica adicional en la pantalla: simplemente consume `feedEntries` de `EntriesContext`, que ya está suscrito al listener global de Firestore. Cada nueva entrada que cualquier usuario guarde aparece automáticamente en el feed de todos los demás en tiempo real.
+
+### 🗺️ Mapa — MapView
+
+`MapView` usa `react-leaflet` para renderizar un mapa centrado en la primera entrada del usuario. Por cada entrada que tenga `location` definida, agrega un marcador (`MapMarker`) con un popup que muestra el título, la dirección y la fecha. El mapa solo muestra las entradas del usuario autenticado.
+
+### 🌐 Reverse Geocoding — GeoService
+
+Cuando el usuario guarda una entrada con ubicación y hay conexión, `GeoService` hace una petición a la **OpenCage Geocoding API** para convertir las coordenadas GPS en una dirección postal legible en español. Si no hay conexión, guarda las coordenadas numéricas directamente como texto de respaldo.
 
 ---
 
-## 🌐 Estado Global — Context API
+## 🔀 Routing y Rutas Protegidas
 
-Envuelve toda la app con `EntriesProvider`. Cualquier pantalla puede acceder a entradas y acciones llamando `useEntries()` sin necesidad de pasar props entre componentes.
+El sistema de rutas está dividido en tres archivos bajo la carpeta `routes/`:
 
-```typescript
-// src/context/EntriesContext.tsx
-import React, { createContext, useContext, useState } from 'react';
-import { Entry } from '../types/Entry';
-import { EntryService } from '../services/EntryService';
+**`AppRoutes`** es el router raíz. Verifica el estado de autenticación con `useAuth`. Si el usuario no está logueado, muestra las rutas públicas (`/login`, `/register`) y redirige cualquier otra ruta a `/login`. Si está logueado, carga `UserRoutes`.
 
-interface EntriesCtx {
-  entries: Entry[];
-  addEntry:    (entry: Entry) => void;
-  deleteEntry: (id: string)  => void;
-  updateEntry: (entry: Entry) => void;
-}
+**`UserRoutes`** define todas las rutas que requieren sesión activa: lista de entradas, nueva entrada, detalle, mapa y feed. También renderiza la barra de tabs inferior con la navegación principal.
 
-const EntriesContext = createContext<EntriesCtx | null>(null);
-
-export const EntriesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Inicia el estado desde localStorage — funciona offline desde el primer render
-  const [entries, setEntries] = useState<Entry[]>(() => EntryService.getAll());
-
-  const addEntry    = (e: Entry)   => setEntries(EntryService.add(e));
-  const deleteEntry = (id: string) => setEntries(EntryService.delete(id));
-  const updateEntry = (e: Entry)   => setEntries(EntryService.update(e));
-
-  return (
-    <EntriesContext.Provider value={{ entries, addEntry, deleteEntry, updateEntry }}>
-      {children}
-    </EntriesContext.Provider>
-  );
-};
-
-// Hook consumidor — lanza error claro si se usa fuera del Provider
-export const useEntries = () => {
-  const ctx = useContext(EntriesContext);
-  if (!ctx) throw new Error('useEntries debe estar dentro de EntriesProvider');
-  return ctx;
-};
-```
-
----
-
-## 🪝 Custom Hooks
-
-### `useGeolocation.ts`
-
-```typescript
-// src/hooks/useGeolocation.ts
-import { useState } from 'react';
-import { Geolocation } from '@capacitor/geolocation';
-
-export const useGeolocation = () => {
-  const [loading, setLoading] = useState(false);
-
-  const getPosition = async () => {
-    setLoading(true);
-    try {
-      const pos = await Geolocation.getCurrentPosition({ enableHighAccuracy: true });
-      return { lat: pos.coords.latitude, lng: pos.coords.longitude };
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return { getPosition, loading };
-};
-```
-
-### `useCamera.ts`
-
-```typescript
-// src/hooks/useCamera.ts
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-
-export const useCamera = () => {
-  const takePhoto = async (): Promise<string | null> => {
-    const photo = await Camera.getPhoto({
-      resultType: CameraResultType.Base64,
-      source: CameraSource.Prompt,  // pregunta al usuario: cámara o galería
-      quality: 70,
-    });
-    return photo.base64String ?? null;
-  };
-
-  return { takePhoto };
-};
-```
-
-### `useNetwork.ts`
-
-```typescript
-// src/hooks/useNetwork.ts
-import { useEffect, useState } from 'react';
-import { Network } from '@capacitor/network';
-
-export const useNetwork = () => {
-  const [isOnline, setIsOnline] = useState(true);
-
-  useEffect(() => {
-    const listener = Network.addListener('networkStatusChange', s => {
-      setIsOnline(s.connected);
-    });
-    return () => { listener.then(l => l.remove()); };
-  }, []);
-
-  return { isOnline };
-};
-```
-
----
-
-## 🗺️ Reverse Geocoding
-
-Convierte coordenadas GPS en una dirección legible usando OpenCage. Si no hay conexión, guarda las coordenadas directamente como texto.
-
-```typescript
-// src/services/GeoService.ts
-const API_KEY = import.meta.env.VITE_OPENCAGE_API_KEY;
-
-export const reverseGeocode = async (lat: number, lng: number): Promise<string> => {
-  try {
-    const res = await fetch(
-      `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${API_KEY}&language=es&no_annotations=1`
-    );
-    const data = await res.json();
-    return data.results[0]?.formatted ?? 'Ubicación desconocida';
-  } catch {
-    return 'Sin conexión';
-  }
-};
-```
-
-**Ejemplo de respuesta:**
-```
-"Calle 5 Norte #28-14, Cali, Valle del Cauca, Colombia"
-```
-
----
-
-## 📝 Pantalla Principal — NewEntry
-
-Pantalla que integra todos los hooks: cámara, GPS, detección de red y contexto global en un solo flujo.
-
-```typescript
-// src/pages/NewEntry.tsx
-import {
-  IonPage, IonHeader, IonToolbar, IonTitle, IonContent,
-  IonButton, IonInput, IonTextarea, IonItem, IonLabel,
-  IonImg, useIonRouter, IonLoading,
-} from '@ionic/react';
-import { useState } from 'react';
-import { useEntries }     from '../context/EntriesContext';
-import { useCamera }      from '../hooks/useCamera';
-import { useGeolocation } from '../hooks/useGeolocation';
-import { useNetwork }     from '../hooks/useNetwork';
-import { reverseGeocode } from '../services/GeoService';
-import { Entry }          from '../types/Entry';
-
-const NewEntry: React.FC = () => {
-  const { addEntry }   = useEntries();
-  const { takePhoto }  = useCamera();
-  const { getPosition, loading: gpsLoading } = useGeolocation();
-  const { isOnline }   = useNetwork();
-  const router         = useIonRouter();
-
-  const [title, setTitle] = useState('');
-  const [body,  setBody]  = useState('');
-  const [photo, setPhoto] = useState<string | null>(null);
-
-  const handlePhoto = async () => {
-    const b64 = await takePhoto();
-    if (b64) setPhoto(b64);
-  };
-
-  const handleSave = async () => {
-    const pos = await getPosition();
-    let location: Entry['location'] = null;
-
-    if (pos) {
-      const address = isOnline
-        ? await reverseGeocode(pos.lat, pos.lng)
-        : `${pos.lat.toFixed(4)}, ${pos.lng.toFixed(4)}`;
-      location = { ...pos, address };
-    }
-
-    const entry: Entry = {
-      id: crypto.randomUUID(),
-      title,
-      body,
-      photoBase64: photo,
-      location,
-      createdAt: new Date().toISOString(),
-    };
-
-    addEntry(entry);
-    router.push('/home', 'back');
-  };
-
-  return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Nueva entrada</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent className="ion-padding">
-        <IonItem>
-          <IonLabel position="stacked">Título</IonLabel>
-          <IonInput value={title} onIonChange={e => setTitle(e.detail.value!)} />
-        </IonItem>
-        <IonItem>
-          <IonLabel position="stacked">Notas</IonLabel>
-          <IonTextarea rows={4} value={body} onIonChange={e => setBody(e.detail.value!)} />
-        </IonItem>
-
-        {photo && <IonImg src={`data:image/jpeg;base64,${photo}`} />}
-
-        <IonButton expand="block" onClick={handlePhoto}>
-          {photo ? 'Cambiar foto' : 'Agregar foto'}
-        </IonButton>
-        <IonButton expand="block" onClick={handleSave} disabled={!title}>
-          Guardar entrada
-        </IonButton>
-
-        <IonLoading isOpen={gpsLoading} message="Obteniendo ubicación..." />
-      </IonContent>
-    </IonPage>
-  );
-};
-
-export default NewEntry;
-```
-
----
-
-## 🔀 Routing
-
-```typescript
-// src/App.tsx
-import { IonApp, IonRouterOutlet, IonTabBar, IonTabButton,
-         IonTabs, IonIcon, IonLabel } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
-import { Redirect, Route } from 'react-router-dom';
-import { listOutline, addOutline, mapOutline } from 'ionicons/icons';
-import { EntriesProvider } from './context/EntriesContext';
-import EntryList   from './pages/EntryList';
-import NewEntry    from './pages/NewEntry';
-import EntryDetail from './pages/EntryDetail';
-import MapView     from './pages/MapView';
-
-const App: React.FC = () => (
-  <IonApp>
-    <EntriesProvider>
-      <IonReactRouter>
-        <IonTabs>
-          <IonRouterOutlet>
-            <Route path="/home"      component={EntryList}   exact />
-            <Route path="/new"       component={NewEntry}    exact />
-            <Route path="/entry/:id" component={EntryDetail} exact />
-            <Route path="/map"       component={MapView}     exact />
-            <Route exact path="/" render={() => <Redirect to="/home" />} />
-          </IonRouterOutlet>
-
-          <IonTabBar slot="bottom">
-            <IonTabButton tab="home" href="/home">
-              <IonIcon icon={listOutline} /><IonLabel>Entradas</IonLabel>
-            </IonTabButton>
-            <IonTabButton tab="new" href="/new">
-              <IonIcon icon={addOutline} /><IonLabel>Nueva</IonLabel>
-            </IonTabButton>
-            <IonTabButton tab="map" href="/map">
-              <IonIcon icon={mapOutline} /><IonLabel>Mapa</IonLabel>
-            </IonTabButton>
-          </IonTabBar>
-        </IonTabs>
-      </IonReactRouter>
-    </EntriesProvider>
-  </IonApp>
-);
-
-export default App;
-```
+**`AdminRoutes`** está preparado para rutas de administración y puede extenderse en el futuro con pantallas de gestión de usuarios o contenido.
 
 ---
 
 ## 📲 PWA — Service Worker
 
-### `public/service-worker.js` — Estrategia Network First
-
-```javascript
-// public/service-worker.js
-const CACHE = 'visual-diary-v1';
-const ASSETS = ['/', '/index.html'];
-
-self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
-});
-
-self.addEventListener('fetch', e => {
-  e.respondWith(
-    fetch(e.request)
-      .then(res => {
-        const clone = res.clone();
-        caches.open(CACHE).then(c => c.put(e.request, clone));
-        return res;
-      })
-      .catch(() => caches.match(e.request))
-  );
-});
-```
-
-### Registro en `src/main.tsx`
-
-```typescript
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js');
-  });
-}
-```
-
-### `public/manifest.json`
-
-```json
-{
-  "name": "VisualDiary",
-  "short_name": "Diary",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#534AB7",
-  "icons": [
-    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
-  ]
-}
-```
-
-Conecta el manifest en `index.html`:
-
-```html
-<link rel="manifest" href="/manifest.json" />
-```
+La app es instalable como PWA en dispositivos móviles y de escritorio. El `service-worker.js` implementa una estrategia **Network First**: intenta obtener el recurso de la red, lo guarda en caché si tiene éxito, y lo sirve desde caché si no hay conexión. El `manifest.json` define el nombre, íconos, colores y modo de display `standalone` para que la app se vea como una app nativa al instalarse.
 
 ---
 
 ## 🚢 Deploy en Netlify
 
-### Opción A — Drag & Drop
+La app se despliega en Netlify como sitio estático. El archivo `_redirects` en `public/` redirige todas las rutas a `index.html` para que el enrutamiento del lado del cliente funcione correctamente.
 
-```bash
-# 1. Crear el build
-npm run build
+Las variables de entorno de Firebase y OpenCage deben configurarse en el panel de Netlify bajo **Site settings → Environment variables** antes de hacer el primer deploy.
 
-# 2. Crear archivo de redirecciones para SPA
-echo "/* /index.html 200" > dist/_redirects
-
-# 3. Arrastrar la carpeta /dist a netlify.com/drop
-```
-
-### Opción B — CLI
-
-```bash
-# Instalar CLI de Netlify
-npm install -g netlify-cli
-
-# Login
-netlify login
-
-# Deploy a producción
-netlify deploy --prod --dir=dist
-```
-
-### Actualizar un Deploy Existente
-
-```bash
-# Reconstruir y redesplegar
-npm run build
-netlify deploy --prod --dir=dist
-```
-
-**Salida esperada:**
-```
-Deploy path: dist/
-Deploying to main site URL...
-✔  Deploy is live!
-
-Website URL: https://visual-diary-xxxx.netlify.app
-```
+| Paso | Comando |
+|------|---------|
+| Crear build | `npm run build` |
+| Deploy por CLI | `netlify deploy --prod --dir=dist` |
 
 ---
 
-## ✅ Checklist de la Materia
+## 🔌 APIs Consumidas
 
-| Tema del Curso | Implementación en el Proyecto |
-|---|---|
-| React — componentes, estado, props | Todos los componentes y páginas |
-| `useState` / `useEffect` / `useContext` | `EntriesContext`, todos los hooks |
-| Context API | `EntriesContext.tsx` + `EntriesProvider` |
-| Routing dinámico (`/entry/:id`) | `App.tsx` → `EntryDetail` con `useParams` |
-| Ionic UI components | `IonPage`, `IonItem`, `IonButton`, `IonTabs`... |
-| Storage / persistencia local | `EntryService.ts` → `localStorage` |
-| `@capacitor/geolocation` | `useGeolocation.ts` |
-| `@capacitor/camera` | `useCamera.ts` |
-| `@capacitor/network` | `useNetwork.ts` |
-| Mapas con Leaflet | `MapView.tsx` + `react-leaflet` |
-| API REST externa (`fetch`) | `GeoService.ts` → OpenCage Geocoding API |
-| PWA (manifest + service worker) | `public/manifest.json` + `service-worker.js` |
-| Deploy en producción | Netlify — `npm run build` + `_redirects` |
+| API | Uso | Documentación |
+|-----|-----|--------------|
+| **Firebase Authentication** | Login y registro de usuarios con email/password | [firebase.google.com/docs/auth](https://firebase.google.com/docs/auth) |
+| **Firebase Firestore** | Almacenamiento de entradas y listeners en tiempo real | [firebase.google.com/docs/firestore](https://firebase.google.com/docs/firestore) |
+| **OpenCage Geocoding API** | Convertir coordenadas GPS a dirección postal legible | [opencagedata.com/api](https://opencagedata.com/api) |
+
+---
+
+## ✅ Checklist de la Rúbrica
+
+| Requisito de la Rúbrica | Estado | Implementación |
+|---|---|---|
+| Prototipo con Lovable (IA) | ✅ | [Ver prototipo](#-prototipo) |
+| App móvil fiel al prototipo | ✅ | Ionic React + SCSS modules |
+| Carpeta `Helpers` | ✅ | `formatDate.ts` · `formatAddress.ts` |
+| Carpeta `Context` | ✅ | `AuthContext` · `EntriesContext` |
+| Carpeta `Pages` con `.module.scss` | ✅ | Login, Register, EntryList, NewEntry, EntryDetail, MapView, FeedView |
+| Carpeta `Components` + `Shared` | ✅ | `EntryCard` · `MapMarker` · `Menu` |
+| Carpeta `Hooks` | ✅ | `useGeolocation` · `useCamera` · `useNetwork` · `useAuth` |
+| Carpeta `Routes` (App / User / Admin) | ✅ | `AppRoutes` · `UserRoutes` · `AdminRoutes` |
+| React | ✅ | Componentes funcionales, hooks, estado, props |
+| Sensores | ✅ | GPS (`@capacitor/geolocation`) + Cámara (`@capacitor/camera`) |
+| Memoria | ✅ | `localStorage` como caché offline + Firestore como fuente principal |
+| Bases de datos | ✅ | Firebase Firestore |
+| Firebase | ✅ | Auth + Firestore |
+| Comunicación en tiempo real | ✅ | `onSnapshot` → feed compartido en vivo |
+| Mapas | ✅ | Leaflet + react-leaflet con marcadores |
+| Login y registro real | ✅ | Firebase Authentication |
+| Almacenamiento en base de datos | ✅ | Firestore con reglas de seguridad |
+| Transacción de datos | ✅ | `addDoc` · `updateDoc` · `deleteDoc` en Firestore |
+| Documento de alcance en Git | ✅ | `/docs/ALCANCE.md` |
+| README con integrantes, prototipo y APIs | ✅ | Este archivo |
+| Ramas mezcladas en `main` | ✅ | Ver tabla de integrantes |
+| Deploy en producción | ✅ | Netlify |
 
 ---
 
 ## 📚 Referencias
 
 - 📘 [Ionic React Documentation](https://ionicframework.com/docs/react)
+- 📘 [Firebase Authentication](https://firebase.google.com/docs/auth/web/start)
+- 📘 [Firebase Firestore](https://firebase.google.com/docs/firestore/quickstart)
 - 📘 [Capacitor Geolocation](https://capacitorjs.com/docs/apis/geolocation)
 - 📘 [Capacitor Camera](https://capacitorjs.com/docs/apis/camera)
 - 📘 [Capacitor Network](https://capacitorjs.com/docs/apis/network)
@@ -763,4 +454,4 @@ Website URL: https://visual-diary-xxxx.netlify.app
 
 ---
 
-*Última actualización: Mayo 2026*
+*Proyecto Final — Desarrollo de Software para Plataformas Móviles — UAO — 2026*
