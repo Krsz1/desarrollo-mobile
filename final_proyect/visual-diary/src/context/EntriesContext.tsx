@@ -3,7 +3,6 @@ import {
   collection,
   query,
   where,
-  orderBy,
   onSnapshot,
 } from "firebase/firestore";
 import { db } from "../services/FirebaseService";
@@ -43,15 +42,33 @@ export const EntriesProvider: React.FC<{ children: React.ReactNode }> = ({ child
     setLoading(true);
     const q = query(
       collection(db, "entries"),
-      where("userId", "==", user.uid),
-      orderBy("createdAt", "desc")
+      where("userId", "==", user.uid)
     );
-    const unsub = onSnapshot(q, (snapshot) => {
-      setEntries(
-        snapshot.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<Entry, "id">) }))
-      );
-      setLoading(false);
-    });
+    const unsub = onSnapshot(
+      q,
+      (snapshot) => {
+        const docs = snapshot.docs.map((d) => ({
+          id: d.id,
+          ...(d.data() as Omit<Entry, "id">),
+        }));
+        // Sort client-side to avoid composite index requirement
+        docs.sort((a, b) => {
+          const ta = a.createdAt && typeof (a.createdAt as any).toMillis === "function"
+            ? (a.createdAt as any).toMillis()
+            : new Date(a.createdAt as string).getTime();
+          const tb = b.createdAt && typeof (b.createdAt as any).toMillis === "function"
+            ? (b.createdAt as any).toMillis()
+            : new Date(b.createdAt as string).getTime();
+          return tb - ta;
+        });
+        setEntries(docs);
+        setLoading(false);
+      },
+      (error) => {
+        console.error("EntriesContext onSnapshot error:", error);
+        setLoading(false);
+      }
+    );
     return unsub;
   }, [user]);
 

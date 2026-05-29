@@ -10,7 +10,7 @@ import {
   orderBy,
   onSnapshot,
   Timestamp,
-} from "firebase/firestore";
+} from "firebase/firestore";;
 import { db } from "./FirebaseService";
 import { Entry, NewEntryData } from "../types/Entry";
 
@@ -61,15 +61,26 @@ export const getEntries = async (userId: string): Promise<Entry[]> => {
 export const realtimeFeed = (
   callback: (entries: Entry[]) => void
 ): (() => void) => {
-  const q = query(
-    collection(db, COLLECTION),
-    orderBy("createdAt", "desc")
+  const q = query(collection(db, COLLECTION));
+  return onSnapshot(
+    q,
+    (snapshot) => {
+      const entries: Entry[] = snapshot.docs
+        .map((d) => ({ id: d.id, ...(d.data() as Omit<Entry, "id">) }))
+        .sort((a, b) => {
+          const ta = a.createdAt && typeof (a.createdAt as any).toMillis === "function"
+            ? (a.createdAt as any).toMillis()
+            : new Date(a.createdAt as string).getTime();
+          const tb = b.createdAt && typeof (b.createdAt as any).toMillis === "function"
+            ? (b.createdAt as any).toMillis()
+            : new Date(b.createdAt as string).getTime();
+          return tb - ta;
+        });
+      callback(entries);
+    },
+    (error) => {
+      console.error("realtimeFeed onSnapshot error:", error);
+      callback([]);
+    }
   );
-  return onSnapshot(q, (snapshot) => {
-    const entries: Entry[] = snapshot.docs.map((d) => ({
-      id: d.id,
-      ...(d.data() as Omit<Entry, "id">),
-    }));
-    callback(entries);
-  });
 };

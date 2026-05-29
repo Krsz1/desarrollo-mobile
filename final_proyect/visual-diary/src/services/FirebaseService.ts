@@ -20,6 +20,11 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-getAnalytics(app);
+// Analytics is not available in all environments (e.g. Android WebView)
+try {
+  getAnalytics(app);
+} catch (e) {
+  console.warn("Analytics not available in this environment:", e);
+}
 
 export default app;
