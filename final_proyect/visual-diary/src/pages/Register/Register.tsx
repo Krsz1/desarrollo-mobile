@@ -50,8 +50,8 @@ const Register: React.FC = () => {
       <IonContent scrollY={false}>
         <div className={styles.registerPage}>
           <div className={styles.brand}>
-            <div className={styles.logo}>📓</div>
-            <h1>VisualDiary</h1>
+            <div className={styles.logo}>🌙</div>
+            <h1>Lunara</h1>
             <p>Create your free account</p>
           </div>
 

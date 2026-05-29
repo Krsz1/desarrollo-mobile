@@ -1,0 +1,110 @@
+﻿/* ═══════════════════════════════════════════════════════
+   Lunara — Premium Dark Map Overrides
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Attribution bar ──────────────────────────────────── */
+.leaflet-control-attribution {
+  background: rgba(19, 20, 26, 0.82) !important;
+  color: #555b72 !important;
+  font-size: 10px;
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px 0 0 0;
+}
+.leaflet-control-attribution a {
+  color: #9499b0 !important;
+}
+
+/* ── Zoom controls ────────────────────────────────────── */
+.leaflet-control-zoom a {
+  background: #1e2028 !important;
+  color: #f0f2ff !important;
+  border-color: #2e3140 !important;
+  font-weight: 300;
+  transition: background 0.15s, color 0.15s;
+}
+.leaflet-control-zoom a:hover {
+  background: #252830 !important;
+  color: #ffffff !important;
+}
+.leaflet-bar {
+  border: 1px solid #2e3140 !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* ── Custom pin pulse animation ───────────────────────── */
+@keyframes lunaraPinPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 4px 10px rgba(139, 30, 63, 0.55));
+  }
+  50% {
+    transform: scale(1.08);
+    filter: drop-shadow(0 6px 18px rgba(161, 44, 79, 0.8));
+  }
+}
+
+.lunara-pin-inner {
+  display: block;
+  transform-origin: bottom center;
+  animation: lunaraPinPulse 3s ease-in-out infinite;
+}
+
+/* ── Dark premium popup ───────────────────────────────── */
+.lunara-popup .leaflet-popup-content-wrapper {
+  background: #1e2028 !important;
+  border: 1px solid #2e3140 !important;
+  border-radius: 12px !important;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(139, 30, 63, 0.18) !important;
+  padding: 0 !important;
+  overflow: hidden;
+  min-width: 160px;
+}
+
+.lunara-popup .leaflet-popup-content {
+  margin: 0 !important;
+  padding: 14px 16px !important;
+  color: #f0f2ff !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  line-height: 1.55 !important;
+}
+
+.lunara-popup .leaflet-popup-content strong {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #f0f2ff;
+  margin-bottom: 4px;
+}
+
+.lunara-popup .leaflet-popup-content small {
+  color: #9499b0;
+  font-size: 0.74rem;
+  display: block;
+  margin-top: 2px;
+}
+
+.lunara-popup .leaflet-popup-tip-container {
+  display: none;
+}
+
+.lunara-popup .leaflet-popup-close-button {
+  color: #9499b0 !important;
+  top: 7px !important;
+  right: 10px !important;
+  font-size: 18px !important;
+  line-height: 1 !important;
+  width: 20px !important;
+  height: 20px !important;
+  transition: color 0.15s;
+}
+
+.lunara-popup .leaflet-popup-close-button:hover {
+  color: #f0f2ff !important;
+  background: transparent !important;
+}

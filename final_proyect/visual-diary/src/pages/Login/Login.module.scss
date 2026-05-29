@@ -5,7 +5,9 @@
   align-items: center;
   min-height: 100%;
   padding: 2rem 1.5rem;
-  background: var(--vd-bg);
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 0%, rgba(139, 30, 63, 0.14) 0%, transparent 65%),
+    var(--vd-bg);
 
   .brand {
     display: flex;
@@ -18,24 +20,25 @@
       width: 64px;
       height: 64px;
       border-radius: 18px;
-      background: linear-gradient(135deg, var(--vd-accent), var(--vd-accent-2));
+      background: linear-gradient(135deg, #6E1F32, #A12C4F);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 2rem;
       margin-bottom: 0.5rem;
-      box-shadow: 0 8px 32px var(--vd-accent-glow);
+      box-shadow: 0 8px 32px rgba(139, 30, 63, 0.38), 0 0 0 1px rgba(161, 44, 79, 0.2);
     }
 
     h1 {
-      font-size: 1.8rem;
-      font-weight: 800;
+      font-size: 2.6rem;
+      font-weight: 700;
       margin: 0;
-      background: linear-gradient(90deg, var(--vd-accent), var(--vd-accent-2));
+      font-family: var(--lunara-serif);
+      background: linear-gradient(135deg, #C4607A 0%, #8B1E3F 50%, #A12C4F 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      letter-spacing: -0.5px;
+      letter-spacing: 1px;
     }
 
     p {

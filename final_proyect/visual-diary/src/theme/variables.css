@@ -1,17 +1,17 @@
 /* VisualDiary — Premium Dark Theme */
 
 :root {
-  /* ── Brand palette ─────────────────────────────── */
-  --vd-bg:           #13141A;
-  --vd-surface:      #1E2028;
-  --vd-surface-2:    #252830;
-  --vd-border:       #2E3140;
-  --vd-accent:       #5B7FFF;
-  --vd-accent-glow:  rgba(91, 127, 255, 0.18);
-  --vd-accent-2:     #7C5CFF;
-  --vd-text:         #F0F2FF;
-  --vd-text-sub:     #9499B0;
-  --vd-text-muted:   #555B72;
+  /* ── Brand palette — Lunara burgundy ───────────── */
+  --vd-bg:           #121218;
+  --vd-surface:      #1A1B23;
+  --vd-surface-2:    #22232E;
+  --vd-border:       #2C2D3C;
+  --vd-accent:       #8B1E3F;
+  --vd-accent-glow:  rgba(139, 30, 63, 0.18);
+  --vd-accent-2:     #A12C4F;
+  --vd-text:         #F2EEF5;
+  --vd-text-sub:     #9A94A8;
+  --vd-text-muted:   #56526A;
   --vd-danger:       #FF5370;
   --vd-success:      #3DDC97;
   --vd-radius:       14px;
@@ -31,10 +31,10 @@
   --ion-tab-bar-background:        var(--vd-surface);
   --ion-tab-bar-border-color:      var(--vd-border);
   --ion-color-primary:             var(--vd-accent);
-  --ion-color-primary-rgb:         91, 127, 255;
+  --ion-color-primary-rgb:         139, 30, 63;
   --ion-color-primary-contrast:    #ffffff;
-  --ion-color-primary-shade:       #4F6FDD;
-  --ion-color-primary-tint:        #6D8FFF;
+  --ion-color-primary-shade:       #6E1F32;
+  --ion-color-primary-tint:        #A12C4F;
   --ion-color-danger:              var(--vd-danger);
   --ion-color-danger-rgb:          255, 83, 112;
   --ion-color-danger-contrast:     #ffffff;
@@ -48,6 +48,7 @@
 
   /* ── Typography ─────────────────────────────────── */
   --ion-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --lunara-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
 }
 
 /* Force dark everywhere — no system-preference override */

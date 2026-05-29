@@ -16,6 +16,7 @@ import '@ionic/react/css/display.css';
 import '@ionic/react/css/palettes/dark.system.css';
 
 import './theme/variables.css';
+import './theme/map-overrides.css';
 
 import { AuthProvider } from './context/AuthContext';
 import AppRoutes from './routes/AppRoutes';

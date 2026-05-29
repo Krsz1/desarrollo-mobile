@@ -41,9 +41,9 @@ const Login: React.FC = () => {
       <IonContent scrollY={false}>
         <div className={styles.loginPage}>
           <div className={styles.brand}>
-            <div className={styles.logo}>📓</div>
-            <h1>VisualDiary</h1>
-            <p>Your personal visual diary</p>
+            <div className={styles.logo}>🌙</div>
+            <h1>Lunara</h1>
+            <p>Capture moments beautifully.</p>
           </div>
 
           <div className={styles.form}>

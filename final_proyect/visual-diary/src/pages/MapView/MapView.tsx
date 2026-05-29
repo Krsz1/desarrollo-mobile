@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+﻿import React, { useEffect, useRef, useState } from "react";
 import {
   IonContent,
   IonHeader,
@@ -7,13 +7,13 @@ import {
   IonToolbar,
   useIonViewDidEnter,
 } from "@ionic/react";
-import { MapContainer, TileLayer, useMap, CircleMarker, Tooltip } from "react-leaflet";
+import { MapContainer, TileLayer, CircleMarker, useMap } from "react-leaflet";
+import { Geolocation } from "@capacitor/geolocation";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
-import { Geolocation } from "@capacitor/geolocation";
 import { useEntries } from "../../context/EntriesContext";
 import MapMarker from "../../components/MapMarker/MapMarker";
 import styles from "./MapView.module.scss";
@@ -36,21 +36,20 @@ const ResizeMap: React.FC = () => {
   return null;
 };
 
-// Centers map on a given position once, after container is ready
-const CenterOn: React.FC<{ pos: [number, number] | null }> = ({ pos }) => {
+const SetInitialView: React.FC<{ center: [number, number] }> = ({ center }) => {
   const map = useMap();
-  const applied = useRef<string | null>(null);
+  const prevCenter = useRef<string>("");
   useEffect(() => {
-    if (!pos) return;
-    const key = pos.join(",");
-    if (applied.current === key) return;
-    applied.current = key;
+    const key = center.join(",");
+    if (prevCenter.current === key) return;
+    if (center[0] === DEFAULT_CENTER[0] && center[1] === DEFAULT_CENTER[1]) return;
+    prevCenter.current = key;
     const t = setTimeout(() => {
       map.invalidateSize();
-      map.setView(pos, 15);
+      map.setView(center, 15);
     }, 200);
     return () => clearTimeout(t);
-  }, [pos, map]);
+  }, [center, map]);
   return null;
 };
 
@@ -58,34 +57,48 @@ const MapView: React.FC = () => {
   const { entries } = useEntries();
   const mapRef = useRef<L.Map | null>(null);
   const [userPos, setUserPos] = useState<[number, number] | null>(null);
-
-  const fetchLocation = async () => {
-    try {
-      const result = await Geolocation.getCurrentPosition({
-        enableHighAccuracy: true,
-        timeout: 10000,
-      });
-      setUserPos([result.coords.latitude, result.coords.longitude]);
-    } catch {
-      // Fall back to first entry if GPS unavailable
-    }
-  };
+  const watchIdRef = useRef<string | null>(null);
 
   useEffect(() => {
-    fetchLocation();
+    let cancelled = false;
+
+    const startWatch = async () => {
+      try {
+        // watchPosition delivers network position first (fast), then refines with GPS
+        watchIdRef.current = await Geolocation.watchPosition(
+          { enableHighAccuracy: true, timeout: 10000 },
+          (pos) => {
+            if (!cancelled && pos) {
+              setUserPos([pos.coords.latitude, pos.coords.longitude]);
+            }
+          }
+        );
+      } catch { /* no permission */ }
+    };
+
+    startWatch();
+
+    return () => {
+      cancelled = true;
+      if (watchIdRef.current !== null) {
+        Geolocation.clearWatch({ id: watchIdRef.current });
+        watchIdRef.current = null;
+      }
+    };
   }, []);
 
   useIonViewDidEnter(() => {
     mapRef.current?.invalidateSize();
-    fetchLocation();
   });
 
   const validEntries = entries.filter((e) => e.latitude && e.longitude);
 
-  // Priority: real-time GPS → first entry → default
-  const centerTarget: [number, number] | null =
+  // Priority: real GPS → first saved entry → Bogotá default
+  const center: [number, number] =
     userPos ??
-    (validEntries.length > 0 ? [validEntries[0].latitude, validEntries[0].longitude] : null);
+    (validEntries.length > 0
+      ? [validEntries[0].latitude, validEntries[0].longitude]
+      : DEFAULT_CENTER);
 
   return (
     <IonPage>
@@ -102,27 +115,37 @@ const MapView: React.FC = () => {
           ref={(m) => { mapRef.current = m; }}
         >
           <ResizeMap />
-          <CenterOn pos={centerTarget} />
+          <SetInitialView center={center} />
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
           />
-          {/* Real-time "You are here" dot */}
           {userPos && (
-            <CircleMarker
-              center={userPos}
-              radius={10}
-              pathOptions={{
-                color: "#5B7FFF",
-                fillColor: "#5B7FFF",
-                fillOpacity: 0.9,
-                weight: 3,
-              }}
-            >
-              <Tooltip permanent direction="top" offset={[0, -12]}>
-                You
-              </Tooltip>
-            </CircleMarker>
+            <>
+              {/* Outer glow ring */}
+              <CircleMarker
+                center={userPos}
+                radius={18}
+                pathOptions={{
+                  color: "#8B1E3F",
+                  fillColor: "transparent",
+                  fillOpacity: 0,
+                  weight: 1.5,
+                  opacity: 0.35,
+                }}
+              />
+              {/* Inner solid dot */}
+              <CircleMarker
+                center={userPos}
+                radius={7}
+                pathOptions={{
+                  color: "#A12C4F",
+                  fillColor: "#8B1E3F",
+                  fillOpacity: 0.95,
+                  weight: 2,
+                }}
+              />
+            </>
           )}
           {validEntries.map((entry) => (
             <MapMarker key={entry.id} entry={entry} />
@@ -134,4 +157,3 @@ const MapView: React.FC = () => {
 };
 
 export default MapView;
-
