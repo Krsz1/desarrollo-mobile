@@ -1,0 +1,7 @@
+{
+  "name": "visual-diary",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
