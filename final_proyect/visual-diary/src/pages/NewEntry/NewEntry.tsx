@@ -8,8 +8,6 @@ import {
   IonButton,
   IonButtons,
   IonIcon,
-  IonItem,
-  IonLabel,
   IonInput,
   IonTextarea,
   IonSpinner,
@@ -108,30 +106,31 @@ const NewEntry: React.FC = () => {
             <span>Toca para agregar foto</span>
           </div>
         )}
-        <IonItem>
-          <IonLabel position="floating">Título *</IonLabel>
+        <div className={styles.inputField}>
           <IonInput
+            placeholder="Título *"
             value={title}
             onIonChange={(e) => setTitle(e.detail.value ?? "")}
             maxlength={80}
           />
-        </IonItem>
-        <IonItem>
-          <IonLabel position="floating">Descripción</IonLabel>
+        </div>
+        <div className={styles.inputField}>
           <IonTextarea
+            placeholder="Descripción (opcional)"
             value={description}
             onIonChange={(e) => setDescription(e.detail.value ?? "")}
             rows={4}
+            autoGrow
           />
-        </IonItem>
+        </div>
         <p className={styles.locationInfo}>
           <IonIcon icon={location} />{" "}
           {gpsLoading ? "Obteniendo ubicación…" : "La ubicación GPS se detectará al guardar"}
         </p>
         {!isOnline && (
           <IonText color="warning">
-            <p style={{ padding: "0 1rem", fontSize: "0.85rem" }}>
-              Sin conexión — se guardarán las coordenadas sin reverse geocoding.
+            <p style={{ padding: "0 4px", fontSize: "0.82rem" }}>
+              Sin conexión — se guardarán las coordenadas sin geocodificación.
             </p>
           </IonText>
         )}

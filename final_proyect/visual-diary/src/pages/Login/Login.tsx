@@ -4,8 +4,6 @@ import {
   IonPage,
   IonInput,
   IonButton,
-  IonItem,
-  IonLabel,
   IonSpinner,
 } from "@ionic/react";
 import { useHistory } from "react-router-dom";
@@ -40,29 +38,39 @@ const Login: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent className="ion-padding">
+      <IonContent scrollY={false}>
         <div className={styles.loginPage}>
-          <h1>VisualDiary</h1>
+          <div className={styles.brand}>
+            <div className={styles.logo}>📓</div>
+            <h1>VisualDiary</h1>
+            <p>Tu bitácora visual personal</p>
+          </div>
+
           <div className={styles.form}>
-            <IonItem>
-              <IonLabel position="floating">Correo electrónico</IonLabel>
+            <div className={styles.inputWrapper}>
               <IonInput
                 type="email"
+                placeholder="Correo electrónico"
                 value={email}
                 onIonChange={(e) => setEmail(e.detail.value ?? "")}
                 autocomplete="email"
               />
-            </IonItem>
-            <IonItem>
-              <IonLabel position="floating">Contraseña</IonLabel>
+            </div>
+            <div className={styles.inputWrapper}>
               <IonInput
                 type="password"
+                placeholder="Contraseña"
                 value={password}
                 onIonChange={(e) => setPassword(e.detail.value ?? "")}
               />
-            </IonItem>
+            </div>
             {error && <p className={styles.errorMsg}>{error}</p>}
-            <IonButton expand="block" onClick={handleLogin} disabled={loading}>
+            <IonButton
+              expand="block"
+              className={styles.btn}
+              onClick={handleLogin}
+              disabled={loading}
+            >
               {loading ? <IonSpinner name="crescent" /> : "Iniciar sesión"}
             </IonButton>
             <p className={styles.link}>
@@ -77,3 +85,4 @@ const Login: React.FC = () => {
 };
 
 export default Login;
+

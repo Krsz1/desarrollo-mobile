@@ -44,16 +44,17 @@ const EntryList: React.FC = () => {
       </IonHeader>
       <IonContent className={styles.entryListPage}>
         {loading ? (
-          <div style={{ display: "flex", justifyContent: "center", padding: "2rem" }}>
-            <IonSpinner name="crescent" />
+          <div style={{ display: "flex", justifyContent: "center", padding: "3rem" }}>
+            <IonSpinner name="crescent" color="primary" />
           </div>
         ) : entries.length === 0 ? (
           <div className={styles.emptyState}>
-            <IonIcon icon={add} />
-            <p>No hay entradas aún. ¡Crea la primera!</p>
+            <div className={styles.emptyIcon}>📖</div>
+            <h3>Tu diario está vacío</h3>
+            <p>Toca el botón + para crear tu primera entrada</p>
           </div>
         ) : (
-          <IonList>
+          <IonList className={styles.list}>
             {entries.map((entry) => (
               <EntryCard
                 key={entry.id}

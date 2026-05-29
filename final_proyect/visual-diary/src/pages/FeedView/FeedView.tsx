@@ -24,19 +24,29 @@ const FeedView: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className={styles.feedPage}>
-        <div className={styles.liveIndicator}>
-          <span className={styles.dot} />
-          En vivo
+        <div className={styles.header}>
+          <div className={styles.liveIndicator}>
+            <span className={styles.dot} />
+            En vivo
+          </div>
+          <span className={styles.count}>{feedEntries.length} entradas</span>
         </div>
-        <IonList>
-          {feedEntries.map((entry) => (
-            <EntryCard
-              key={entry.id}
-              entry={entry}
-              onClick={() => history.push(`/entry/${entry.id}`)}
-            />
-          ))}
-        </IonList>
+        {feedEntries.length === 0 ? (
+          <div className={styles.emptyFeed}>
+            <span className={styles.emptyIcon}>📡</span>
+            <p>El feed está vacío por ahora</p>
+          </div>
+        ) : (
+          <IonList className={styles.list}>
+            {feedEntries.map((entry) => (
+              <EntryCard
+                key={entry.id}
+                entry={entry}
+                onClick={() => history.push(`/entry/${entry.id}`)}
+              />
+            ))}
+          </IonList>
+        )}
       </IonContent>
     </IonPage>
   );

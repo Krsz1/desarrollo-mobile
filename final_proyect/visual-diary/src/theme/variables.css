@@ -1,5 +1,146 @@
-/* For information on how to create your own theme, please refer to:
-http://ionicframework.com/docs/theming/ */
+/* VisualDiary — Premium Dark Theme */
+
+:root {
+  /* ── Brand palette ─────────────────────────────── */
+  --vd-bg:           #13141A;
+  --vd-surface:      #1E2028;
+  --vd-surface-2:    #252830;
+  --vd-border:       #2E3140;
+  --vd-accent:       #5B7FFF;
+  --vd-accent-glow:  rgba(91, 127, 255, 0.18);
+  --vd-accent-2:     #7C5CFF;
+  --vd-text:         #F0F2FF;
+  --vd-text-sub:     #9499B0;
+  --vd-text-muted:   #555B72;
+  --vd-danger:       #FF5370;
+  --vd-success:      #3DDC97;
+  --vd-radius:       14px;
+  --vd-radius-sm:    8px;
+  --vd-shadow:       0 4px 24px rgba(0,0,0,0.45);
+  --vd-shadow-sm:    0 2px 10px rgba(0,0,0,0.3);
+
+  /* ── Ionic color overrides ──────────────────────── */
+  --ion-background-color:          var(--vd-bg);
+  --ion-background-color-rgb:      19, 20, 26;
+  --ion-text-color:                var(--vd-text);
+  --ion-text-color-rgb:            240, 242, 255;
+  --ion-border-color:              var(--vd-border);
+  --ion-item-background:           var(--vd-surface);
+  --ion-card-background:           var(--vd-surface-2);
+  --ion-toolbar-background:        var(--vd-surface);
+  --ion-tab-bar-background:        var(--vd-surface);
+  --ion-tab-bar-border-color:      var(--vd-border);
+  --ion-color-primary:             var(--vd-accent);
+  --ion-color-primary-rgb:         91, 127, 255;
+  --ion-color-primary-contrast:    #ffffff;
+  --ion-color-primary-shade:       #4F6FDD;
+  --ion-color-primary-tint:        #6D8FFF;
+  --ion-color-danger:              var(--vd-danger);
+  --ion-color-danger-rgb:          255, 83, 112;
+  --ion-color-danger-contrast:     #ffffff;
+  --ion-color-danger-shade:        #E04060;
+  --ion-color-danger-tint:         #FF6B84;
+  --ion-color-medium:              var(--vd-text-sub);
+  --ion-color-medium-rgb:          148, 153, 176;
+  --ion-color-medium-contrast:     #ffffff;
+  --ion-color-medium-shade:        #7A7F96;
+  --ion-color-medium-tint:         #A0A5BE;
+
+  /* ── Typography ─────────────────────────────────── */
+  --ion-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Force dark everywhere — no system-preference override */
+body {
+  background-color: var(--vd-bg) !important;
+  color: var(--vd-text) !important;
+}
+
+/* ── Toolbar ──────────────────────────────────────── */
+ion-toolbar {
+  --background: var(--vd-surface);
+  --border-color: var(--vd-border);
+  --color: var(--vd-text);
+  --padding-start: 16px;
+  --padding-end: 16px;
+}
+
+ion-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.3px;
+  color: var(--vd-text);
+}
+
+/* ── Tab bar ──────────────────────────────────────── */
+ion-tab-bar {
+  --background: var(--vd-surface);
+  --border: 1px solid var(--vd-border);
+  height: 60px;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+ion-tab-button {
+  --color: var(--vd-text-muted);
+  --color-selected: var(--vd-accent);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+ion-tab-button ion-icon {
+  font-size: 1.35rem;
+  margin-bottom: 2px;
+}
+
+/* ── Content ──────────────────────────────────────── */
+ion-content {
+  --background: var(--vd-bg);
+  --padding-top: 0;
+}
+
+/* ── Items ────────────────────────────────────────── */
+ion-item {
+  --background: var(--vd-surface);
+  --background-activated: var(--vd-surface-2);
+  --border-color: var(--vd-border);
+  --color: var(--vd-text);
+  --inner-padding-end: 12px;
+  --padding-start: 16px;
+  --min-height: 52px;
+}
+
+/* ── Inputs ───────────────────────────────────────── */
+ion-input {
+  --color: var(--vd-text);
+  --placeholder-color: var(--vd-text-muted);
+  --background: transparent;
+}
+
+ion-textarea {
+  --color: var(--vd-text);
+  --placeholder-color: var(--vd-text-muted);
+}
+
+/* ── Buttons ──────────────────────────────────────── */
+ion-button {
+  --border-radius: var(--vd-radius-sm);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-transform: none;
+}
+
+/* ── List ─────────────────────────────────────────── */
+ion-list {
+  background: transparent !important;
+  padding: 0;
+}
+
+/* ── Back button ──────────────────────────────────── */
+ion-back-button {
+  --color: var(--vd-accent);
+}
+
 
 :root {
   --ion-color-primary: #3880ff;

@@ -1,30 +1,65 @@
 .detailPage {
   .heroImage {
     width: 100%;
-    max-height: 300px;
+    height: 260px;
     object-fit: cover;
+    display: block;
   }
 
   .card {
-    margin: 1rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    margin: 14px 14px 0;
+    padding: 18px 16px;
+    border-radius: var(--vd-radius);
+    background: var(--vd-surface);
+    border: 1px solid var(--vd-border);
+  }
+
+  .title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--vd-text);
+    margin: 0 0 10px;
+    line-height: 1.35;
   }
 
   .date {
     display: flex;
     align-items: center;
-    gap: 4px;
-    font-size: 0.82rem;
-    color: var(--ion-color-medium);
-    margin-bottom: 1rem;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: var(--vd-text-muted);
+    margin-bottom: 14px;
+
+    ion-icon {
+      font-size: 0.95rem;
+      color: var(--vd-accent);
+      flex-shrink: 0;
+    }
   }
 
   .description {
-    font-size: 1rem;
+    font-size: 0.96rem;
     line-height: 1.7;
     white-space: pre-wrap;
-    color: var(--ion-text-color);
+    color: var(--vd-text-sub);
+    margin: 0 0 16px;
+  }
+
+  .locationChip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--vd-surface-2);
+    border: 1px solid var(--vd-border);
+    border-radius: 99px;
+    padding: 5px 12px;
+    font-size: 0.78rem;
+    color: var(--vd-text-sub);
+
+    ion-icon {
+      color: var(--vd-accent);
+      font-size: 0.9rem;
+    }
   }
 }
 

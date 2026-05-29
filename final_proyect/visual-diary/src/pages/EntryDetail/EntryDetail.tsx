@@ -17,7 +17,6 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
-  IonCardSubtitle,
 } from "@ionic/react";
 import { trashOutline, locationOutline, timeOutline } from "ionicons/icons";
 import { useParams, useHistory } from "react-router-dom";
@@ -104,11 +103,6 @@ const EntryDetail: React.FC = () => {
         <IonCard className={styles.card}>
           <IonCardHeader>
             <IonCardTitle>{entry.title}</IonCardTitle>
-            {entry.address && (
-              <IonCardSubtitle>
-                <IonIcon icon={locationOutline} /> {formatAddress(entry.address, 60)}
-              </IonCardSubtitle>
-            )}
           </IonCardHeader>
           <IonCardContent>
             <p className={styles.date}>
@@ -116,6 +110,11 @@ const EntryDetail: React.FC = () => {
             </p>
             {entry.description && (
               <p className={styles.description}>{entry.description}</p>
+            )}
+            {entry.address && (
+              <span className={styles.locationChip}>
+                <IonIcon icon={locationOutline} /> {formatAddress(entry.address, 60)}
+              </span>
             )}
           </IonCardContent>
         </IonCard>

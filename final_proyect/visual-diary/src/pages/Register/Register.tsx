@@ -4,8 +4,6 @@ import {
   IonPage,
   IonInput,
   IonButton,
-  IonItem,
-  IonLabel,
   IonSpinner,
 } from "@ionic/react";
 import { useHistory } from "react-router-dom";
@@ -49,38 +47,48 @@ const Register: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent className="ion-padding">
+      <IonContent scrollY={false}>
         <div className={styles.registerPage}>
-          <h1>Crear cuenta</h1>
+          <div className={styles.brand}>
+            <div className={styles.logo}>📓</div>
+            <h1>VisualDiary</h1>
+            <p>Crea tu cuenta gratuita</p>
+          </div>
+
           <div className={styles.form}>
-            <IonItem>
-              <IonLabel position="floating">Correo electrónico</IonLabel>
+            <div className={styles.inputWrapper}>
               <IonInput
                 type="email"
+                placeholder="Correo electrónico"
                 value={email}
                 onIonChange={(e) => setEmail(e.detail.value ?? "")}
                 autocomplete="email"
               />
-            </IonItem>
-            <IonItem>
-              <IonLabel position="floating">Contraseña</IonLabel>
+            </div>
+            <div className={styles.inputWrapper}>
               <IonInput
                 type="password"
+                placeholder="Contraseña (mín. 6 caracteres)"
                 value={password}
                 onIonChange={(e) => setPassword(e.detail.value ?? "")}
               />
-            </IonItem>
-            <IonItem>
-              <IonLabel position="floating">Confirmar contraseña</IonLabel>
+            </div>
+            <div className={styles.inputWrapper}>
               <IonInput
                 type="password"
+                placeholder="Confirmar contraseña"
                 value={confirm}
                 onIonChange={(e) => setConfirm(e.detail.value ?? "")}
               />
-            </IonItem>
+            </div>
             {error && <p className={styles.errorMsg}>{error}</p>}
-            <IonButton expand="block" onClick={handleRegister} disabled={loading}>
-              {loading ? <IonSpinner name="crescent" /> : "Registrarse"}
+            <IonButton
+              expand="block"
+              className={styles.btn}
+              onClick={handleRegister}
+              disabled={loading}
+            >
+              {loading ? <IonSpinner name="crescent" /> : "Crear cuenta"}
             </IonButton>
             <p className={styles.link}>
               ¿Ya tienes cuenta?{" "}
@@ -94,3 +102,4 @@ const Register: React.FC = () => {
 };
 
 export default Register;
+
