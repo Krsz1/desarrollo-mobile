@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   IonContent,
   IonHeader,
   IonPage,
   IonTitle,
   IonToolbar,
+  useIonViewDidEnter,
 } from "@ionic/react";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
@@ -26,8 +27,24 @@ L.Icon.Default.mergeOptions({
 
 const DEFAULT_CENTER: [number, number] = [4.711, -74.0721]; // Bogotá
 
+// Helper: forces Leaflet to recalculate tile layout after the container is sized
+const ResizeMap: React.FC = () => {
+  const map = useMap();
+  useEffect(() => {
+    const t = setTimeout(() => map.invalidateSize(), 150);
+    return () => clearTimeout(t);
+  }, [map]);
+  return null;
+};
+
 const MapView: React.FC = () => {
   const { entries } = useEntries();
+  const mapRef = useRef<L.Map | null>(null);
+
+  // Re-invalidate every time the user switches back to this tab
+  useIonViewDidEnter(() => {
+    mapRef.current?.invalidateSize();
+  });
 
   const center: [number, number] =
     entries.length > 0 && entries[0].latitude
@@ -41,27 +58,28 @@ const MapView: React.FC = () => {
           <IonTitle>Mapa</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent className={styles.mapPage}>
-        <div className={styles.mapContainer}>
-          <MapContainer
-            center={center}
-            zoom={13}
-            style={{ height: "100%", width: "100%" }}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {entries
-              .filter((e) => e.latitude && e.longitude)
-              .map((entry) => (
-                <MapMarker key={entry.id} entry={entry} />
-              ))}
-          </MapContainer>
-        </div>
+      <IonContent scrollY={false} className={styles.mapPage}>
+        <MapContainer
+          center={center}
+          zoom={13}
+          className={styles.mapContainer}
+          ref={(m) => { mapRef.current = m; }}
+        >
+          <ResizeMap />
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {entries
+            .filter((e) => e.latitude && e.longitude)
+            .map((entry) => (
+              <MapMarker key={entry.id} entry={entry} />
+            ))}
+        </MapContainer>
       </IonContent>
     </IonPage>
   );
 };
 
 export default MapView;
+
