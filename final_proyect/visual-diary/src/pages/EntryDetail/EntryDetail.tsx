@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import {
   IonPage,
   IonHeader,
@@ -13,10 +13,6 @@ import {
   IonImg,
   IonText,
   IonSpinner,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
 } from "@ionic/react";
 import { trashOutline, locationOutline, timeOutline } from "ionicons/icons";
 import { useParams, useHistory } from "react-router-dom";
@@ -92,32 +88,32 @@ const EntryDetail: React.FC = () => {
       </IonHeader>
 
       <IonContent className={styles.detailPage}>
-        {entry.image && (
+        {entry.image ? (
           <IonImg
             src={`data:image/jpeg;base64,${entry.image}`}
             className={styles.heroImage}
             alt={entry.title}
           />
+        ) : (
+          <div className={styles.heroPlaceholder} />
         )}
 
-        <IonCard className={styles.card}>
-          <IonCardHeader>
-            <IonCardTitle>{entry.title}</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            <p className={styles.date}>
-              <IonIcon icon={timeOutline} /> {formatDate(entry.createdAt)}
-            </p>
-            {entry.description && (
-              <p className={styles.description}>{entry.description}</p>
-            )}
-            {entry.address && (
-              <span className={styles.locationChip}>
-                <IonIcon icon={locationOutline} /> {formatAddress(entry.address, 60)}
-              </span>
-            )}
-          </IonCardContent>
-        </IonCard>
+        <div className={styles.card}>
+          <h2 className={styles.title}>{entry.title}</h2>
+          <p className={styles.date}>
+            <IonIcon icon={timeOutline} />
+            {formatDate(entry.createdAt)}
+          </p>
+          {entry.description && (
+            <p className={styles.description}>{entry.description}</p>
+          )}
+          {entry.address && (
+            <span className={styles.locationChip}>
+              <IonIcon icon={locationOutline} />
+              {formatAddress(entry.address, 60)}
+            </span>
+          )}
+        </div>
 
         <IonAlert
           isOpen={showAlert}

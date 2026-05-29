@@ -1,48 +1,57 @@
 .detailPage {
   .heroImage {
     width: 100%;
-    height: 260px;
+    height: 280px;
     object-fit: cover;
     display: block;
   }
 
+  .heroPlaceholder {
+    width: 100%;
+    height: 80px;
+    background: var(--vd-surface);
+  }
+
   .card {
-    margin: 14px 14px 0;
+    margin: 14px 14px 24px;
     padding: 18px 16px;
     border-radius: var(--vd-radius);
     background: var(--vd-surface);
     border: 1px solid var(--vd-border);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .title {
-    font-size: 1.25rem;
+    margin: 0;
+    font-size: 1.2rem;
     font-weight: 700;
     color: var(--vd-text);
-    margin: 0 0 10px;
-    line-height: 1.35;
+    line-height: 1.3;
   }
 
   .date {
+    margin: 0;
     display: flex;
     align-items: center;
     gap: 6px;
     font-size: 0.78rem;
     color: var(--vd-text-muted);
-    margin-bottom: 14px;
 
     ion-icon {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: var(--vd-accent);
       flex-shrink: 0;
     }
   }
 
   .description {
+    margin: 0;
     font-size: 0.96rem;
     line-height: 1.7;
     white-space: pre-wrap;
     color: var(--vd-text-sub);
-    margin: 0 0 16px;
   }
 
   .locationChip {
@@ -55,10 +64,12 @@
     padding: 5px 12px;
     font-size: 0.78rem;
     color: var(--vd-text-sub);
+    align-self: flex-start;
 
     ion-icon {
       color: var(--vd-accent);
       font-size: 0.9rem;
+      flex-shrink: 0;
     }
   }
 }
