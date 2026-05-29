@@ -20,7 +20,6 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-// Analytics is not available in all environments (e.g. Android WebView)
 try {
   getAnalytics(app);
 } catch (e) {
