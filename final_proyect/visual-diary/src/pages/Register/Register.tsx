@@ -22,15 +22,15 @@ const Register: React.FC = () => {
 
   const handleRegister = async () => {
     if (!email || !password || !confirm) {
-      setError("Por favor completa todos los campos.");
+      setError("Please fill in all fields.");
       return;
     }
     if (password !== confirm) {
-      setError("Las contraseñas no coinciden.");
+      setError("Passwords don't match.");
       return;
     }
     if (password.length < 6) {
-      setError("La contraseña debe tener al menos 6 caracteres.");
+      setError("Password must be at least 6 characters.");
       return;
     }
     setError("");
@@ -39,7 +39,7 @@ const Register: React.FC = () => {
       await register(email, password);
       history.replace("/home");
     } catch {
-      setError("No se pudo crear la cuenta. Verifica el correo ingresado.");
+      setError("Could not create account. Please check your email.");
     } finally {
       setLoading(false);
     }
@@ -52,14 +52,14 @@ const Register: React.FC = () => {
           <div className={styles.brand}>
             <div className={styles.logo}>📓</div>
             <h1>VisualDiary</h1>
-            <p>Crea tu cuenta gratuita</p>
+            <p>Create your free account</p>
           </div>
 
           <div className={styles.form}>
             <div className={styles.inputWrapper}>
               <IonInput
                 type="email"
-                placeholder="Correo electrónico"
+                placeholder="Email"
                 value={email}
                 onIonChange={(e) => setEmail(e.detail.value ?? "")}
                 autocomplete="email"
@@ -68,7 +68,7 @@ const Register: React.FC = () => {
             <div className={styles.inputWrapper}>
               <IonInput
                 type="password"
-                placeholder="Contraseña (mín. 6 caracteres)"
+                placeholder="Password (min. 6 characters)"
                 value={password}
                 onIonChange={(e) => setPassword(e.detail.value ?? "")}
               />
@@ -76,7 +76,7 @@ const Register: React.FC = () => {
             <div className={styles.inputWrapper}>
               <IonInput
                 type="password"
-                placeholder="Confirmar contraseña"
+                placeholder="Confirm password"
                 value={confirm}
                 onIonChange={(e) => setConfirm(e.detail.value ?? "")}
               />
@@ -88,11 +88,11 @@ const Register: React.FC = () => {
               onClick={handleRegister}
               disabled={loading}
             >
-              {loading ? <IonSpinner name="crescent" /> : "Crear cuenta"}
+              {loading ? <IonSpinner name="crescent" /> : "Create account"}
             </IonButton>
             <p className={styles.link}>
-              ¿Ya tienes cuenta?{" "}
-              <a onClick={() => history.push("/login")}>Inicia sesión</a>
+              Already have an account?{" "}
+              <a onClick={() => history.push("/login")}>Sign in</a>
             </p>
           </div>
         </div>

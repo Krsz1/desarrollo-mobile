@@ -28,11 +28,11 @@ const Menu: React.FC = () => {
           <IonMenuToggle autoHide={false}>
             <IonItem button routerLink="/home" routerDirection="root">
               <IonIcon slot="start" icon={bookOutline} />
-              <IonLabel>Mi Diario</IonLabel>
+              <IonLabel>My Diary</IonLabel>
             </IonItem>
             <IonItem button routerLink="/map" routerDirection="root">
               <IonIcon slot="start" icon={mapOutline} />
-              <IonLabel>Mapa</IonLabel>
+              <IonLabel>Map</IonLabel>
             </IonItem>
             <IonItem button routerLink="/feed" routerDirection="root">
               <IonIcon slot="start" icon={peopleOutline} />
@@ -40,7 +40,7 @@ const Menu: React.FC = () => {
             </IonItem>
             <IonItem button onClick={handleLogout}>
               <IonIcon slot="start" icon={logOutOutline} />
-              <IonLabel>Cerrar sesión</IonLabel>
+              <IonLabel>Sign out</IonLabel>
             </IonItem>
           </IonMenuToggle>
         </IonList>

@@ -31,11 +31,11 @@ const UserRoutes: React.FC = () => (
     <IonTabBar slot="bottom">
       <IonTabButton tab="home" href="/home">
         <IonIcon icon={bookOutline} />
-        <IonLabel>Diario</IonLabel>
+        <IonLabel>Diary</IonLabel>
       </IonTabButton>
       <IonTabButton tab="map" href="/map">
         <IonIcon icon={mapOutline} />
-        <IonLabel>Mapa</IonLabel>
+        <IonLabel>Map</IonLabel>
       </IonTabButton>
       <IonTabButton tab="feed" href="/feed">
         <IonIcon icon={peopleOutline} />

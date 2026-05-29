@@ -23,7 +23,7 @@ export const useGeolocation = () => {
         longitude: pos.coords.longitude,
       };
     } catch {
-      setError("No se pudo obtener la ubicación.");
+      setError("Could not get location.");
       return null;
     } finally {
       setLoading(false);

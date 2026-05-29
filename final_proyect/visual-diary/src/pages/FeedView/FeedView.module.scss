@@ -6,22 +6,27 @@
     padding: 14px 16px 4px;
 
     .liveIndicator {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 7px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--vd-success);
-      letter-spacing: 0.3px;
+      gap: 6px;
+      background: rgba(91, 127, 255, 0.1);
+      border: 1px solid rgba(91, 127, 255, 0.25);
+      border-radius: 99px;
+      padding: 4px 10px 4px 8px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--vd-text-sub);
+      letter-spacing: 1px;
       text-transform: uppercase;
 
       .dot {
-        width: 8px;
-        height: 8px;
+        width: 6px;
+        height: 6px;
         border-radius: 50%;
-        background: var(--vd-success);
-        animation: pulse 1.5s ease-in-out infinite;
-        box-shadow: 0 0 6px var(--vd-success);
+        background: var(--vd-accent);
+        animation: pulse 2s ease-in-out infinite;
+        box-shadow: 0 0 5px var(--vd-accent);
+        flex-shrink: 0;
       }
     }
 

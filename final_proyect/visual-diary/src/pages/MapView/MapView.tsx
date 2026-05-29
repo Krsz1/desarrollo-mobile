@@ -55,7 +55,7 @@ const MapView: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Mapa</IonTitle>
+          <IonTitle>Map</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent scrollY={false} className={styles.mapPage}>

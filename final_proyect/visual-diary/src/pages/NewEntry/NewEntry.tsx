@@ -81,13 +81,13 @@ const NewEntry: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/home" />
           </IonButtons>
-          <IonTitle>Nueva Entrada</IonTitle>
+          <IonTitle>New Entry</IonTitle>
           <IonButtons slot="end">
             <IonButton
               onClick={handleSave}
               disabled={saving || gpsLoading || !title.trim()}
             >
-              {saving || gpsLoading ? <IonSpinner name="crescent" /> : "Guardar"}
+              {saving || gpsLoading ? <IonSpinner name="crescent" /> : "Save"}
             </IonButton>
           </IonButtons>
         </IonToolbar>
@@ -97,18 +97,18 @@ const NewEntry: React.FC = () => {
           <img
             src={`data:image/jpeg;base64,${image}`}
             className={styles.photoPreview}
-            alt="Foto entrada"
+            alt="Entry photo"
             onClick={handlePhoto}
           />
         ) : (
           <div className={styles.photoPlaceholder} onClick={handlePhoto}>
             <IonIcon icon={camera} />
-            <span>Toca para agregar foto</span>
+            <span>Tap to add photo</span>
           </div>
         )}
         <div className={styles.inputField}>
           <IonInput
-            placeholder="Título *"
+            placeholder="Title *"
             value={title}
             onIonChange={(e) => setTitle(e.detail.value ?? "")}
             maxlength={80}
@@ -116,7 +116,7 @@ const NewEntry: React.FC = () => {
         </div>
         <div className={styles.inputField}>
           <IonTextarea
-            placeholder="Descripción (opcional)"
+            placeholder="Description (optional)"
             value={description}
             onIonChange={(e) => setDescription(e.detail.value ?? "")}
             rows={4}
@@ -125,12 +125,12 @@ const NewEntry: React.FC = () => {
         </div>
         <p className={styles.locationInfo}>
           <IonIcon icon={location} />{" "}
-          {gpsLoading ? "Obteniendo ubicación…" : "La ubicación GPS se detectará al guardar"}
+          {gpsLoading ? "Getting location…" : "GPS location will be detected on save"}
         </p>
         {!isOnline && (
           <IonText color="warning">
             <p style={{ padding: "0 4px", fontSize: "0.82rem" }}>
-              Sin conexión — se guardarán las coordenadas sin geocodificación.
+              Offline — coordinates will be saved without geocoding.
             </p>
           </IonText>
         )}

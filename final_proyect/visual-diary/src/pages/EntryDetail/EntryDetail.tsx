@@ -46,12 +46,12 @@ const EntryDetail: React.FC = () => {
             <IonButtons slot="start">
               <IonBackButton defaultHref="/home" />
             </IonButtons>
-            <IonTitle>Entrada</IonTitle>
+            <IonTitle>Entry</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding ion-text-center">
           <IonText color="medium">
-            <p>Entrada no encontrada.</p>
+            <p>Entry not found.</p>
           </IonText>
         </IonContent>
       </IonPage>
@@ -122,11 +122,11 @@ const EntryDetail: React.FC = () => {
         <IonAlert
           isOpen={showAlert}
           onDidDismiss={() => setShowAlert(false)}
-          header="¿Eliminar entrada?"
-          message="Esta acción no se puede deshacer."
+          header="Delete entry?"
+          message="This action cannot be undone."
           buttons={[
-            { text: "Cancelar", role: "cancel" },
-            { text: "Eliminar", handler: handleDelete },
+            { text: "Cancel", role: "cancel" },
+            { text: "Delete", handler: handleDelete },
           ]}
         />
       </IonContent>

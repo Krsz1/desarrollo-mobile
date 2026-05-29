@@ -21,7 +21,7 @@ const Login: React.FC = () => {
 
   const handleLogin = async () => {
     if (!email || !password) {
-      setError("Por favor completa todos los campos.");
+      setError("Please fill in all fields.");
       return;
     }
     setError("");
@@ -30,7 +30,7 @@ const Login: React.FC = () => {
       await login(email, password);
       history.replace("/home");
     } catch {
-      setError("Correo o contraseña incorrectos.");
+      setError("Incorrect email or password.");
     } finally {
       setLoading(false);
     }
@@ -43,14 +43,14 @@ const Login: React.FC = () => {
           <div className={styles.brand}>
             <div className={styles.logo}>📓</div>
             <h1>VisualDiary</h1>
-            <p>Tu bitácora visual personal</p>
+            <p>Your personal visual diary</p>
           </div>
 
           <div className={styles.form}>
             <div className={styles.inputWrapper}>
               <IonInput
                 type="email"
-                placeholder="Correo electrónico"
+                placeholder="Email"
                 value={email}
                 onIonChange={(e) => setEmail(e.detail.value ?? "")}
                 autocomplete="email"
@@ -59,7 +59,7 @@ const Login: React.FC = () => {
             <div className={styles.inputWrapper}>
               <IonInput
                 type="password"
-                placeholder="Contraseña"
+                placeholder="Password"
                 value={password}
                 onIonChange={(e) => setPassword(e.detail.value ?? "")}
               />
@@ -71,11 +71,11 @@ const Login: React.FC = () => {
               onClick={handleLogin}
               disabled={loading}
             >
-              {loading ? <IonSpinner name="crescent" /> : "Iniciar sesión"}
+              {loading ? <IonSpinner name="crescent" /> : "Sign in"}
             </IonButton>
             <p className={styles.link}>
-              ¿No tienes cuenta?{" "}
-              <a onClick={() => history.push("/register")}>Regístrate</a>
+              Don't have an account?{" "}
+              <a onClick={() => history.push("/register")}>Sign up</a>
             </p>
           </div>
         </div>

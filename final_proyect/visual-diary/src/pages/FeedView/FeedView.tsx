@@ -20,21 +20,21 @@ const FeedView: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Feed en vivo</IonTitle>
+          <IonTitle>Live Feed</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className={styles.feedPage}>
         <div className={styles.header}>
           <div className={styles.liveIndicator}>
             <span className={styles.dot} />
-            En vivo
+            Live
           </div>
-          <span className={styles.count}>{feedEntries.length} entradas</span>
+          <span className={styles.count}>{feedEntries.length} entries</span>
         </div>
         {feedEntries.length === 0 ? (
           <div className={styles.emptyFeed}>
             <span className={styles.emptyIcon}>📡</span>
-            <p>El feed está vacío por ahora</p>
+            <p>The feed is empty for now</p>
           </div>
         ) : (
           <IonList className={styles.list}>

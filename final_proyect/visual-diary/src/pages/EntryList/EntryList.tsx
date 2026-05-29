@@ -34,7 +34,7 @@ const EntryList: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Mi Diario</IonTitle>
+          <IonTitle>My Diary</IonTitle>
           <IonButtons slot="end">
             <IonButton onClick={handleLogout}>
               <IonIcon slot="icon-only" icon={logOut} />
@@ -50,8 +50,8 @@ const EntryList: React.FC = () => {
         ) : entries.length === 0 ? (
           <div className={styles.emptyState}>
             <div className={styles.emptyIcon}>📖</div>
-            <h3>Tu diario está vacío</h3>
-            <p>Toca el botón + para crear tu primera entrada</p>
+            <h3>Your diary is empty</h3>
+            <p>Tap the + button to create your first entry</p>
           </div>
         ) : (
           <IonList className={styles.list}>
