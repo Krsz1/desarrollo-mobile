@@ -11,25 +11,33 @@ import {
   IonIcon,
   IonAlert,
   IonImg,
-  IonNote,
   IonText,
   IonSpinner,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardSubtitle,
 } from "@ionic/react";
-import { trashOutline } from "ionicons/icons";
+import { trashOutline, locationOutline, timeOutline } from "ionicons/icons";
 import { useParams, useHistory } from "react-router-dom";
 import { useEntries } from "../../context/EntriesContext";
+import { useAuth } from "../../context/AuthContext";
 import { formatDate } from "../../helpers/formatDate";
 import { formatAddress } from "../../helpers/formatAddress";
 import styles from "./EntryDetail.module.scss";
 
 const EntryDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { entries, deleteEntry } = useEntries();
+  const { entries, feedEntries, deleteEntry } = useEntries();
+  const { user } = useAuth();
   const history = useHistory();
   const [showAlert, setShowAlert] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
-  const entry = entries.find((e) => e.id === id);
+  // Search in own entries first, then in feed (entries from other users)
+  const entry = entries.find((e) => e.id === id) ?? feedEntries.find((e) => e.id === id);
+  const isOwner = entry?.userId === user?.uid;
 
   if (!entry) {
     return (
@@ -66,19 +74,21 @@ const EntryDetail: React.FC = () => {
             <IonBackButton defaultHref="/home" />
           </IonButtons>
           <IonTitle>{entry.title}</IonTitle>
-          <IonButtons slot="end">
-            <IonButton
-              color="danger"
-              onClick={() => setShowAlert(true)}
-              disabled={deleting}
-            >
-              {deleting ? (
-                <IonSpinner name="crescent" />
-              ) : (
-                <IonIcon slot="icon-only" icon={trashOutline} />
-              )}
-            </IonButton>
-          </IonButtons>
+          {isOwner && (
+            <IonButtons slot="end">
+              <IonButton
+                color="danger"
+                onClick={() => setShowAlert(true)}
+                disabled={deleting}
+              >
+                {deleting ? (
+                  <IonSpinner name="crescent" />
+                ) : (
+                  <IonIcon slot="icon-only" icon={trashOutline} />
+                )}
+              </IonButton>
+            </IonButtons>
+          )}
         </IonToolbar>
       </IonHeader>
 
@@ -90,18 +100,25 @@ const EntryDetail: React.FC = () => {
             alt={entry.title}
           />
         )}
-        <div className={styles.body}>
-          <h1>{entry.title}</h1>
-          {entry.address && (
-            <IonNote className={styles.address}>
-              📍 {formatAddress(entry.address, 80)}
-            </IonNote>
-          )}
-          <p className={styles.date}>{formatDate(entry.createdAt)}</p>
-          {entry.description && (
-            <p className={styles.description}>{entry.description}</p>
-          )}
-        </div>
+
+        <IonCard className={styles.card}>
+          <IonCardHeader>
+            <IonCardTitle>{entry.title}</IonCardTitle>
+            {entry.address && (
+              <IonCardSubtitle>
+                <IonIcon icon={locationOutline} /> {formatAddress(entry.address, 60)}
+              </IonCardSubtitle>
+            )}
+          </IonCardHeader>
+          <IonCardContent>
+            <p className={styles.date}>
+              <IonIcon icon={timeOutline} /> {formatDate(entry.createdAt)}
+            </p>
+            {entry.description && (
+              <p className={styles.description}>{entry.description}</p>
+            )}
+          </IonCardContent>
+        </IonCard>
 
         <IonAlert
           isOpen={showAlert}
@@ -119,3 +136,4 @@ const EntryDetail: React.FC = () => {
 };
 
 export default EntryDetail;
+
