@@ -1,0 +1,23 @@
+.feedPage {
+  .liveIndicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: var(--ion-color-success);
+    padding: 0.5rem 1rem;
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ion-color-success);
+      animation: pulse 1.5s infinite;
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+}
