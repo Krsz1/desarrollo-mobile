@@ -21,6 +21,7 @@ import { useEntries } from "../../context/EntriesContext";
 import { useCamera } from "../../hooks/useCamera";
 import { useGeolocation } from "../../hooks/useGeolocation";
 import { useNetwork } from "../../hooks/useNetwork";
+import { useHaptics } from "../../hooks/useHaptics";
 import { reverseGeocode } from "../../services/GeoService";
 import styles from "./NewEntry.module.scss";
 
@@ -30,6 +31,7 @@ const NewEntry: React.FC = () => {
   const { takePhoto } = useCamera();
   const { getCurrentPosition, loading: gpsLoading } = useGeolocation();
   const { isOnline } = useNetwork();
+  const { notification, ImpactStyle, impact } = useHaptics();
   const history = useHistory();
 
   const [title, setTitle] = useState("");
@@ -39,7 +41,10 @@ const NewEntry: React.FC = () => {
 
   const handlePhoto = async () => {
     const base64 = await takePhoto();
-    if (base64) setImage(base64);
+    if (base64) {
+      await impact(ImpactStyle.Light);
+      setImage(base64);
+    }
   };
 
   const handleSave = async () => {
@@ -69,6 +74,7 @@ const NewEntry: React.FC = () => {
         userId: user.uid,
         userName: user.displayName ?? user.email?.split("@")[0] ?? "user",
       });
+      await notification();
       history.replace("/home");
     } finally {
       setSaving(false);

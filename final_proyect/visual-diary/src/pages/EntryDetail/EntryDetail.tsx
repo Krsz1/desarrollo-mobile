@@ -21,12 +21,14 @@ import { useAuth } from "../../context/AuthContext";
 import { formatDate } from "../../helpers/formatDate";
 import { formatAddress } from "../../helpers/formatAddress";
 import { reverseGeocode } from "../../services/GeoService";
+import { useHaptics } from "../../hooks/useHaptics";
 import styles from "./EntryDetail.module.scss";
 
 const EntryDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { entries, feedEntries, deleteEntry, updateEntry } = useEntries();
   const { user } = useAuth();
+  const { notification, NotificationType } = useHaptics();
   const history = useHistory();
   const [showAlert, setShowAlert] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -77,6 +79,7 @@ const EntryDetail: React.FC = () => {
   const handleDelete = async () => {
     if (!entry.id) return;
     setDeleting(true);
+    await notification(NotificationType.Warning);
     await deleteEntry(entry.id);
     history.replace("/home");
   };
