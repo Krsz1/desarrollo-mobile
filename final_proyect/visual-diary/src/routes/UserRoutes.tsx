@@ -18,7 +18,7 @@ import FeedView from "../pages/FeedView/FeedView";
 
 const UserRoutes: React.FC = () => (
   <IonTabs>
-    <IonRouterOutlet>
+    <IonRouterOutlet id="main-content">
       <Route exact path="/home" component={EntryList} />
       <Route exact path="/new" component={NewEntry} />
       <Route exact path="/entry/:id" component={EntryDetail} />

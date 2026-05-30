@@ -2,6 +2,7 @@ import React from "react";
 import {
   IonContent,
   IonHeader,
+  IonMenuButton,
   IonPage,
   IonTitle,
   IonToolbar,
@@ -34,6 +35,9 @@ const EntryList: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
           <IonTitle>My Diary</IonTitle>
           <IonButtons slot="end">
             <IonButton onClick={handleLogout}>

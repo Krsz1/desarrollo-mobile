@@ -17,7 +17,7 @@ import { camera } from "ionicons/icons";
 import { useParams, useHistory } from "react-router-dom";
 import { useEntries } from "../../context/EntriesContext";
 import { useCamera } from "../../hooks/useCamera";
-import styles from "../NewEntry/NewEntry.module.scss";
+import styles from "./EditEntry.module.scss";
 
 const EditEntry: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -75,7 +75,7 @@ const EditEntry: React.FC = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent className={`ion-padding ${styles.newEntryPage}`}>
+      <IonContent className={`ion-padding ${styles.editEntryPage}`}>
         {image ? (
           <img
             src={`data:image/jpeg;base64,${image}`}

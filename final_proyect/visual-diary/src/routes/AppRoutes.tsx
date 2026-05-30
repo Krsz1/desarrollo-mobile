@@ -6,6 +6,7 @@ import { EntriesProvider } from "../context/EntriesContext";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import UserRoutes from "./UserRoutes";
+import Menu from "../components/Shared/Menu";
 
 const AppRoutes: React.FC = () => {
   const { user, loading } = useAuth();
@@ -68,6 +69,7 @@ const AppRoutes: React.FC = () => {
 
   return (
     <EntriesProvider>
+      <Menu />
       <UserRoutes />
     </EntriesProvider>
   );
