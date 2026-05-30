@@ -8,7 +8,7 @@ import {
   IonMenu,
   IonMenuToggle,
 } from "@ionic/react";
-import { bookOutline, mapOutline, peopleOutline, logOutOutline } from "ionicons/icons";
+import { bookOutline, mapOutline, peopleOutline, logOutOutline, shieldOutline } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
@@ -37,6 +37,10 @@ const Menu: React.FC = () => {
             <IonItem button routerLink="/feed" routerDirection="root">
               <IonIcon slot="start" icon={peopleOutline} />
               <IonLabel>Feed</IonLabel>
+            </IonItem>
+            <IonItem button routerLink="/admin" routerDirection="root">
+              <IonIcon slot="start" icon={shieldOutline} />
+              <IonLabel>Profile</IonLabel>
             </IonItem>
             <IonItem button onClick={handleLogout}>
               <IonIcon slot="start" icon={logOutOutline} />

@@ -1,12 +1,10 @@
 import React from "react";
-import { IonRouterOutlet } from "@ionic/react";
-import { Route, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
+import UserProfile from "../pages/UserProfile/UserProfile";
 
-// Placeholder — extend with admin-only screens when needed
+// AdminRoutes: gestiona las rutas del perfil del usuario (/admin → UserProfile)
 const AdminRoutes: React.FC = () => (
-  <IonRouterOutlet>
-    <Route render={() => <Redirect to="/home" />} />
-  </IonRouterOutlet>
+  <Route exact path="/admin" component={UserProfile} />
 );
 
 export default AdminRoutes;
