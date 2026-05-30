@@ -10,7 +10,7 @@ import {
   orderBy,
   onSnapshot,
   Timestamp,
-} from "firebase/firestore";;
+} from "firebase/firestore";
 import { db } from "./FirebaseService";
 import { Entry, NewEntryData } from "../types/Entry";
 

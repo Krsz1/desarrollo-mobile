@@ -7,7 +7,7 @@ import {
   IonNote,
 } from "@ionic/react";
 import { Entry } from "../../types/Entry";
-import { formatDate } from "../../helpers/formatDate";
+import { timeAgo } from "../../helpers/formatDate";
 import { formatAddress } from "../../helpers/formatAddress";
 import styles from "./EntryCard.module.scss";
 
@@ -36,7 +36,7 @@ const EntryCard: React.FC<Props> = ({ entry, onClick, showAuthor }) => (
       )}
     </IonLabel>
     <IonNote slot="end" color="medium" className={styles.date}>
-      {formatDate(entry.createdAt)}
+      {timeAgo(entry.createdAt)}
     </IonNote>
   </IonItem>
 );

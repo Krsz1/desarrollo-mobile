@@ -18,7 +18,7 @@ import { trashOutline, locationOutline, timeOutline, createOutline } from "ionic
 import { useParams, useHistory } from "react-router-dom";
 import { useEntries } from "../../context/EntriesContext";
 import { useAuth } from "../../context/AuthContext";
-import { formatDate } from "../../helpers/formatDate";
+import { formatDate, getMoodChip } from "../../helpers/formatDate";
 import { formatAddress } from "../../helpers/formatAddress";
 import { reverseGeocode } from "../../services/GeoService";
 import { useHaptics } from "../../hooks/useHaptics";
@@ -26,7 +26,7 @@ import styles from "./EntryDetail.module.scss";
 
 const EntryDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { entries, feedEntries, deleteEntry, updateEntry } = useEntries();
+  const { entries, feedEntries, loading, deleteEntry, updateEntry } = useEntries();
   const { user } = useAuth();
   const { notification, NotificationType } = useHaptics();
   const history = useHistory();
@@ -55,6 +55,26 @@ const EntryDetail: React.FC = () => {
       }
     });
   }, [entry?.id]);
+
+  if (loading) {
+    return (
+      <IonPage>
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonBackButton defaultHref="/home" />
+            </IonButtons>
+            <IonTitle>Entry</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent className="ion-padding ion-text-center">
+          <div style={{ display: "flex", justifyContent: "center", padding: "3rem" }}>
+            <IonSpinner name="crescent" color="primary" />
+          </div>
+        </IonContent>
+      </IonPage>
+    );
+  }
 
   if (!entry) {
     return (
@@ -130,6 +150,9 @@ const EntryDetail: React.FC = () => {
         <div className={styles.card}>
           <h2 className={styles.title}>{entry.title}</h2>
           <p className={styles.date}>
+            <span className={styles.moodChip}>
+              {getMoodChip(entry.createdAt).icon} {getMoodChip(entry.createdAt).label}
+            </span>
             <IonIcon icon={timeOutline} />
             {formatDate(entry.createdAt)}
           </p>
