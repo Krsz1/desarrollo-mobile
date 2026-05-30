@@ -1,4 +1,4 @@
-﻿import React, { useState } from "react";
+﻿import React, { useState, useEffect } from "react";
 import {
   IonPage,
   IonHeader,
@@ -20,11 +20,12 @@ import { useEntries } from "../../context/EntriesContext";
 import { useAuth } from "../../context/AuthContext";
 import { formatDate } from "../../helpers/formatDate";
 import { formatAddress } from "../../helpers/formatAddress";
+import { reverseGeocode } from "../../services/GeoService";
 import styles from "./EntryDetail.module.scss";
 
 const EntryDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { entries, feedEntries, deleteEntry } = useEntries();
+  const { entries, feedEntries, deleteEntry, updateEntry } = useEntries();
   const { user } = useAuth();
   const history = useHistory();
   const [showAlert, setShowAlert] = useState(false);
@@ -33,6 +34,25 @@ const EntryDetail: React.FC = () => {
   // Search in own entries first, then in feed (entries from other users)
   const entry = entries.find((e) => e.id === id) ?? feedEntries.find((e) => e.id === id);
   const isOwner = entry?.userId === user?.uid;
+
+  const isRawCoords = (addr: string) => /^-?\d+\.\d+,\s*-?\d+\.\d+$/.test(addr?.trim());
+  const [resolvedAddress, setResolvedAddress] = useState<string>("");
+
+  useEffect(() => {
+    if (!entry) return;
+    if (entry.address && !isRawCoords(entry.address)) {
+      setResolvedAddress(entry.address);
+      return;
+    }
+    if (!entry.latitude && !entry.longitude) return;
+    reverseGeocode(entry.latitude, entry.longitude).then((addr) => {
+      setResolvedAddress(addr);
+      // Update Firestore only if it was raw coords and we got a real address
+      if (isOwner && entry.id && addr && !isRawCoords(addr)) {
+        updateEntry(entry.id, { address: addr }).catch(() => {});
+      }
+    });
+  }, [entry?.id]);
 
   if (!entry) {
     return (
@@ -116,7 +136,7 @@ const EntryDetail: React.FC = () => {
           {entry.address && (
             <span className={styles.locationChip}>
               <IonIcon icon={locationOutline} />
-              {formatAddress(entry.address, 60)}
+              {formatAddress(resolvedAddress || entry.address, 60)}
             </span>
           )}
         </div>
