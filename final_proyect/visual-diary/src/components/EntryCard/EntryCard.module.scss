@@ -18,6 +18,14 @@
     flex-shrink: 0;
   }
 
+  .author {
+    margin: 0 0 2px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--vd-accent-2);
+    letter-spacing: 0.2px;
+  }
+
   h2 {
     font-weight: 600;
     font-size: 0.96rem;

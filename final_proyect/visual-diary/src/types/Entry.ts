@@ -10,6 +10,7 @@ export interface Entry {
   address: string;
   createdAt: Timestamp | string;
   userId: string;
+  userName?: string;
 }
 
 export type NewEntryData = Omit<Entry, "id" | "createdAt">;

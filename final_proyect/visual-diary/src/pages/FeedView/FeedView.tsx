@@ -42,6 +42,7 @@ const FeedView: React.FC = () => {
               <EntryCard
                 key={entry.id}
                 entry={entry}
+                showAuthor
                 onClick={() => history.push(`/entry/${entry.id}`)}
               />
             ))}

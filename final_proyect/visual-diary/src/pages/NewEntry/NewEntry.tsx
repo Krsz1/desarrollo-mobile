@@ -67,6 +67,7 @@ const NewEntry: React.FC = () => {
         longitude,
         address,
         userId: user.uid,
+        userName: user.displayName ?? user.email?.split("@")[0] ?? "user",
       });
       history.replace("/home");
     } finally {

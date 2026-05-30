@@ -15,13 +15,14 @@ const Register: React.FC = () => {
   const history = useHistory();
 
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleRegister = async () => {
-    if (!email || !password || !confirm) {
+    if (!email || !username.trim() || !password || !confirm) {
       setError("Please fill in all fields.");
       return;
     }
@@ -36,7 +37,7 @@ const Register: React.FC = () => {
     setError("");
     setLoading(true);
     try {
-      await register(email, password);
+      await register(email, password, username.trim());
       history.replace("/home");
     } catch {
       setError("Could not create account. Please check your email.");
@@ -63,6 +64,15 @@ const Register: React.FC = () => {
                 value={email}
                 onIonChange={(e) => setEmail(e.detail.value ?? "")}
                 autocomplete="email"
+              />
+            </div>
+            <div className={styles.inputWrapper}>
+              <IonInput
+                type="text"
+                placeholder="Username"
+                value={username}
+                onIonChange={(e) => setUsername(e.detail.value ?? "")}
+                autocomplete="username"
               />
             </div>
             <div className={styles.inputWrapper}>

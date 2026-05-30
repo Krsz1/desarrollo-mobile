@@ -14,9 +14,10 @@ import styles from "./EntryCard.module.scss";
 interface Props {
   entry: Entry;
   onClick?: () => void;
+  showAuthor?: boolean;
 }
 
-const EntryCard: React.FC<Props> = ({ entry, onClick }) => (
+const EntryCard: React.FC<Props> = ({ entry, onClick, showAuthor }) => (
   <IonItem button detail onClick={onClick} className={styles.card}>
     {entry.image && (
       <IonThumbnail slot="start">
@@ -24,6 +25,9 @@ const EntryCard: React.FC<Props> = ({ entry, onClick }) => (
       </IonThumbnail>
     )}
     <IonLabel>
+      {showAuthor && entry.userName && (
+        <p className={styles.author}>@{entry.userName}</p>
+      )}
       <h2>{entry.title}</h2>
       {entry.address && (
         <p>
