@@ -14,6 +14,9 @@ import {
 } from "../services/EntryService";
 import { Entry, NewEntryData } from "../types/Entry";
 import { useAuth } from "./AuthContext";
+import { useStorage } from "../hooks/useStorage";
+
+const CACHE_KEY = "cached_entries";
 
 interface EntriesContextType {
   entries: Entry[];
@@ -28,6 +31,7 @@ const EntriesContext = createContext<EntriesContextType | undefined>(undefined);
 
 export const EntriesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();
+  const { getItem, setItem, removeItem } = useStorage();
   const [entries, setEntries] = useState<Entry[]>([]);
   const [feedEntries, setFeedEntries] = useState<Entry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -36,9 +40,19 @@ export const EntriesProvider: React.FC<{ children: React.ReactNode }> = ({ child
   useEffect(() => {
     if (!user) {
       setEntries([]);
+      removeItem(CACHE_KEY);
       setLoading(false);
       return;
     }
+
+    // Load cached entries immediately for instant startup
+    getItem<Entry[]>(CACHE_KEY).then((cached) => {
+      if (cached && cached.length > 0) {
+        setEntries(cached);
+        setLoading(false);
+      }
+    });
+
     setLoading(true);
     const q = query(
       collection(db, "entries"),
@@ -63,6 +77,8 @@ export const EntriesProvider: React.FC<{ children: React.ReactNode }> = ({ child
         });
         setEntries(docs);
         setLoading(false);
+        // Persist latest entries to local cache
+        setItem(CACHE_KEY, docs);
       },
       (error) => {
         console.error("EntriesContext onSnapshot error:", error);
