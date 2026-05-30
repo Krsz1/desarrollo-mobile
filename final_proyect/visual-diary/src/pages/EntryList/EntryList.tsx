@@ -65,7 +65,7 @@ const EntryList: React.FC = () => {
           </IonList>
         )}
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton routerLink="/new">
+          <IonFabButton routerLink="/new" className={styles.fab}>
             <IonIcon icon={add} />
           </IonFabButton>
         </IonFab>

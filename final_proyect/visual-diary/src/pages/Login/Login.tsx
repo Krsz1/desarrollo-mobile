@@ -5,7 +5,9 @@ import {
   IonInput,
   IonButton,
   IonSpinner,
+  IonIcon,
 } from "@ionic/react";
+import { eyeOutline, eyeOffOutline } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import styles from "./Login.module.scss";
@@ -18,6 +20,8 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -58,11 +62,19 @@ const Login: React.FC = () => {
             </div>
             <div className={styles.inputWrapper}>
               <IonInput
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 value={password}
                 onIonChange={(e) => setPassword(e.detail.value ?? "")}
               />
+              <button
+                type="button"
+                className={styles.eyeBtn}
+                onClick={() => setShowPassword((v) => !v)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                <IonIcon icon={showPassword ? eyeOffOutline : eyeOutline} />
+              </button>
             </div>
             {error && <p className={styles.errorMsg}>{error}</p>}
             <IonButton

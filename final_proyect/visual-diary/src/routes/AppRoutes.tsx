@@ -15,12 +15,43 @@ const AppRoutes: React.FC = () => {
       <div
         style={{
           display: "flex",
+          flexDirection: "column",
           height: "100vh",
           alignItems: "center",
           justifyContent: "center",
+          background: "radial-gradient(ellipse 70% 45% at 50% 0%, rgba(139,30,63,0.16) 0%, transparent 65%), #121218",
+          gap: "20px",
         }}
       >
-        <IonSpinner name="crescent" />
+        <div
+          style={{
+            width: 64,
+            height: 64,
+            borderRadius: 18,
+            background: "linear-gradient(135deg, #6E1F32, #A12C4F)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "2rem",
+            boxShadow: "0 8px 32px rgba(139,30,63,0.38), 0 0 0 1px rgba(161,44,79,0.2)",
+          }}
+        >
+          🌙
+        </div>
+        <span
+          style={{
+            fontFamily: "'Playfair Display', Georgia, serif",
+            fontSize: "2rem",
+            fontWeight: 700,
+            background: "linear-gradient(135deg, #C4607A 0%, #8B1E3F 50%, #A12C4F 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            letterSpacing: "1px",
+          }}
+        >
+          Lunara
+        </span>
+        <IonSpinner name="dots" style={{ color: "#8B1E3F", width: 36, height: 36 }} />
       </div>
     );
   }

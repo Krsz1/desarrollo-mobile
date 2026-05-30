@@ -12,6 +12,7 @@ import { Route, Redirect } from "react-router-dom";
 import EntryList from "../pages/EntryList/EntryList";
 import NewEntry from "../pages/NewEntry/NewEntry";
 import EntryDetail from "../pages/EntryDetail/EntryDetail";
+import EditEntry from "../pages/EditEntry/EditEntry";
 import MapView from "../pages/MapView/MapView";
 import FeedView from "../pages/FeedView/FeedView";
 
@@ -21,6 +22,7 @@ const UserRoutes: React.FC = () => (
       <Route exact path="/home" component={EntryList} />
       <Route exact path="/new" component={NewEntry} />
       <Route exact path="/entry/:id" component={EntryDetail} />
+      <Route exact path="/entry/:id/edit" component={EditEntry} />
       <Route exact path="/map" component={MapView} />
       <Route exact path="/feed" component={FeedView} />
       <Route exact path="/">

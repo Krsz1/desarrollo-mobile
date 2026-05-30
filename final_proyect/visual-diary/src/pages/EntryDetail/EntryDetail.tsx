@@ -14,7 +14,7 @@ import {
   IonText,
   IonSpinner,
 } from "@ionic/react";
-import { trashOutline, locationOutline, timeOutline } from "ionicons/icons";
+import { trashOutline, locationOutline, timeOutline, createOutline } from "ionicons/icons";
 import { useParams, useHistory } from "react-router-dom";
 import { useEntries } from "../../context/EntriesContext";
 import { useAuth } from "../../context/AuthContext";
@@ -71,6 +71,12 @@ const EntryDetail: React.FC = () => {
           <IonTitle>{entry.title}</IonTitle>
           {isOwner && (
             <IonButtons slot="end">
+              <IonButton
+                onClick={() => history.push(`/entry/${entry.id}/edit`)}
+                disabled={deleting}
+              >
+                <IonIcon slot="icon-only" icon={createOutline} />
+              </IonButton>
               <IonButton
                 color="danger"
                 onClick={() => setShowAlert(true)}
