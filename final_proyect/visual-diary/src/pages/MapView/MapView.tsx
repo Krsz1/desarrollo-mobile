@@ -18,7 +18,7 @@ import { useEntries } from "../../context/EntriesContext";
 import MapMarker from "../../components/MapMarker/MapMarker";
 import styles from "./MapView.module.scss";
 
-delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
+delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: markerIcon2x,
   iconUrl: markerIconPng,

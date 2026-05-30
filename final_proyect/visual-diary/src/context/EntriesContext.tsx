@@ -15,6 +15,7 @@ import {
 import { Entry, NewEntryData } from "../types/Entry";
 import { useAuth } from "./AuthContext";
 import { useStorage } from "../hooks/useStorage";
+import { toTimestampMs } from "../helpers/formatDate";
 
 const CACHE_KEY = "cached_entries";
 
@@ -66,15 +67,7 @@ export const EntriesProvider: React.FC<{ children: React.ReactNode }> = ({ child
           ...(d.data() as Omit<Entry, "id">),
         }));
         // Sort client-side to avoid composite index requirement
-        docs.sort((a, b) => {
-          const ta = a.createdAt && typeof (a.createdAt as any).toMillis === "function"
-            ? (a.createdAt as any).toMillis()
-            : new Date(a.createdAt as string).getTime();
-          const tb = b.createdAt && typeof (b.createdAt as any).toMillis === "function"
-            ? (b.createdAt as any).toMillis()
-            : new Date(b.createdAt as string).getTime();
-          return tb - ta;
-        });
+        docs.sort((a, b) => toTimestampMs(b.createdAt) - toTimestampMs(a.createdAt));
         setEntries(docs);
         setLoading(false);
         // Persist latest entries to local cache

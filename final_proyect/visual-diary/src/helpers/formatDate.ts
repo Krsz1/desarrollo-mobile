@@ -1,5 +1,11 @@
 import { Timestamp } from "firebase/firestore";
 
+// Convierte Timestamp de Firestore o string ISO a milisegundos
+export const toTimestampMs = (date: Timestamp | string): number => {
+  if (date instanceof Timestamp) return date.toMillis();
+  return new Date(date).getTime();
+};
+
 export const formatDate = (date: Timestamp | string): string => {
   let d: Date;
   if (date instanceof Timestamp) {

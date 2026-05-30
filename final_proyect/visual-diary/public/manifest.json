@@ -1,11 +1,11 @@
 {
-  "name": "VisualDiary",
-  "short_name": "VisualDiary",
+  "name": "Lunara",
+  "short_name": "Lunara",
   "description": "Bitácora visual con fotografía, texto y ubicación GPS",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#3880ff",
+  "background_color": "#121218",
+  "theme_color": "#8B1E3F",
   "orientation": "portrait",
   "icons": [
     {
@@ -14,5 +14,4 @@
       "type": "image/png"
     }
   ]
-}
 }
