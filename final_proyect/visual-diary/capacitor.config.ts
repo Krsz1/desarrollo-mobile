@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.visualdiary.app',
-  appName: 'VisualDiary',
+  appId: 'com.lunara.app',
+  appName: 'Lunara',
   webDir: 'dist',
   server: {
     androidScheme: 'https'

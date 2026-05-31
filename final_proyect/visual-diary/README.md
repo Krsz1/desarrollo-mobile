@@ -8,8 +8,6 @@
 
 Aplicación móvil híbrida tipo **diario personal visual** donde el usuario puede registrar entradas con foto, texto y ubicación GPS automática. Incluye **autenticación real con Firebase Auth**, **almacenamiento en Firestore**, **feed compartido en tiempo real** y **mapa interactivo**. Desarrollada en Ionic React + TypeScript como proyecto final del curso de Desarrollo de Software para Plataformas Móviles — UAO.
 
-Aplicación móvil híbrida tipo **diario personal visual** donde el usuario puede registrar entradas con foto, texto y ubicación GPS automática. Incluye **autenticación real con Firebase Auth**, **almacenamiento en Firestore**, **feed compartido en tiempo real** y **mapa interactivo**. Desarrollada en Ionic React + TypeScript como proyecto final del curso de Desarrollo de Software para Plataformas Móviles — UAO.
-
 ---
 
 ## 📋 Tabla de Contenidos

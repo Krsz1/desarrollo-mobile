@@ -33,8 +33,15 @@ const Login: React.FC = () => {
     try {
       await login(email, password);
       history.replace("/home");
-    } catch {
-      setError("Incorrect email or password.");
+    } catch (err) {
+      const code = (err as { code?: string }).code ?? "";
+      if (code === "auth/user-not-found" || code === "auth/wrong-password" || code === "auth/invalid-credential") {
+        setError("Incorrect email or password.");
+      } else if (code === "auth/too-many-requests") {
+        setError("Too many attempts. Please try again later.");
+      } else {
+        setError((err as { message?: string }).message ?? "Incorrect email or password.");
+      }
     } finally {
       setLoading(false);
     }

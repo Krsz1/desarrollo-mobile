@@ -39,8 +39,15 @@ const Register: React.FC = () => {
     try {
       await register(email, password, username.trim());
       history.replace("/home");
-    } catch {
-      setError("Could not create account. Please check your email.");
+    } catch (err) {
+      const code = (err as { code?: string }).code ?? "";
+      if (code === "auth/email-already-in-use") {
+        setError("That email is already registered. Try logging in.");
+      } else if (code === "auth/invalid-email") {
+        setError("Invalid email address.");
+      } else {
+        setError("Could not create account. Please check your details.");
+      }
     } finally {
       setLoading(false);
     }
