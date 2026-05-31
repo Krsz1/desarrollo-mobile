@@ -1,4 +1,4 @@
-# 📸 VisualDiary — Bitácora Visual con Ubicación
+#  VisualDiary — Bitácora Visual con Ubicación
 
 ![Ionic](https://img.shields.io/badge/Ionic-3880FF?style=for-the-badge&logo=ionic&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
@@ -11,7 +11,7 @@ Aplicación móvil híbrida tipo **bitácora personal** donde el usuario puede r
 
 ---
 
-## 📋 Tabla de Contenidos
+##  Tabla de Contenidos
 
 - [Descripción](#-descripción)
 - [Prototipo](#-prototipo)
@@ -31,11 +31,11 @@ Aplicación móvil híbrida tipo **bitácora personal** donde el usuario puede r
 
 ---
 
-## 📖 Descripción
+## Descripción
 
 VisualDiary es una aplicación móvil híbrida construida con **Ionic React + TypeScript** que permite al usuario llevar un diario personal enriquecido. Cada entrada combina texto, una fotografía tomada desde el dispositivo y la ubicación GPS detectada automáticamente. Las entradas se almacenan en **Firebase Firestore** y se visualizan en lista y en un **mapa interactivo de Leaflet**. La app incluye un **feed en tiempo real** donde todos los usuarios registrados pueden ver las entradas más recientes de la comunidad actualizándose en vivo.
 
-### 🎯 Objetivos del Proyecto
+### Objetivos del Proyecto
 
 - ✅ Implementar autenticación real con Firebase Auth (login y registro)
 - ✅ Almacenar datos en Firestore con listeners en tiempo real
@@ -44,7 +44,7 @@ VisualDiary es una aplicación móvil híbrida construida con **Ionic React + Ty
 - ✅ Consumir una API REST externa para reverse geocoding
 - ✅ Publicar la aplicación en producción con Netlify
 
-### 🎓 Temas de la Materia Cubiertos
+### Temas de la Materia Cubiertos
 
 - **React** — Componentes funcionales, estado, props, ciclo de vida
 - **Sensores** — GPS (`@capacitor/geolocation`) y Cámara (`@capacitor/camera`)
@@ -61,39 +61,30 @@ VisualDiary es una aplicación móvil híbrida construida con **Ionic React + Ty
 
 ---
 
-## 🎨 Prototipo
+## Prototipo
 
-> Prototipo diseñado con **Lovable** (herramienta de IA generativa)
+> Prototipo diseñado con **Lovable** 
 
 - 🔗 **Enlace al prototipo:** [Ver en Lovable](https://lovable.dev/projects/TU-PROYECTO-AQUI)
 
 ---
 
-## 👥 Integrantes
 
-| Nombre | GitHub | Rama de trabajo |
-|--------|--------|-----------------|
-| Tu Nombre | [@tu-usuario](https://github.com/tu-usuario) | `feature/auth` |
-| Integrante 2 | [@usuario2](https://github.com/usuario2) | `feature/map-feed` |
-| Integrante 3 | [@usuario3](https://github.com/usuario3) | `feature/entries` |
+## Características Principales
 
----
-
-## ✨ Características Principales
-
-- 🔐 **Login y registro real** — Firebase Authentication con email y contraseña
-- 📷 **Foto por entrada** — cámara del dispositivo o galería, almacenada en base64
-- 📍 **Ubicación automática** — GPS con reverse geocoding a dirección legible
-- 🗺️ **Vista en mapa** — todas las entradas del usuario marcadas en Leaflet
-- 🔴 **Feed en tiempo real** — entradas de todos los usuarios actualizadas en vivo
-- 🔥 **Firestore** — almacenamiento real en la nube con reglas de seguridad
-- 📲 **PWA instalable** — funciona como app nativa desde el navegador
-- 🔌 **Detección de red** — comportamiento adaptado según conectividad
-- 🚀 **Deploy en Netlify** — producción con un solo comando
+-  **Login y registro real** — Firebase Authentication con email y contraseña
+-  **Foto por entrada** — cámara del dispositivo o galería, almacenada en base64
+-  **Ubicación automática** — GPS con reverse geocoding a dirección legible
+-  **Vista en mapa** — todas las entradas del usuario marcadas en Leaflet
+-  **Feed en tiempo real** — entradas de todos los usuarios actualizadas en vivo
+-  **Firestore** — almacenamiento real en la nube con reglas de seguridad
+-  **PWA instalable** — funciona como app nativa desde el navegador
+-  **Detección de red** — comportamiento adaptado según conectividad
+-  **Deploy en Netlify** — producción con un solo comando
 
 ---
 
-## 🏗️ Arquitectura del Sistema
+## Arquitectura del Sistema
 
 ```
 ┌────────────────────────────────────────────────────────────────┐
@@ -143,7 +134,7 @@ VisualDiary es una aplicación móvil híbrida construida con **Ionic React + Ty
 └──────────────────────────┘
 ```
 
-### 📱 Pantallas de la App
+###  Pantallas de la App
 
 | Ruta | Componente | Acceso | Función |
 |------|-----------|--------|---------|
@@ -157,7 +148,7 @@ VisualDiary es una aplicación móvil híbrida construida con **Ionic React + Ty
 
 ---
 
-## 🔧 Requisitos Previos
+##  Requisitos Previos
 
 ### Software Necesario
 
@@ -193,7 +184,7 @@ El proyecto requiere un archivo `.env` en la raíz con las siguientes variables:
 
 ---
 
-## 🚀 Instalación y Configuración
+##  Instalación y Configuración
 
 ### Paso 1 — Clonar el Repositorio
 
@@ -222,7 +213,7 @@ npm run dev
 # Abrir http://localhost:5173
 ```
 
-⏱️ **Tiempo estimado de setup:** 3-5 minutos
+ **Tiempo estimado de setup:** 3-5 minutos
 
 ### Paso 5 — Verificar build de producción
 
@@ -310,21 +301,21 @@ public/
 
 ---
 
-## 🧩 Módulos Principales
+##  Módulos Principales
 
-### 🔥 Firebase — Auth y Firestore
+###  Firebase — Auth y Firestore
 
 **`FirebaseService.ts`** inicializa la app de Firebase usando las variables de entorno y exporta las instancias de `auth` y `db` que usan todos los demás módulos.
 
 **`EntryService.ts`** es la única capa que toca Firestore directamente. Expone métodos para agregar, borrar y actualizar entradas, y dos listeners en tiempo real usando `onSnapshot`: uno para las entradas propias del usuario y otro para el feed global de todos los usuarios.
 
-### 🔐 Autenticación — AuthContext
+###  Autenticación — AuthContext
 
 `AuthContext` envuelve toda la app y expone el estado de sesión (`user`, `loading`) junto con las funciones `login`, `register` y `logout`. Usa `onAuthStateChanged` de Firebase para detectar cambios de sesión automáticamente, incluso si el usuario recarga la página.
 
 Las pantallas de **Login** y **Register** consumen este contexto. Si el usuario ya tiene sesión activa, `AppRoutes` lo redirige directamente a `/home` sin pasar por las pantallas públicas.
 
-### 🌐 Estado Global — EntriesContext
+###  Estado Global — EntriesContext
 
 Envuelve la parte autenticada de la app. Activa dos listeners de Firestore al montar:
 
@@ -333,7 +324,7 @@ Envuelve la parte autenticada de la app. Activa dos listeners de Firestore al mo
 
 Cada vez que Firestore detecta un cambio en la colección (nueva entrada, edición, borrado), los listeners disparan automáticamente el re-render de todos los componentes suscritos, sin necesidad de recargar.
 
-### 🪝 Custom Hooks
+###  Custom Hooks
 
 | Hook | Responsabilidad |
 |------|----------------|
@@ -342,28 +333,28 @@ Cada vez que Firestore detecta un cambio en la colección (nueva entrada, edici�
 | `useNetwork` | Escucha cambios de conectividad en tiempo real. Si el dispositivo pierde conexión, la app guarda coordenadas crudas en lugar de intentar el geocoding. |
 | `useAuth` | Re-exporta `useAuth` desde `AuthContext` para que se pueda importar desde la carpeta `hooks/` siguiendo la convención del proyecto. |
 
-### 🛠️ Helpers
+###  Helpers
 
 | Helper | Función |
 |--------|---------|
 | `formatDate` | Convierte un `Timestamp` de Firestore o un string ISO a una fecha legible en español (ej. `"15 de mayo de 2026, 10:32"`). |
 | `formatAddress` | Recorta una dirección larga a un número máximo de caracteres y agrega `…` si es necesario, para que quepa en las tarjetas de entrada. |
 
-### 🔴 Feed en Tiempo Real — FeedView
+###  Feed en Tiempo Real — FeedView
 
 `FeedView` muestra las entradas de **todos los usuarios** actualizadas en vivo. No requiere ninguna lógica adicional en la pantalla: simplemente consume `feedEntries` de `EntriesContext`, que ya está suscrito al listener global de Firestore. Cada nueva entrada que cualquier usuario guarde aparece automáticamente en el feed de todos los demás en tiempo real.
 
-### 🗺️ Mapa — MapView
+###  Mapa — MapView
 
 `MapView` usa `react-leaflet` para renderizar un mapa centrado en la primera entrada del usuario. Por cada entrada que tenga `location` definida, agrega un marcador (`MapMarker`) con un popup que muestra el título, la dirección y la fecha. El mapa solo muestra las entradas del usuario autenticado.
 
-### 🌐 Reverse Geocoding — GeoService
+###  Reverse Geocoding — GeoService
 
 Cuando el usuario guarda una entrada con ubicación y hay conexión, `GeoService` hace una petición a la **OpenCage Geocoding API** para convertir las coordenadas GPS en una dirección postal legible en español. Si no hay conexión, guarda las coordenadas numéricas directamente como texto de respaldo.
 
 ---
 
-## 🔀 Routing y Rutas Protegidas
+##  Routing y Rutas Protegidas
 
 El sistema de rutas está dividido en tres archivos bajo la carpeta `routes/`:
 
@@ -375,13 +366,13 @@ El sistema de rutas está dividido en tres archivos bajo la carpeta `routes/`:
 
 ---
 
-## 📲 PWA — Service Worker
+##  PWA — Service Worker
 
 La app es instalable como PWA en dispositivos móviles y de escritorio. El `service-worker.js` implementa una estrategia **Network First**: intenta obtener el recurso de la red, lo guarda en caché si tiene éxito, y lo sirve desde caché si no hay conexión. El `manifest.json` define el nombre, íconos, colores y modo de display `standalone` para que la app se vea como una app nativa al instalarse.
 
 ---
 
-## 🚢 Deploy en Netlify
+##  Deploy en Netlify
 
 La app se despliega en Netlify como sitio estático. El archivo `_redirects` en `public/` redirige todas las rutas a `index.html` para que el enrutamiento del lado del cliente funcione correctamente.
 
@@ -394,7 +385,7 @@ Las variables de entorno de Firebase y OpenCage deben configurarse en el panel d
 
 ---
 
-## 🔌 APIs Consumidas
+##  APIs Consumidas
 
 | API | Uso | Documentación |
 |-----|-----|--------------|
@@ -404,7 +395,7 @@ Las variables de entorno de Firebase y OpenCage deben configurarse en el panel d
 
 ---
 
-## ✅ Checklist de la Rúbrica
+## Checklist de la Rúbrica
 
 | Requisito de la Rúbrica | Estado | Implementación |
 |---|---|---|
@@ -433,7 +424,7 @@ Las variables de entorno de Firebase y OpenCage deben configurarse en el panel d
 
 ---
 
-## 📚 Referencias
+##  Referencias
 
 - 📘 [Ionic React Documentation](https://ionicframework.com/docs/react)
 - 📘 [Firebase Authentication](https://firebase.google.com/docs/auth/web/start)
@@ -443,14 +434,13 @@ Las variables de entorno de Firebase y OpenCage deben configurarse en el panel d
 - 📘 [Capacitor Network](https://capacitorjs.com/docs/apis/network)
 - 📘 [React Leaflet](https://react-leaflet.js.org/)
 - 📘 [OpenCage Geocoding API](https://opencagedata.com/api)
-- 📘 [Netlify Deploy Docs](https://docs.netlify.com/)
 
 ---
 
-## 👨‍💻 Autor
+##  Autor
 
-- 🐙 GitHub: [@Krsz1]([https://github.com/Krsz1])
-- 🎓 Proyecto académico — Desarrollo de Software para Plataformas Móviles
+- GitHub: [@Krsz1]([https://github.com/Krsz1])
+- Proyecto académico — Desarrollo de Software para Plataformas Móviles
 
 ---
 
