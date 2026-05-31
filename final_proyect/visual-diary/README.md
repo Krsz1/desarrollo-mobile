@@ -10,7 +10,7 @@ Aplicación móvil híbrida tipo **diario personal visual** donde el usuario pue
 
 ---
 
-## 📋 Tabla de Contenidos
+##  Tabla de Contenidos
 
 - [Descripción](#-descripción)
 - [Prototipo](#-prototipo)
@@ -28,7 +28,7 @@ Aplicación móvil híbrida tipo **diario personal visual** donde el usuario pue
 
 ---
 
-## 📖 Descripción
+##  Descripción
 
 Lunara es una aplicación móvil híbrida construida con **Ionic React + TypeScript** que permite al usuario llevar un diario personal enriquecido. Cada entrada combina texto, una fotografía tomada desde el dispositivo y la ubicación GPS detectada automáticamente. Las entradas se almacenan en **Firebase Firestore** y se visualizan en lista y en un **mapa interactivo de Leaflet**. La app incluye un **feed en tiempo real** donde todos los usuarios registrados pueden ver las entradas más recientes de la comunidad actualizándose en vivo.
 
@@ -58,7 +58,7 @@ Lunara es una aplicación móvil híbrida construida con **Ionic React + TypeScr
 
 ---
 
-## 🎨 Prototipo
+##  Prototipo
 
 > Prototipo diseñado con **Lovable** (herramienta de IA generativa)
 
@@ -66,7 +66,7 @@ Lunara es una aplicación móvil híbrida construida con **Ionic React + TypeScr
 
 ---
 
-## 👥 Integrantes
+##  Integrantes
 
 | Nombre | GitHub | Rol |
 |--------|--------|-----|
@@ -74,25 +74,25 @@ Lunara es una aplicación móvil híbrida construida con **Ionic React + TypeScr
 
 ---
 
-## ✨ Características Principales
+##  Características Principales
 
-- 🔐 **Login y registro real** — Firebase Authentication con email, contraseña y nombre de usuario
-- 📷 **Foto por entrada** — cámara del dispositivo o galería, almacenada en base64
-- 📍 **Ubicación automática** — GPS con reverse geocoding a dirección legible (Nominatim, sin API key)
-- ✏️ **Edición de entradas** — pantalla dedicada para editar cualquier campo de una entrada propia
-- 👤 **Perfil de usuario** — avatar, estadísticas (entradas, fotos) y galería de fotos propias
-- 🗺️ **Vista en mapa** — todas las entradas del usuario marcadas en Leaflet con posición en vivo
-- 🔴 **Feed en tiempo real** — entradas de todos los usuarios actualizadas en vivo con `onSnapshot`
-- 🔥 **Firestore** — almacenamiento real en la nube con CRUD completo
-- 📲 **Menú lateral** — navegación con `IonMenu` desde cualquier pantalla
-- 🌐 **Detección de red** — comportamiento adaptado según conectividad
-- 📦 **Caché offline** — `@capacitor/preferences` almacena entradas localmente para carga instantánea
-- 📳 **Hápticos** — vibración táctil al tomar fotos, guardar y eliminar entradas
-- 🌙 **Mood chip** — indicador visual del momento del día de cada entrada (Mañana / Tarde / Noche / Madrugada)
+-  **Login y registro real** — Firebase Authentication con email, contraseña y nombre de usuario
+-  **Foto por entrada** — cámara del dispositivo o galería, almacenada en base64
+-  **Ubicación automática** — GPS con reverse geocoding a dirección legible (Nominatim, sin API key)
+-  **Edición de entradas** — pantalla dedicada para editar cualquier campo de una entrada propia
+-  **Perfil de usuario** — avatar, estadísticas (entradas, fotos) y galería de fotos propias
+-  **Vista en mapa** — todas las entradas del usuario marcadas en Leaflet con posición en vivo
+-  **Feed en tiempo real** — entradas de todos los usuarios actualizadas en vivo con `onSnapshot`
+-  **Firestore** — almacenamiento real en la nube con CRUD completo
+-  **Menú lateral** — navegación con `IonMenu` desde cualquier pantalla
+-  **Detección de red** — comportamiento adaptado según conectividad
+-  **Caché offline** — `@capacitor/preferences` almacena entradas localmente para carga instantánea
+-  **Hápticos** — vibración táctil al tomar fotos, guardar y eliminar entradas
+-  **Mood chip** — indicador visual del momento del día de cada entrada (Mañana / Tarde / Noche / Madrugada)
 
 ---
 
-## 🏗️ Arquitectura del Sistema
+##  Arquitectura del Sistema
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -148,7 +148,7 @@ Lunara es una aplicación móvil híbrida construida con **Ionic React + TypeScr
 └────────────────────────┘
 ```
 
-### 📱 Pantallas de la App
+###  Pantallas de la App
 
 | Ruta | Componente | Acceso | Función |
 |------|-----------|--------|---------|
@@ -164,7 +164,7 @@ Lunara es una aplicación móvil híbrida construida con **Ionic React + TypeScr
 
 ---
 
-## 🔧 Requisitos Previos
+##  Requisitos Previos
 
 ### Software Necesario
 
@@ -201,7 +201,7 @@ El proyecto requiere un archivo `.env` en la raíz (`visual-diary/`) con las sig
 
 ---
 
-## 🚀 Instalación y Configuración
+##  Instalación y Configuración
 
 ### Paso 1 — Clonar el Repositorio
 
@@ -237,7 +237,7 @@ npx cap sync android
 npx cap open android
 ```
 
-> ⏱️ **Tiempo estimado de setup:** 3-5 minutos
+> ⏱ **Tiempo estimado de setup:** 3-5 minutos
 
 ---
 
@@ -317,23 +317,23 @@ src/
 
 ---
 
-## 🧩 Módulos Principales
+##  Módulos Principales
 
-### 🔥 Firebase — Auth y Firestore
+###  Firebase — Auth y Firestore
 
 **`FirebaseService.ts`** inicializa la app de Firebase usando las variables de entorno y exporta las instancias de `auth` y `db` que usan todos los demás módulos.
 
 **`EntryService.ts`** es la única capa que toca Firestore directamente. Expone `addEntry`, `updateEntry`, `deleteEntry` y `realtimeFeed`. Este último usa `onSnapshot` para escuchar cambios en tiempo real y ordena las entradas por fecha con `toTimestampMs`.
 
-### 🔐 Autenticación — AuthContext
+###  Autenticación — AuthContext
 
 `AuthContext` envuelve toda la app y expone el estado de sesión (`user`, `loading`) junto con las funciones `login`, `register` y `logout`. El registro guarda el `displayName` del usuario con `updateProfile`. Usa `onAuthStateChanged` para detectar cambios de sesión automáticamente incluso al recargar la página.
 
-### 🌐 Estado Global — EntriesContext
+###  Estado Global — EntriesContext
 
 Envuelve la parte autenticada. Al iniciar sesión carga inmediatamente el caché de `@capacitor/preferences` para mostrar datos al instante, luego activa el listener de Firestore (`onSnapshot`) que actualiza la lista en tiempo real. Expone `entries` (propias), `feedEntries` (todos) y las operaciones CRUD.
 
-### 🪝 Custom Hooks (6)
+###  Custom Hooks (6)
 
 | Hook | Responsabilidad |
 |------|----------------|
@@ -344,32 +344,32 @@ Envuelve la parte autenticada. Al iniciar sesión carga inmediatamente el caché
 | `useStorage` | Wrapper de `@capacitor/preferences`: `setItem<T>` · `getItem<T>` · `removeItem` |
 | `useAuth` | Re-exporta `useAuth` desde AuthContext siguiendo la convención del proyecto |
 
-### 🛠️ Helpers
+###  Helpers
 
 | Helper | Exportaciones |
 |--------|--------------|
 | `formatDate.ts` | `toTimestampMs` — convierte `Timestamp` o string a `number` (ms); `formatDate` — fecha legible; `timeAgo` — "hace X min/h/días"; `getMoodChip` — indicador del momento del día (☀️ Mañana / 🌤 Tarde / 🌆 Noche / 🌙 Madrugada) |
 | `formatAddress.ts` | `formatAddress(address, maxLength)` — recorta la dirección para que quepa en las tarjetas |
 
-### 🔴 Feed en Tiempo Real — FeedView
+###  Feed en Tiempo Real — FeedView
 
 `FeedView` muestra las entradas de **todos los usuarios** actualizadas en vivo. Consume `feedEntries` de `EntriesContext`, que ya está suscrito al listener global de Firestore. Cada nueva entrada aparece automáticamente para todos los usuarios sin recargar.
 
-### 🗺️ Mapa — MapView
+###  Mapa — MapView
 
 `MapView` usa `react-leaflet` para renderizar un mapa centrado en la primera entrada del usuario. Por cada entrada con ubicación agrega un marcador con un popup. Usa `Geolocation.watchPosition` para mostrar la posición actual del usuario en tiempo real.
 
-### 👤 Perfil — UserProfile (ruta `/admin`)
+###  Perfil — UserProfile (ruta `/admin`)
 
 Muestra el avatar del usuario (letra inicial con gradiente), un panel de estadísticas (número de entradas y fotos) y una galería de miniaturas 3×3 con las fotos de las entradas. Cada miniatura navega al detalle de esa entrada.
 
-### 🌐 Reverse Geocoding — GeoService
+###  Reverse Geocoding — GeoService
 
 Usa la **API de Nominatim (OpenStreetMap)** para convertir las coordenadas GPS en una dirección postal legible en español. No requiere API key. Si no hay conexión, guarda las coordenadas numéricas como texto de respaldo.
 
 ---
 
-## 🔀 Routing y Rutas Protegidas
+##  Routing y Rutas Protegidas
 
 **`AppRoutes`** verifica `useAuth`. Sin sesión muestra las rutas públicas (`/login`, `/register`). Con sesión activa carga `EntriesProvider` + `Menu` + `UserRoutes`.
 
@@ -379,7 +379,7 @@ Usa la **API de Nominatim (OpenStreetMap)** para convertir las coordenadas GPS e
 
 ---
 
-## 🔌 APIs Consumidas
+##  APIs Consumidas
 
 | API | Uso | Costo / Auth |
 |-----|-----|-------------|
@@ -417,25 +417,25 @@ Usa la **API de Nominatim (OpenStreetMap)** para convertir las coordenadas GPS e
 
 ---
 
-## 📚 Referencias
+##  Referencias
 
-- 📘 [Ionic React Documentation](https://ionicframework.com/docs/react)
-- 📘 [Firebase Authentication](https://firebase.google.com/docs/auth/web/start)
-- 📘 [Firebase Firestore](https://firebase.google.com/docs/firestore/quickstart)
-- 📘 [Capacitor Geolocation](https://capacitorjs.com/docs/apis/geolocation)
-- 📘 [Capacitor Camera](https://capacitorjs.com/docs/apis/camera)
-- 📘 [Capacitor Network](https://capacitorjs.com/docs/apis/network)
-- 📘 [Capacitor Haptics](https://capacitorjs.com/docs/apis/haptics)
-- 📘 [Capacitor Preferences](https://capacitorjs.com/docs/apis/preferences)
-- 📘 [React Leaflet](https://react-leaflet.js.org/)
-- 📘 [Nominatim API (OpenStreetMap)](https://nominatim.org/release-docs/develop/api/Reverse/)
+-  [Ionic React Documentation](https://ionicframework.com/docs/react)
+-  [Firebase Authentication](https://firebase.google.com/docs/auth/web/start)
+-  [Firebase Firestore](https://firebase.google.com/docs/firestore/quickstart)
+-  [Capacitor Geolocation](https://capacitorjs.com/docs/apis/geolocation)
+-  [Capacitor Camera](https://capacitorjs.com/docs/apis/camera)
+-  [Capacitor Network](https://capacitorjs.com/docs/apis/network)
+-  [Capacitor Haptics](https://capacitorjs.com/docs/apis/haptics)
+-  [Capacitor Preferences](https://capacitorjs.com/docs/apis/preferences)
+-  [React Leaflet](https://react-leaflet.js.org/)
+-  [Nominatim API (OpenStreetMap)](https://nominatim.org/release-docs/develop/api/Reverse/)
 
 ---
 
-## 👨‍💻 Autor
+##  Autor
 
-- 🐙 GitHub: [@Krsz1](https://github.com/Krsz1)
-- 🎓 Proyecto académico — Desarrollo de Software para Plataformas Móviles
+-  GitHub: [@Krsz1](https://github.com/Krsz1)
+-  Proyecto académico — Desarrollo de Software para Plataformas Móviles
 
 ---
 
