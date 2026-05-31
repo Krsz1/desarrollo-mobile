@@ -16,8 +16,11 @@ import {
 } from "@ionic/react";
 import { trashOutline, locationOutline, timeOutline, createOutline } from "ionicons/icons";
 import { useParams, useHistory } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../services/FirebaseService";
 import { useEntries } from "../../context/EntriesContext";
 import { useAuth } from "../../context/AuthContext";
+import { Entry } from "../../types/Entry";
 import { formatDate, getMoodChip } from "../../helpers/formatDate";
 import { formatAddress } from "../../helpers/formatAddress";
 import { reverseGeocode } from "../../services/GeoService";
@@ -32,10 +35,27 @@ const EntryDetail: React.FC = () => {
   const history = useHistory();
   const [showAlert, setShowAlert] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [fetchedEntry, setFetchedEntry] = useState<Entry | null>(null);
+  const [fetchError, setFetchError] = useState(false);
 
   // Search in own entries first, then in feed (entries from other users)
-  const entry = entries.find((e) => e.id === id) ?? feedEntries.find((e) => e.id === id);
+  const contextEntry = entries.find((e) => e.id === id) ?? feedEntries.find((e) => e.id === id);
+  const entry = contextEntry ?? fetchedEntry ?? undefined;
   const isOwner = entry?.userId === user?.uid;
+
+  // Fallback: if context doesn't have the entry yet, fetch directly from Firestore
+  useEffect(() => {
+    if (contextEntry || loading) return;
+    getDoc(doc(db, "entries", id))
+      .then((snap) => {
+        if (snap.exists()) {
+          setFetchedEntry({ id: snap.id, ...(snap.data() as Omit<Entry, "id">) });
+        } else {
+          setFetchError(true);
+        }
+      })
+      .catch(() => setFetchError(true));
+  }, [id, contextEntry, loading]);
 
   const isRawCoords = (addr: string) => /^-?\d+\.\d+,\s*-?\d+\.\d+$/.test(addr?.trim());
   const [resolvedAddress, setResolvedAddress] = useState<string>("");
@@ -56,7 +76,10 @@ const EntryDetail: React.FC = () => {
     });
   }, [entry?.id]);
 
-  if (loading) {
+  // Show spinner while context is loading OR while we are doing the fallback fetch
+  const isFetching = loading || (!entry && !fetchError && !contextEntry);
+
+  if (isFetching) {
     return (
       <IonPage>
         <IonHeader>

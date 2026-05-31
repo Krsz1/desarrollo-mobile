@@ -54,8 +54,8 @@ export const realtimeFeed = (
       callback(entries);
     },
     (error) => {
+      // Don't clear existing entries on network error — keep whatever was loaded
       console.error("realtimeFeed onSnapshot error:", error);
-      callback([]);
     }
   );
 };
