@@ -6,6 +6,7 @@ import {
   IonTitle,
   IonToolbar,
   IonList,
+  IonSpinner,
 } from "@ionic/react";
 import { useHistory } from "react-router-dom";
 import { useEntries } from "../../context/EntriesContext";
@@ -13,7 +14,7 @@ import EntryCard from "../../components/EntryCard/EntryCard";
 import styles from "./FeedView.module.scss";
 
 const FeedView: React.FC = () => {
-  const { feedEntries } = useEntries();
+  const { feedEntries, loading } = useEntries();
   const history = useHistory();
 
   return (
@@ -31,7 +32,11 @@ const FeedView: React.FC = () => {
           </div>
           <span className={styles.count}>{feedEntries.length} entries</span>
         </div>
-        {feedEntries.length === 0 ? (
+        {loading ? (
+          <div style={{ display: "flex", justifyContent: "center", padding: "3rem" }}>
+            <IonSpinner name="crescent" color="primary" />
+          </div>
+        ) : feedEntries.length === 0 ? (
           <div className={styles.emptyFeed}>
             <span className={styles.emptyIcon}>📡</span>
             <p>The feed is empty for now</p>

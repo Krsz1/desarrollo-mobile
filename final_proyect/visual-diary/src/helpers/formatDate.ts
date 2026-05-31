@@ -1,5 +1,8 @@
 import { Timestamp } from "firebase/firestore";
 
+const toDate = (date: Timestamp | string): Date =>
+  date instanceof Timestamp ? date.toDate() : new Date(date);
+
 // Convierte Timestamp de Firestore o string ISO a milisegundos
 export const toTimestampMs = (date: Timestamp | string): number => {
   if (date instanceof Timestamp) return date.toMillis();
@@ -7,13 +10,7 @@ export const toTimestampMs = (date: Timestamp | string): number => {
 };
 
 export const formatDate = (date: Timestamp | string): string => {
-  let d: Date;
-  if (date instanceof Timestamp) {
-    d = date.toDate();
-  } else {
-    d = new Date(date);
-  }
-  return d.toLocaleDateString("en-US", {
+  return toDate(date).toLocaleDateString("en-US", {
     day: "numeric",
     month: "long",
     year: "numeric",
@@ -23,12 +20,7 @@ export const formatDate = (date: Timestamp | string): string => {
 };
 
 export const timeAgo = (date: Timestamp | string): string => {
-  let d: Date;
-  if (date instanceof Timestamp) {
-    d = date.toDate();
-  } else {
-    d = new Date(date);
-  }
+  const d = toDate(date);
   const diff = Math.floor((Date.now() - d.getTime()) / 1000);
   if (diff < 60) return "hace un momento";
   if (diff < 3600) return `hace ${Math.floor(diff / 60)} min`;
@@ -38,13 +30,7 @@ export const timeAgo = (date: Timestamp | string): string => {
 };
 
 export const getMoodChip = (date: Timestamp | string): { icon: string; label: string } => {
-  let d: Date;
-  if (date instanceof Timestamp) {
-    d = date.toDate();
-  } else {
-    d = new Date(date);
-  }
-  const hour = d.getHours();
+  const hour = toDate(date).getHours();
   if (hour >= 5 && hour < 12) return { icon: "☀️", label: "Mañana" };
   if (hour >= 12 && hour < 17) return { icon: "🌤", label: "Tarde" };
   if (hour >= 17 && hour < 21) return { icon: "🌆", label: "Noche" };

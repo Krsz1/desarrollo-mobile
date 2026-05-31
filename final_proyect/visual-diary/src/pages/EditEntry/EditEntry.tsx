@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   IonContent,
   IonHeader,
@@ -32,10 +32,12 @@ const EditEntry: React.FC = () => {
   const [image, setImage] = useState(entry?.image ?? "");
   const [saving, setSaving] = useState(false);
 
-  if (!entry) {
-    history.replace("/home");
-    return null;
-  }
+  // Redirect outside render — avoids "update during render" React warning
+  useEffect(() => {
+    if (!entry) history.replace("/home");
+  }, [entry, history]);
+
+  if (!entry) return null;
 
   const handlePhoto = async () => {
     const base64 = await takePhoto();

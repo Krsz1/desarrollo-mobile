@@ -13,5 +13,11 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-  }
+  },
+  server: {
+    watch: {
+      // Don't watch Android/iOS build folders — avoids Vite crashing on Capacitor sync
+      ignored: ['**/android/**', '**/ios/**'],
+    },
+  },
 })

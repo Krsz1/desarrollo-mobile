@@ -18,7 +18,7 @@ import styles from "./UserProfile.module.scss";
 
 const AVATAR_KEY = "user_avatar";
 
-const AdminPanel: React.FC = () => {
+const UserProfile: React.FC = () => {
   const { user } = useAuth();
   const { entries, feedEntries } = useEntries();
   const { takePhoto } = useCamera();
@@ -128,4 +128,4 @@ const AdminPanel: React.FC = () => {
   );
 };
 
-export default AdminPanel;
+export default UserProfile;

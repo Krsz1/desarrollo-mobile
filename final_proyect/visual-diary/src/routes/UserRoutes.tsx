@@ -15,7 +15,7 @@ import EntryDetail from "../pages/EntryDetail/EntryDetail";
 import EditEntry from "../pages/EditEntry/EditEntry";
 import MapView from "../pages/MapView/MapView";
 import FeedView from "../pages/FeedView/FeedView";
-import AdminRoutes from "./AdminRoutes";
+import UserProfile from "../pages/UserProfile/UserProfile";
 
 const UserRoutes: React.FC = () => (
   <IonTabs>
@@ -26,7 +26,7 @@ const UserRoutes: React.FC = () => (
       <Route exact path="/entry/:id/edit" component={EditEntry} />
       <Route exact path="/map" component={MapView} />
       <Route exact path="/feed" component={FeedView} />
-      <AdminRoutes />
+      <Route exact path="/admin" component={UserProfile} />
       <Route exact path="/">
         <Redirect to="/home" />
       </Route>

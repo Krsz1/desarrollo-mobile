@@ -24,6 +24,7 @@ import { Entry } from "../../types/Entry";
 import { formatDate, getMoodChip } from "../../helpers/formatDate";
 import { formatAddress } from "../../helpers/formatAddress";
 import { reverseGeocode } from "../../services/GeoService";
+import { NotificationType } from "@capacitor/haptics";
 import { useHaptics } from "../../hooks/useHaptics";
 import styles from "./EntryDetail.module.scss";
 
@@ -31,7 +32,7 @@ const EntryDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { entries, feedEntries, loading, deleteEntry, updateEntry } = useEntries();
   const { user } = useAuth();
-  const { notification, NotificationType } = useHaptics();
+  const { notification } = useHaptics();
   const history = useHistory();
   const [showAlert, setShowAlert] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -127,6 +128,8 @@ const EntryDetail: React.FC = () => {
     history.replace("/home");
   };
 
+  const moodChip = getMoodChip(entry.createdAt);
+
   return (
     <IonPage>
       <IonHeader>
@@ -174,7 +177,7 @@ const EntryDetail: React.FC = () => {
           <h2 className={styles.title}>{entry.title}</h2>
           <p className={styles.date}>
             <span className={styles.moodChip}>
-              {getMoodChip(entry.createdAt).icon} {getMoodChip(entry.createdAt).label}
+              {moodChip.icon} {moodChip.label}
             </span>
             <IonIcon icon={timeOutline} />
             {formatDate(entry.createdAt)}

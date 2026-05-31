@@ -10,6 +10,12 @@ Aplicación móvil híbrida tipo **diario personal visual** donde el usuario pue
 
 ---
 
+##  Documento de Alcance
+
+- 🔗 **Enlace al documento de alcance:** [Ver en Google Drive](https://drive.google.com/drive/folders/1Axr-w7f60OuxjBpCUu1NCSYHpBHzP9Ts?usp=sharing)
+
+---
+
 ##  Tabla de Contenidos
 
 - [Descripción](#-descripción)

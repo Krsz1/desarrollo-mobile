@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   IonContent,
   IonHeader,
@@ -21,6 +21,7 @@ import { useEntries } from "../../context/EntriesContext";
 import { useCamera } from "../../hooks/useCamera";
 import { useGeolocation } from "../../hooks/useGeolocation";
 import { useNetwork } from "../../hooks/useNetwork";
+import { ImpactStyle } from "@capacitor/haptics";
 import { useHaptics } from "../../hooks/useHaptics";
 import { reverseGeocode } from "../../services/GeoService";
 import styles from "./NewEntry.module.scss";
@@ -29,15 +30,37 @@ const NewEntry: React.FC = () => {
   const { user } = useAuth();
   const { addEntry } = useEntries();
   const { takePhoto } = useCamera();
-  const { getCurrentPosition, loading: gpsLoading } = useGeolocation();
+  const { getCurrentPosition } = useGeolocation();
   const { isOnline } = useNetwork();
-  const { notification, ImpactStyle, impact } = useHaptics();
+  const { notification, impact } = useHaptics();
   const history = useHistory();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [saving, setSaving] = useState(false);
+
+  // Pre-fetch location when screen opens so it's ready when user saves
+  const [cachedPos, setCachedPos] = useState<{ latitude: number; longitude: number } | null>(null);
+  const [cachedAddress, setCachedAddress] = useState("");
+  const [addressLoading, setAddressLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    const prefetch = async () => {
+      setAddressLoading(true);
+      const pos = await getCurrentPosition();
+      if (cancelled) return;
+      if (pos) {
+        setCachedPos(pos);
+        const addr = await reverseGeocode(pos.latitude, pos.longitude);
+        if (!cancelled) setCachedAddress(addr);
+      }
+      setAddressLoading(false);
+    };
+    prefetch();
+    return () => { cancelled = true; };
+  }, [getCurrentPosition]);
 
   const handlePhoto = async () => {
     const base64 = await takePhoto();
@@ -51,26 +74,13 @@ const NewEntry: React.FC = () => {
     if (!title.trim() || !user) return;
     setSaving(true);
     try {
-      let latitude = 0;
-      let longitude = 0;
-      let address = "";
-
-      const pos = await getCurrentPosition();
-      if (pos) {
-        latitude = pos.latitude;
-        longitude = pos.longitude;
-        address = isOnline
-          ? await reverseGeocode(latitude, longitude)
-          : `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
-      }
-
       await addEntry({
         title: title.trim(),
         description: description.trim(),
         image,
-        latitude,
-        longitude,
-        address,
+        latitude: cachedPos?.latitude ?? 0,
+        longitude: cachedPos?.longitude ?? 0,
+        address: cachedAddress,
         userId: user.uid,
         userName: user.displayName ?? user.email?.split("@")[0] ?? "user",
       });
@@ -92,9 +102,9 @@ const NewEntry: React.FC = () => {
           <IonButtons slot="end">
             <IonButton
               onClick={handleSave}
-              disabled={saving || gpsLoading || !title.trim()}
+              disabled={saving || !title.trim()}
             >
-              {saving || gpsLoading ? <IonSpinner name="crescent" /> : "Save"}
+              {saving ? <IonSpinner name="crescent" /> : "Save"}
             </IonButton>
           </IonButtons>
         </IonToolbar>
@@ -132,7 +142,11 @@ const NewEntry: React.FC = () => {
         </div>
         <p className={styles.locationInfo}>
           <IonIcon icon={location} />{" "}
-          {gpsLoading ? "Getting location…" : "GPS location will be detected on save"}
+          {addressLoading
+            ? "Getting location…"
+            : cachedAddress
+              ? cachedAddress.length > 50 ? cachedAddress.slice(0, 50) + "…" : cachedAddress
+              : "Location unavailable"}
         </p>
         {!isOnline && (
           <IonText color="warning">

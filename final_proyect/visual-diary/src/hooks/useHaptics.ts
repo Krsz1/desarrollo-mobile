@@ -17,5 +17,5 @@ export const useHaptics = () => {
     }
   };
 
-  return { impact, notification, ImpactStyle, NotificationType };
+  return { impact, notification };
 };

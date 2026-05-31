@@ -62,11 +62,23 @@ const MapView: React.FC = () => {
   useEffect(() => {
     let cancelled = false;
 
-    const startWatch = async () => {
+    const startTracking = async () => {
+      // Step 1: get a fast network position immediately to center the map
       try {
-        // watchPosition delivers network position first (fast), then refines with GPS
+        const quick = await Geolocation.getCurrentPosition({
+          enableHighAccuracy: false,
+          timeout: 8000,
+          maximumAge: 60000,
+        });
+        if (!cancelled && quick) {
+          setUserPos([quick.coords.latitude, quick.coords.longitude]);
+        }
+      } catch { /* no quick fix, will rely on watch */ }
+
+      // Step 2: keep watching for GPS refinement
+      try {
         watchIdRef.current = await Geolocation.watchPosition(
-          { enableHighAccuracy: true, timeout: 10000 },
+          { enableHighAccuracy: true, timeout: 15000 },
           (pos) => {
             if (!cancelled && pos) {
               setUserPos([pos.coords.latitude, pos.coords.longitude]);
@@ -76,7 +88,7 @@ const MapView: React.FC = () => {
       } catch { /* no permission */ }
     };
 
-    startWatch();
+    startTracking();
 
     return () => {
       cancelled = true;
