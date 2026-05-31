@@ -32,7 +32,7 @@ Aplicación móvil híbrida tipo **diario personal visual** donde el usuario pue
 
 Lunara es una aplicación móvil híbrida construida con **Ionic React + TypeScript** que permite al usuario llevar un diario personal enriquecido. Cada entrada combina texto, una fotografía tomada desde el dispositivo y la ubicación GPS detectada automáticamente. Las entradas se almacenan en **Firebase Firestore** y se visualizan en lista y en un **mapa interactivo de Leaflet**. La app incluye un **feed en tiempo real** donde todos los usuarios registrados pueden ver las entradas más recientes de la comunidad actualizándose en vivo.
 
-### 🎯 Objetivos del Proyecto
+###  Objetivos del Proyecto
 
 - ✅ Implementar autenticación real con Firebase Auth (login y registro con nombre de usuario)
 - ✅ Almacenar datos en Firestore con listeners en tiempo real
@@ -62,7 +62,7 @@ Lunara es una aplicación móvil híbrida construida con **Ionic React + TypeScr
 
 > Prototipo diseñado con **Lovable** (herramienta de IA generativa)
 
-- 🔗 **Enlace al prototipo:** *(pendiente — agregar enlace una vez diseñado en Lovable)*
+- 🔗 **Enlace al prototipo:** *([https://lunara-moonlit-memories.lovable.app](https://lunara-moonlit-memories.lovable.app))*
 
 ---
 

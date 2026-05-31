@@ -11,6 +11,14 @@
     gap: 12px;
   }
 
+  .avatarWrapper {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
   .avatar {
     width: 80px;
     height: 80px;
@@ -24,8 +32,36 @@
     color: #fff;
     border: 3px solid var(--vd-accent);
     box-shadow: 0 0 0 4px var(--vd-accent-glow);
-    flex-shrink: 0;
     text-transform: uppercase;
+  }
+
+  .avatarImg {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--vd-accent);
+    box-shadow: 0 0 0 4px var(--vd-accent-glow);
+    display: block;
+  }
+
+  .avatarOverlay {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--vd-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--vd-bg, #121218);
+
+    ion-icon {
+      font-size: 0.85rem;
+      color: #fff;
+    }
   }
 
   .displayName {
